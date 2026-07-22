@@ -1,0 +1,62 @@
+==============================================================
+  LLM Single-Objective Optimizer -- Results Report
+  2026-04-24 12:03:52
+==============================================================
+  Objective         : minimize GWP
+  Strength floor    : >= 45.0 MPa
+  Total iterations  : 3
+  Feasible solutions: 3 / 3
+  Restarts triggered: 0  (iters: [])
+--------------------------------------------------------------
+  GA REFERENCE SOLUTION
+--------------------------------------------------------------
+--------------------------------------------------------------
+  BEST LLM SOLUTION  (lowest feasible GWP)
+--------------------------------------------------------------
+    iteration         : 1
+    mode              : exploit
+    PC                : 200.0
+    FA                : 0.0
+    SC                : 510.0
+    FAGG              : 1350.0
+    CAGG              : 1850.0
+    WATER             : 195.0
+    AEA               : 2.0
+    WR_HR             : 0.0
+    WR                : 75.0
+    ACC               : 0.0
+    w/b               : 0.27465
+    b/a               : 0.22187
+    SCM%              : 0.71831
+    CAGG%             : 0.57812
+    FAGG%             : 0.42188
+    PC%               : 0.28169
+    FA%               : 0.0
+    SC%               : 0.71831
+    total_binder      : 710.0
+    pred_7day         : 44.19
+    pred_28day        : 60.62
+    pred_56day        : 66.8
+    gwp               : 354.6
+    gwp_gap           : nan
+    str_margin        : 15.62
+    feasible          : True
+--------------------------------------------------------------
+    GWP gap to GA    : +nan kg CO2/yd3
+    GWP ratio        : nan  (1.0 = matches GA)
+    Strength margin  : +15.62 MPa above floor
+--------------------------------------------------------------
+  FULL TRAJECTORY
+--------------------------------------------------------------
+  Iter      28d       GWP      Gap     PC     SC     FA    FAGG    CAGG    ACC     w/b    SCM%  Feas  Mode
+--------------------------------------------------------------
+     1    60.62    354.60      n/a    200    510      0    1350    1850      0  0.2747   71.8%  Y     exploit
+     2    60.62    358.51      n/a    205    505      0    1350    1850      0  0.2676   71.1%  Y     exploit
+     3    60.25    358.51      n/a    205    505      0    1350    1850      0  0.2606   71.1%  Y     exploit
+--------------------------------------------------------------
+  CHAIN-OF-THOUGHT LOG
+--------------------------------------------------------------
+  Iter  1: The 56-day strength is still just below the floor. To fix this and reduce GWP, I'm increasing SC (low GWP, good long-term strength). I'll slightly increase PC to maintain 28-day strength. I'll reduce WATER and increase WR to optimize strength development and workability, aiming to finally clear the 56-day strength constraint.
+  Iter  2: The last mix violated SCM%, PC%, and SC% bounds by excessively increasing SC. To fix this, I'm reducing SC back to the SCM% limit and increasing PC to meet the PC% and SCM% constraints. I'll also reduce WATER and increase WR to maintain strength and workability. This aims to bring the mix within bounds while keeping GWP as low as possible.
+  Iter  3: The last mix violated SCM%, PC%, and SC% bounds due to excessive SC. To rectify this, I'm reducing SC to stay within the SCM% limit and increasing PC to meet the PC% and SCM% constraints. I will also reduce WATER and increase WR to ensure strength and workability, aiming to lower GWP while remaining within bounds.
+==============================================================

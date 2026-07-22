@@ -1,0 +1,87 @@
+==============================================================
+  LLM Single-Objective Optimizer -- Results Report
+  2026-04-24 08:44:04
+==============================================================
+  Objective         : minimize GWP
+  Strength floor    : >= 65.0 MPa
+  Total iterations  : 4
+  Feasible solutions: 4 / 4
+  Restarts triggered: 0  (iters: [])
+--------------------------------------------------------------
+  GA REFERENCE SOLUTION
+--------------------------------------------------------------
+    PC                : 193.42
+    FA                : 104.75
+    SC                : 339.36
+    FAGG              : 1225.06
+    CAGG              : 1542.43
+    WATER             : 176.99
+    AEA               : 0.19
+    WR_HR             : 0.59
+    WR                : 125.0
+    ACC               : 14.81
+    w/b               : 0.27762
+    b/a               : 0.23037
+    SCM%              : 0.69661
+    CAGG%             : 0.55734
+    FAGG%             : 0.44266
+    PC%               : 0.30339
+    FA%               : 0.1643
+    SC%               : 0.53231
+    total_binder      : 637.54
+    pred_7day         : 47.68
+    pred_28day        : 65.03
+    pred_56day        : 70.08
+    gwp               : 335.55
+--------------------------------------------------------------
+  BEST LLM SOLUTION  (lowest feasible GWP)
+--------------------------------------------------------------
+    iteration         : 1
+    mode              : exploit
+    PC                : 240.0
+    FA                : 0.0
+    SC                : 560.0
+    FAGG              : 1400.0
+    CAGG              : 1650.0
+    WATER             : 264.0
+    AEA               : 0.0
+    WR_HR             : 0.0
+    WR                : 100.0
+    ACC               : 0.0
+    w/b               : 0.33
+    b/a               : 0.2623
+    SCM%              : 0.7
+    CAGG%             : 0.54098
+    FAGG%             : 0.45902
+    PC%               : 0.3
+    FA%               : 0.0
+    SC%               : 0.7
+    total_binder      : 800.0
+    pred_7day         : 52.49
+    pred_28day        : 67.6
+    pred_56day        : 71.73
+    gwp               : 409.11
+    gwp_gap           : 73.56
+    str_margin        : 2.6
+    feasible          : True
+--------------------------------------------------------------
+    GWP gap to GA    : +73.56 kg CO2/yd3
+    GWP ratio        : 1.2192  (1.0 = matches GA)
+    Strength margin  : +2.60 MPa above floor
+--------------------------------------------------------------
+  FULL TRAJECTORY
+--------------------------------------------------------------
+  Iter      28d       GWP      Gap     PC     SC     FA    FAGG    CAGG    ACC     w/b    SCM%  Feas  Mode
+--------------------------------------------------------------
+     1    67.60    409.11   +73.56    240    560      0    1400    1650      0  0.3300   70.0%  Y     exploit
+     2    66.38    443.11  +107.56    280    530      0    1400    1650    200  0.3074   65.4%  Y     exploit
+     3    66.00    419.59   +84.04    250    560      0    1400    1650    200  0.2951   69.1%  Y     exploit
+     4    65.86    419.59   +84.04    250    560      0    1400    1650    200  0.2827   69.1%  Y     exploit
+--------------------------------------------------------------
+  CHAIN-OF-THOUGHT LOG
+--------------------------------------------------------------
+  Iter  1: Starting with the lowest GWP mix from the dataset as a baseline. This mix uses a high proportion of SC, which is the most efficient binder for GWP reduction. It meets the strength requirement and respects all bounds. This provides a solid starting point for further GWP optimisation.
+  Iter  2: The previous mix was infeasible due to low strength and violated ratio constraints. To fix this: 1. I'll increase PC by 30 kg and decrease SC by 30 kg to resolve the SC/PC ratio violations and increase strength. 2. I will reduce WATER by 15 kg to further boost strength at zero GWP cost and improve the w/b ratio. 3. ACC is kept at 200kg as a strength buffer. This addresses all infeasibility issues while aiming for a GWP reduction from the initial feasible mix.
+  Iter  3: GWP increased significantly. I need to reduce GWP. The strength margin is low (1.38 MPa). To reduce GWP, I will swap 30 kg of PC for 30 kg of SC, as this provides the best GWP saving (0.784 kg CO2/kg). This will reduce strength, so I will simultaneously decrease WATER by 10 kg to maintain strength without increasing GWP. ACC remains at 200 kg as a strength buffer.
+  Iter  4: GWP decreased, which is good. Strength margin is very tight (1.0 MPa). To maintain strength while further reducing GWP, I will reduce WATER by 10 kg. This has zero GWP impact and should increase strength. I will keep PC and SC the same for now, as they are balanced and the strength margin is too small to risk swapping PC for SC.
+==============================================================

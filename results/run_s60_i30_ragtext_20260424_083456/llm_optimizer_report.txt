@@ -1,0 +1,139 @@
+==============================================================
+  LLM Single-Objective Optimizer -- Results Report
+  2026-04-24 08:40:40
+==============================================================
+  Objective         : minimize GWP
+  Strength floor    : >= 60.0 MPa
+  Total iterations  : 30
+  Feasible solutions: 30 / 30
+  Restarts triggered: 0  (iters: [])
+--------------------------------------------------------------
+  GA REFERENCE SOLUTION
+--------------------------------------------------------------
+    PC                : 172.81
+    FA                : 138.89
+    SC                : 264.36
+    FAGG              : 1205.85
+    CAGG              : 950.77
+    WATER             : 178.29
+    AEA               : 0.39
+    WR_HR             : 111.04
+    WR                : 59.14
+    ACC               : 33.34
+    w/b               : 0.30951
+    b/a               : 0.26711
+    SCM%              : 0.70002
+    CAGG%             : 0.44086
+    FAGG%             : 0.55914
+    PC%               : 0.29998
+    FA%               : 0.24111
+    SC%               : 0.45891
+    total_binder      : 576.06
+    pred_7day         : 40.83
+    pred_28day        : 60.1
+    pred_56day        : 67.73
+    gwp               : 303.1
+--------------------------------------------------------------
+  BEST LLM SOLUTION  (lowest feasible GWP)
+--------------------------------------------------------------
+    iteration         : 2
+    mode              : exploit
+    PC                : 290.0
+    FA                : 180.0
+    SC                : 300.0
+    FAGG              : 1320.0
+    CAGG              : 1775.0
+    WATER             : 184.0
+    AEA               : 14.0
+    WR_HR             : 36.0
+    WR                : 55.0
+    ACC               : 768.0
+    w/b               : 0.23896
+    b/a               : 0.24879
+    SCM%              : 0.62338
+    CAGG%             : 0.57351
+    FAGG%             : 0.42649
+    PC%               : 0.37662
+    FA%               : 0.23377
+    SC%               : 0.38961
+    total_binder      : 770.0
+    pred_7day         : 41.4
+    pred_28day        : 60.5
+    pred_56day        : 68.49
+    gwp               : 452.16
+    gwp_gap           : 149.06
+    str_margin        : 0.5
+    feasible          : True
+--------------------------------------------------------------
+    GWP gap to GA    : +149.06 kg CO2/yd3
+    GWP ratio        : 1.4918  (1.0 = matches GA)
+    Strength margin  : +0.50 MPa above floor
+--------------------------------------------------------------
+  FULL TRAJECTORY
+--------------------------------------------------------------
+  Iter      28d       GWP      Gap     PC     SC     FA    FAGG    CAGG    ACC     w/b    SCM%  Feas  Mode
+--------------------------------------------------------------
+     1    60.90    499.20  +196.10    350    240    180    1320    1775    768  0.2390   54.5%  Y     exploit
+     2    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     3    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     4    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     5    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     6    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     7    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     8    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+     9    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    10    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    11    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    12    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    13    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    14    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    15    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    16    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    17    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    18    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    19    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    20    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    21    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    22    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    23    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    24    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    25    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    26    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    27    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    28    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    29    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+    30    60.50    452.16  +149.06    290    300    180    1320    1775    768  0.2390   62.3%  Y     exploit
+--------------------------------------------------------------
+  CHAIN-OF-THOUGHT LOG
+--------------------------------------------------------------
+  Iter  1: The mix is extremely close to the strength target. To ensure feasibility, I am increasing PC by 20 kg and ACC by 200 kg. This combination should provide the final push over the 60 MPa threshold. Water remains unchanged. This approach prioritizes meeting the strength constraint with minimal GWP increase.
+  Iter  2: The previous mix was infeasible due to a low w/b ratio. To fix this, I've increased WATER by 10 kg, which also helps recover some strength lost from the PC->SC swap. PC is reduced by 30 kg and replaced by SC to lower GWP. ACC remains at maximum to support strength.
+  Iter  3: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter  4: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter  5: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter  6: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter  7: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter  8: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter  9: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 10: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 11: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 12: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 13: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 14: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 15: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 16: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 17: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 18: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 19: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 20: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 21: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 22: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 23: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 24: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 25: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 26: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 27: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 28: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 29: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+  Iter 30: The mix is still below strength and has an invalid w/b ratio. To fix this, I'm increasing WATER by 10 kg to meet the w/b constraint. To compensate for the strength loss from the increased water and the PC->SC swap, I'm increasing PC by 30 kg and ACC by 100 kg. This aims to meet the strength floor and w/b constraint while managing GWP.
+==============================================================

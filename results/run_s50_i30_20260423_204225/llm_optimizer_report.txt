@@ -1,0 +1,107 @@
+==============================================================
+  LLM Single-Objective Optimizer -- Results Report
+  2026-04-23 20:47:01
+==============================================================
+  Objective         : minimize GWP
+  Strength floor    : >= 50.0 MPa
+  Total iterations  : 14
+  Feasible solutions: 14 / 14
+  Restarts triggered: 0  (iters: [])
+--------------------------------------------------------------
+  GA REFERENCE SOLUTION
+--------------------------------------------------------------
+    PC                : 164.0
+    FA                : 0.0
+    SC                : 120.6
+    FAGG              : 1070.68
+    CAGG              : 1585.43
+    WATER             : 155.74
+    AEA               : 1.83
+    WR_HR             : 104.21
+    WR                : 118.26
+    ACC               : 669.52
+    w/b               : 0.54721
+    b/a               : 0.10715
+    SCM%              : 0.42376
+    CAGG%             : 0.5969
+    FAGG%             : 0.4031
+    PC%               : 0.57624
+    FA%               : 0.0
+    SC%               : 0.42376
+    total_binder      : 284.6
+    pred_7day         : 37.63
+    pred_28day        : 50.18
+    pred_56day        : 55.11
+    gwp               : 212.36
+--------------------------------------------------------------
+  BEST LLM SOLUTION  (lowest feasible GWP)
+--------------------------------------------------------------
+    iteration         : 14
+    mode              : exploit
+    PC                : 164.0
+    FA                : 0.0
+    SC                : 260.0
+    FAGG              : 1800.0
+    CAGG              : 2300.0
+    WATER             : 158.0
+    AEA               : 2.0
+    WR_HR             : 0.0
+    WR                : 122.0
+    ACC               : 768.0
+    w/b               : 0.37264
+    b/a               : 0.10341
+    SCM%              : 0.61321
+    CAGG%             : 0.56098
+    FAGG%             : 0.43902
+    PC%               : 0.38679
+    FA%               : 0.0
+    SC%               : 0.61321
+    total_binder      : 424.0
+    pred_7day         : 38.86
+    pred_28day        : 53.16
+    pred_56day        : 56.47
+    gwp               : 253.7
+    gwp_gap           : 41.34
+    str_margin        : 3.16
+    feasible          : True
+--------------------------------------------------------------
+    GWP gap to GA    : +41.34 lb CO2/yd3
+    GWP ratio        : 1.1947  (1.0 = matches GA)
+    Strength margin  : +3.16 MPa above floor
+--------------------------------------------------------------
+  FULL TRAJECTORY
+--------------------------------------------------------------
+  Iter      28d       GWP      Gap     PC     SC     FA    FAGG    CAGG    ACC     w/b    SCM%  Feas  Mode
+--------------------------------------------------------------
+     1    50.33    285.19   +72.83    164    390      0    1350    1850      0  0.4296   70.4%  Y     exploit
+     2    54.94    290.47   +78.11    164    410      0    1350    1850      0  0.3972   71.4%  Y     exploit
+     3    55.25    294.43   +82.07    164    425      0    1350    1850      0  0.3616   72.2%  Y     exploit
+     4    54.26    290.78   +78.42    164    410      0    1400    1900    200  0.3711   71.4%  Y     exploit
+     5    53.84    287.14   +74.78    164    395      0    1450    1950    400  0.3810   70.7%  Y     exploit
+     6    52.61    283.81   +71.45    164    380      0    1550    2050    600  0.3915   69.9%  Y     exploit
+     7    52.45    280.16   +67.80    164    365      0    1600    2100    768  0.3837   69.0%  Y     exploit
+     8    53.88    276.52   +64.16    164    350      0    1650    2150    768  0.3658   68.1%  Y     exploit
+     9    54.62    272.87   +60.51    164    335      0    1700    2200    768  0.3667   67.1%  Y     exploit
+    10    53.86    269.23   +56.87    164    320      0    1750    2250    768  0.3678   66.1%  Y     exploit
+    11    53.42    265.58   +53.22    164    305      0    1800    2300    768  0.3689   65.0%  Y     exploit
+    12    53.04    261.62   +49.26    164    290      0    1800    2300    768  0.3700   63.9%  Y     exploit
+    13    53.04    257.66   +45.30    164    275      0    1800    2300    768  0.3713   62.6%  Y     exploit
+    14    53.16    253.70   +41.34    164    260      0    1800    2300    768  0.3726   61.3%  Y     exploit
+--------------------------------------------------------------
+  CHAIN-OF-THOUGHT LOG
+--------------------------------------------------------------
+  Iter  1: Starting with a mix inspired by the lowest GWP reference, but aiming to slightly reduce PC and increase SC while keeping strength above 50 MPa. The reference mix has good GWP, but its strength is 55.5 MPa, offering room to reduce binder. Prioritizing SC over FA for CO2 reduction and PC reduction.
+  Iter  2: The current mix is feasible but GWP has not improved. Strength margin is very tight (+0.3 MPa). To reduce GWP, I will swap 20 lb of PC for SC, saving 0.784 lb CO2 per lb, but this risks strength. To compensate, I will reduce WATER by 10 lb, which recovers strength at zero GWP cost. The WR is also low, so I will increase WR by 30 lb to 62 lb to allow this water reduction while maintaining workability.
+  Iter  3: GWP increased in the last iteration, which is incorrect. The primary goal is GWP reduction. The strength margin is now 4.9 MPa, providing headroom. I will swap 15 lb of PC for SC, saving approximately 11.8 lb CO2. To ensure strength is maintained and to offset potential loss from the PC->SC swap, I will reduce WATER by 15 lb. I'll also increase WR by 30 lb (to 92 lb) to maintain workability with the reduced water content. PC is at its lower bound, so further reduction would require ACC.
+  Iter  4: GWP continues to increase, and I am hitting the SCM% boundary (72.16% vs max 71.7%). I cannot add more SC. The PC is also at its lower bound. To reduce GWP, I must reduce the total binder content. I will slightly reduce SC by 15 lb and PC by 10 lb (total binder reduction of 25 lb). To compensate for strength loss and GWP reduction, I will increase FAGG+CAGG (Path 2) and add ACC. This strategy is essential as direct SC substitution is no longer possible.
+  Iter  5: GWP has decreased, which is positive. The SCM% is still at its limit, and PC is at its lower bound. To further reduce GWP, I need to reduce total binder. I will reduce SC by 15kg and PC by 10kg (total binder reduction of 25kg). To maintain strength and accommodate this binder reduction, I will increase FAGG and CAGG further, and increase ACC by 200kg to compensate for strength loss. Water content will be maintained for now.
+  Iter  6: GWP decreased again, but the best GWP so far is still from iteration 1. I am still at the SCM% limit and PC lower bound. To further reduce GWP, I will reduce total binder: decrease SC by 15kg and PC by 10kg. This is a reduction of 25kg binder. To compensate for strength loss, I will increase aggregate (FAGG+CAGG) by 100kg each and increase ACC by 200kg. Water remains constant for now.
+  Iter  7: GWP has decreased and is now the best so far. However, I am still at the SCM% limit and PC lower bound, and the strength margin is narrowing (2.6 MPa). To further reduce GWP, I need to reduce total binder. I will reduce SC by 15kg and PC by 10kg. To compensate for strength loss and binder reduction, I will increase aggregates (FAGG+CAGG) further and increase ACC by 200kg. I will also decrease WATER by 10kg to help maintain strength with reduced binder.
+  Iter  8: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound. ACC is also at its maximum. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg. To compensate for strength loss, I will increase aggregates (FAGG+CAGG) further. Since ACC is maxed out, I will increase WR by 30kg to allow a further reduction in WATER by 15kg, aiming to maintain strength with less binder.
+  Iter  9: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound, and ACC is at its maximum. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg (total binder reduction of 25kg). To compensate for strength loss, I will increase aggregates (FAGG+CAGG) further. Since ACC is maxed out and WR is high, I will try to reduce WATER slightly by 5kg to see if strength can be maintained with less binder and higher aggregates, aiming for a marginal GWP improvement.
+  Iter 10: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound, and ACC is at its maximum. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg. To compensate for strength loss, I will increase aggregates (FAGG+CAGG) further. Since ACC and WR are at high levels, I will try to reduce WATER by another 5kg to see if strength can be maintained with less binder, aiming for a marginal GWP improvement. This is a fine-tuning step.
+  Iter 11: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound, and ACC is at its maximum. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg. To compensate for strength loss, I will increase aggregates (FAGG+CAGG) further. Since ACC and WR are at high levels, I will try to reduce WATER by another 5kg to see if strength can be maintained with less binder, aiming for a marginal GWP improvement. This is a fine-tuning step.
+  Iter 12: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound, and ACC is at its maximum. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg. To compensate for strength loss, I will increase aggregates (FAGG+CAGG) further. Since ACC and WR are at high levels, I will try to reduce WATER by another 5kg to see if strength can be maintained with less binder, aiming for a marginal GWP improvement. This is a fine-tuning step.
+  Iter 13: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound, and ACC is at its maximum. FAGG and CAGG are also at their upper bounds. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg. Since aggregates are maxed out and ACC/WR are high, I will reduce WATER by 5kg to see if strength can be maintained with less binder. This is a fine-tuning step with limited options.
+  Iter 14: GWP has decreased again and is the best so far. I am still at the SCM% limit and PC lower bound, and ACC/WR/FAGG/CAGG are at their maximums. To further reduce GWP, I must reduce total binder. I will reduce SC by 15kg and PC by 10kg. Since other variables are maxed out, I will reduce WATER by 5kg to see if strength can be maintained with less binder. This is a fine-tuning step with limited options.
+==============================================================

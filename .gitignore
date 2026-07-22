@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Large binary/model files
+*.pkl
+*.npy
+*.json
+
+# IDE
+.idea/
+
+# Anaconda
+anaconda_projects/
+
+# CatBoost training logs
+catboost_info/
+
+# FAISS index
+faiss_index/
+
+# Large data files
+*.xlsx
+PDFs/
+standard/

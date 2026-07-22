@@ -1,0 +1,139 @@
+==============================================================
+  LLM Single-Objective Optimizer -- Results Report
+  2026-04-23 21:33:15
+==============================================================
+  Objective         : minimize GWP
+  Strength floor    : >= 40.0 MPa
+  Total iterations  : 30
+  Feasible solutions: 30 / 30
+  Restarts triggered: 0  (iters: [])
+--------------------------------------------------------------
+  GA REFERENCE SOLUTION
+--------------------------------------------------------------
+    PC                : 164.0
+    FA                : 0.0
+    SC                : 50.26
+    FAGG              : 798.11
+    CAGG              : 756.02
+    WATER             : 153.0
+    AEA               : 7.17
+    WR_HR             : 55.05
+    WR                : 68.44
+    ACC               : 313.42
+    w/b               : 0.71408
+    b/a               : 0.13787
+    SCM%              : 0.23459
+    CAGG%             : 0.48646
+    FAGG%             : 0.51354
+    PC%               : 0.76541
+    FA%               : 0.0
+    SC%               : 0.23459
+    total_binder      : 214.26
+    pred_7day         : 30.97
+    pred_28day        : 40.04
+    pred_56day        : 41.84
+    gwp               : 190.01
+--------------------------------------------------------------
+  BEST LLM SOLUTION  (lowest feasible GWP)
+--------------------------------------------------------------
+    iteration         : 15
+    mode              : exploit
+    PC                : 164.0
+    FA                : 0.0
+    SC                : 165.0
+    FAGG              : 1330.0
+    CAGG              : 1830.0
+    WATER             : 220.0
+    AEA               : 2.0
+    WR_HR             : 0.0
+    WR                : 162.0
+    ACC               : 0.0
+    w/b               : 0.66869
+    b/a               : 0.10411
+    SCM%              : 0.50152
+    CAGG%             : 0.57911
+    FAGG%             : 0.42089
+    PC%               : 0.49848
+    FA%               : 0.0
+    SC%               : 0.50152
+    total_binder      : 329.0
+    pred_7day         : 32.47
+    pred_28day        : 45.47
+    pred_56day        : 47.79
+    gwp               : 225.66
+    gwp_gap           : 35.65
+    str_margin        : 5.47
+    feasible          : True
+--------------------------------------------------------------
+    GWP gap to GA    : +35.65 lb CO2/yd3
+    GWP ratio        : 1.1876  (1.0 = matches GA)
+    Strength margin  : +5.47 MPa above floor
+--------------------------------------------------------------
+  FULL TRAJECTORY
+--------------------------------------------------------------
+  Iter      28d       GWP      Gap     PC     SC     FA    FAGG    CAGG    ACC     w/b    SCM%  Feas  Mode
+--------------------------------------------------------------
+     1    51.57    284.92   +94.91    165    385      0    1350    1850      0  0.4327   70.0%  Y     exploit
+     2    55.33    291.79  +101.78    164    415      0    1350    1850      0  0.4111   71.7%  Y     exploit
+     3    54.78    286.51   +96.50    164    395      0    1350    1850      0  0.4258   70.7%  Y     exploit
+     4    55.75    281.23   +91.22    164    375      0    1350    1850      0  0.4416   69.6%  Y     exploit
+     5    54.15    275.95   +85.94    164    355      0    1350    1850      0  0.4586   68.4%  Y     exploit
+     6    53.85    270.67   +80.66    164    335      0    1350    1850      0  0.4769   67.1%  Y     exploit
+     7    53.36    265.39   +75.38    164    315      0    1350    1850      0  0.4969   65.8%  Y     exploit
+     8    53.28    260.11   +70.10    164    295      0    1350    1850      0  0.4858   64.3%  Y     exploit
+     9    52.77    254.83   +64.82    164    275      0    1350    1850      0  0.5080   62.6%  Y     exploit
+    10    50.43    249.55   +59.54    164    255      0    1350    1850      0  0.5322   60.9%  Y     exploit
+    11    50.02    244.27   +54.26    164    235      0    1350    1850      0  0.5589   58.9%  Y     exploit
+    12    49.07    238.99   +48.98    164    215      0    1350    1850      0  0.5884   56.7%  Y     exploit
+    13    46.28    233.71   +43.70    164    195      0    1350    1850      0  0.6212   54.3%  Y     exploit
+    14    46.07    228.43   +38.42    164    175      0    1350    1850      0  0.6578   51.6%  Y     exploit
+    15    45.47    225.66   +35.65    164    165      0    1330    1830      0  0.6687   50.2%  Y     exploit
+    16    46.78    230.88   +40.87    164    185      0    1320    1820      0  0.6246   53.0%  Y     exploit
+    17    49.04    236.10   +46.09    164    205      0    1310    1810      0  0.5854   55.6%  Y     exploit
+    18    46.95    230.75   +40.74    164    185      0    1300    1800      0  0.6132   53.0%  Y     exploit
+    19    48.69    235.97   +45.96    164    205      0    1290    1790      0  0.5745   55.6%  Y     exploit
+    20    47.34    230.63   +40.62    164    185      0    1280    1780      0  0.6017   53.0%  Y     exploit
+    21    48.92    235.84   +45.83    164    205      0    1270    1770      0  0.5637   55.6%  Y     exploit
+    22    48.27    230.50   +40.49    164    185      0    1260    1760      0  0.5903   53.0%  Y     exploit
+    23    48.43    235.72   +45.71    164    205      0    1250    1750      0  0.5528   55.6%  Y     exploit
+    24    46.33    230.37   +40.36    164    185      0    1240    1740      0  0.5788   53.0%  Y     exploit
+    25    49.51    235.59   +45.58    164    205      0    1230    1730      0  0.5420   55.6%  Y     exploit
+    26    48.60    230.25   +40.24    164    185      0    1220    1720      0  0.5673   53.0%  Y     exploit
+    27    49.52    235.47   +45.46    164    205      0    1210    1710      0  0.5312   55.6%  Y     exploit
+    28    48.23    230.12   +40.11    164    185      0    1200    1700      0  0.5559   53.0%  Y     exploit
+    29    49.31    235.34   +45.33    164    205      0    1190    1690      0  0.5203   55.6%  Y     exploit
+    30    48.61    230.00   +39.99    164    185      0    1180    1680      0  0.5444   53.0%  Y     exploit
+--------------------------------------------------------------
+  CHAIN-OF-THOUGHT LOG
+--------------------------------------------------------------
+  Iter  1: Starting optimisation with a reference mix from the dataset that has the lowest GWP while meeting the strength requirement. This provides a strong baseline for further reduction.
+  Iter  2: Strength margin is 11.6 MPa. The GWP has not changed. I will reduce PC by 30kg and increase SC by 30kg. This swap aims to reduce GWP by leveraging SC's lower CO2 factor. I will also increase WR by 30kg to provide headroom for water reduction in future steps if needed to maintain strength.
+  Iter  3: GWP increased, and strength is well above the target. I need to reduce the total binder content. I will decrease PC by 20kg and SC by 20kg. This swap is a net CO2 saving. I'll also increase WR by 20kg to facilitate potential water reduction in the next iteration if needed to control strength.
+  Iter  4: GWP decreased, but I am close to the SCM% limit and cannot increase SC further. Strength is still high. I will reduce PC by 20kg and SC by 20kg to decrease binder content and GWP. I will also increase WR by 20kg to maintain flexibility for future strength adjustments.
+  Iter  5: GWP decreased, but I am still near the SCM% limit and cannot increase SC further. Strength is still high. I will reduce PC by 20kg and SC by 20kg to decrease binder content and GWP. I will also increase WR by 20kg to maintain flexibility for future strength adjustments.
+  Iter  6: GWP decreased, but I am still near the SCM% limit and cannot increase SC further. Strength is still high. I will reduce PC by 20kg and SC by 20kg to decrease binder content and GWP. I will also increase WR by 20kg to maintain flexibility for future strength adjustments.
+  Iter  7: GWP decreased. Strength is still sufficiently above the floor. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. I'm increasing WR by 20kg to ensure sufficient water reduction capacity for future iterations.
+  Iter  8: GWP decreased. Strength is still well above the floor. Since WR is at its maximum, I will now attempt to reduce WATER by 15kg to boost strength without adding GWP, creating room to further reduce SC. I will then swap 20kg PC for SC.
+  Iter  9: GWP decreased. Strength is still well above the floor. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. Water content is already reduced, and WR is at its max, so further strength adjustments will rely on binder swap.
+  Iter 10: GWP decreased. Strength is still well above the floor. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. Water content is already reduced, and WR is at its max, so further strength adjustments will rely on binder swap.
+  Iter 11: GWP decreased. Strength is still above the floor. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. Water content is already reduced, and WR is at its max, so further strength adjustments will rely on binder swap.
+  Iter 12: GWP decreased. Strength is still above the floor. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. Water content is already reduced, and WR is at its max, so further strength adjustments will rely on binder swap.
+  Iter 13: GWP decreased. Strength is still above the floor. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. Water content is already reduced, and WR is at its max, so further strength adjustments will rely on binder swap.
+  Iter 14: GWP decreased. Strength is still above the floor, but the margin is narrowing. I will continue reducing PC by 20kg and SC by 20kg for further GWP reduction. Water content is already reduced, and WR is at its max, so further strength adjustments will rely on binder swap.
+  Iter 15: The previous mix was infeasible due to low b/a ratio. To increase b/a, I need to increase binder content relative to aggregate. I will increase PC by 20kg and SC by 10kg, while slightly increasing aggregate to maintain a low GWP. I will also slightly reduce water to maintain strength.
+  Iter 16: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce FAGG and CAGG slightly and adjust WATER to maintain strength and b/a ratio.
+  Iter 17: GWP increased, which is incorrect. I need to reduce GWP. I will swap 20kg of PC for SC to lower the GWP. I will also slightly reduce aggregate and water to compensate and maintain strength.
+  Iter 18: GWP increased significantly, and strength is too high. I need to reduce both PC and SC to decrease binder content and GWP. I will reduce PC by 20kg and SC by 20kg. I'll also slightly reduce aggregate and water to compensate and maintain strength.
+  Iter 19: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce aggregate and water slightly to compensate and maintain strength.
+  Iter 20: GWP increased, and strength is too high. I need to reduce binder content. I will reduce PC by 20kg and SC by 20kg. I will also reduce aggregates and water to compensate, aiming to lower GWP and strength.
+  Iter 21: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce aggregate and water slightly to compensate and maintain strength.
+  Iter 22: GWP increased, and strength is too high. I need to reduce binder content. I will reduce PC by 20kg and SC by 20kg. I will also reduce aggregates and water to compensate, aiming to lower GWP and strength.
+  Iter 23: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce aggregate and water slightly to compensate and maintain strength.
+  Iter 24: GWP increased, and strength is still too high. I must reduce binder content. I will reduce PC by 20kg and SC by 20kg. I will also reduce aggregates and water to compensate, aiming to lower GWP and strength.
+  Iter 25: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce aggregate and water slightly to compensate and maintain strength.
+  Iter 26: GWP increased, and strength is too high. I need to reduce binder content. I will reduce PC by 20kg and SC by 20kg. I will also reduce aggregates and water to compensate, aiming to lower GWP and strength.
+  Iter 27: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce aggregate and water slightly to compensate and maintain strength.
+  Iter 28: GWP increased, and strength is too high. I need to reduce binder content. I will reduce PC by 20kg and SC by 20kg. I will also reduce aggregates and water to compensate, aiming to lower GWP and strength.
+  Iter 29: GWP decreased. Strength margin is reasonable. I will swap 20kg of PC for SC to reduce GWP further, as SC has a lower GWP factor. I will also reduce aggregate and water slightly to compensate and maintain strength.
+  Iter 30: GWP increased, and strength is too high. I need to reduce binder content. I will reduce PC by 20kg and SC by 20kg. I will also reduce aggregates and water to compensate, aiming to lower GWP and strength.
+==============================================================
