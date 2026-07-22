@@ -25,6 +25,9 @@ import argparse
 import os
 import pandas as pd
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from optimizer_core import (
     ExperimentConfig,
@@ -37,7 +40,7 @@ from optimizer_core import (
 # SHARED SETTINGS  (change these between experimental conditions)
 # ─────────────────────────────────────────────────────────────
 
-GEMINI_API_KEY = "AIzaSyDnV_LdQ2aztxCjwuEckEFFYQfc-se4ERA"
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 GEMINI_MODEL   = "gemini-2.5-flash-lite"
 STRENGTH_MIN   = 55.0
 MAX_ITERS      = 40

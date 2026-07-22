@@ -50,6 +50,7 @@ Dependencies
 """
 
 import json
+import os
 import re
 import time
 import warnings
@@ -57,6 +58,9 @@ import joblib
 import argparse
 from copy import deepcopy
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import numpy as np
 import pandas as pd
@@ -69,7 +73,7 @@ warnings.filterwarnings("ignore")
 # 0.  GLOBAL CONFIGURATION
 # ─────────────────────────────────────────────────────────────
 
-GEMINI_API_KEY   = "AIzaSyDnV_LdQ2aztxCjwuEckEFFYQfc-se4ERA"
+GEMINI_API_KEY   = os.environ.get("GEMINI_API_KEY", "")
 GEMINI_MODEL     = "gemini-2.0-flash"
 TEMPERATURE      = 0.9
 
@@ -153,7 +157,7 @@ def _engineer_one(mix: dict) -> dict:
     m  = dict(mix)
     tb = m["PC"] + m["FA"] + m["SC"] + m["SF"]
     ag = m["FAGG"] + m["CAGG"]
-    e  = 0
+    e  = 1e-9
     m["TOTAL_BINDER"] = tb
     m["w/b"]   = m["WATER"] / (tb + e)
     m["b/a"]   = tb / (ag + e)

@@ -1,23 +1,28 @@
+import os
+import json
+import re
+import joblib
+import warnings
 import pandas as pd
 import numpy as np
-import json, re, joblib, warnings
 import matplotlib.pyplot as plt
 from pymoo.optimize import minimize
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.core.problem import Problem
 from google import genai
 from neo4j import GraphDatabase
+from dotenv import load_dotenv
 
+load_dotenv()
 warnings.filterwarnings("ignore")
 
 # --- 1. 配置信息 ---
-API_KEY = "AIzaSyDMLr1ohvRxzcahRm6-vClKH7fcc1cGqzo"
-client = genai.Client(api_key=API_KEY)
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", ""))
 
 # Neo4j 配置
-NEO4J_URI = "bolt://localhost:7687"
-NEO4J_USER = "neo4j"
-NEO4J_PWD = "Leke123123#"
+NEO4J_URI  = os.environ.get("NEO4J_URI",  "bolt://localhost:7687")
+NEO4J_USER = os.environ.get("NEO4J_USER", "neo4j")
+NEO4J_PWD  = os.environ.get("NEO4J_PWD",  "")
 
 # GWP 因子
 GWP_FACTORS = {'PC': 1.048, 'FA': 0.328, 'SC': 0.264, 'SF': 0.850, 'CAGG': 0.0037, 'FAGG': 0.0026}

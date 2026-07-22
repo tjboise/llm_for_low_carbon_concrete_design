@@ -16,11 +16,11 @@ Constraint: predicted 28d strength >= STRENGTH_MIN MPa
 """
 
 import json
+import os
 import re
 import time
 import warnings
 import joblib
-import os
 from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Optional
@@ -74,7 +74,7 @@ class ExperimentConfig:
 
     # Stagnation / restart
     stag_window: int = 5
-    stag_threshold: float = 1.0
+    stag_threshold: float = 0.005  # relative improvement (fraction of current best GWP)
     stag_min_best: float = 350.0
     max_restarts: int = 2
     restart_temp: float = 1.3
@@ -146,7 +146,7 @@ def _engineer_one(mix: dict) -> dict:
     m  = dict(mix)
     tb = m["PC"] + m["FA"] + m["SC"]
     ag = m["FAGG"] + m["CAGG"]
-    e  = 0
+    e  = 1e-9
     m["TOTAL_BINDER"] = tb
     m["w/b"]   = m["WATER"] / (tb + e)
     m["b/a"]   = tb / (ag + e)
@@ -330,7 +330,7 @@ def retrieve_similar_mixes(current_mix: dict, df: pd.DataFrame,
                             strength_min: float, k: int = 3,
                             pool: str = "feasible") -> list:
     """Dynamic RAG: k-NN retrieval from dataset based on ingredient similarity."""
-    features = ["PC", "SC", "FA", "WATER", "FAGG", "CAGG", "WR", "WR_HR", "ACC"]
+    features = ["PC", "SC", "FA", "WATER", "FAGG", "CAGG", "AEA", "WR", "WR_HR", "ACC"]
 
     sub = df.copy()
     if pool == "feasible":
@@ -856,12 +856,15 @@ def detect_stagnation(trajectory: list, cfg: ExperimentConfig) -> bool:
     feasible = [r for r in trajectory if r["feasible"]]
     if len(feasible) < cfg.stag_window:
         return False
-    if min(r["gwp"] for r in feasible) >= cfg.stag_min_best:
+    best_gwp = min(r["gwp"] for r in feasible)
+    if best_gwp >= cfg.stag_min_best:
         return False
     recent = feasible[-cfg.stag_window:]
+    # threshold is relative: fraction of current best GWP
+    abs_threshold = cfg.stag_threshold * best_gwp
     improvements = [recent[i-1]["gwp"] - recent[i]["gwp"]
                     for i in range(1, len(recent))]
-    return all(imp < cfg.stag_threshold for imp in improvements)
+    return all(imp < abs_threshold for imp in improvements)
 
 
 def build_restart_msg(trajectory: list, ga_ref: dict, restart_num: int) -> str:
@@ -1018,7 +1021,11 @@ def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
 
     ga_gwp = ga_ref["gwp"] if ga_ref else float("nan")
 
+    # NOTE: max_iters counts FEASIBLE iterations only.
+    # Infeasible proposals trigger inner retries (up to 5 each) and are not counted.
+    # Total API calls may be up to max_iters * 6 in the worst case.
     print(f"\n  {'Iter':>4}  {'28d MPa':>8}  {'GWP':>8}  {'Gap':>9}  Mode")
+    print(f"  (max_iters={cfg.max_iters} feasible; up to {cfg.max_iters * 6} total API calls)")
     print("  " + "-"*50)
 
     it             = 0

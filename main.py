@@ -3,14 +3,17 @@ import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 import google.generativeai as genai
 import json
-import re
 import os
+import re
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ==========================================================
 # 1. 配置 Google AI API (使用 Gemini 2.0 Flash)
 # ==========================================================
 # 请确保你的 API Key 是有效的
-genai.configure(api_key="AIzaSyDMLr1ohvRxzcahRm6-vClKH7fcc1cGqzo")
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY", ""))
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 
