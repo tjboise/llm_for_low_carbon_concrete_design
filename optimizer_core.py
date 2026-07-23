@@ -11,8 +11,15 @@ Variables
   11 raw: PC, FA, SC, FAGG, CAGG, WATER, AEA, WR_HR, WR, ACC
    9 derived: w/b, b/a, SCM%, CAGG%, FAGG%, PC%, FA%, SC%  (SF removed)
 
-Objective : minimize GWP (lb CO2-eq/yd3)
+Objective : minimize GWP (kg CO2-eq/m3)
 Constraint: predicted 28d strength >= STRENGTH_MIN MPa
+
+Unit convention
+---------------
+  All ingredient quantities are stored and displayed in kg/m³.
+  Raw data (lb/yd³) is converted at load time via LB_YD3_TO_KG_M3 = 0.5933.
+  The CatBoost model was trained on lb/yd³ data, so predict() converts
+  back to lb/yd³ internally before calling the model.
 """
 
 import json
@@ -35,6 +42,11 @@ warnings.filterwarnings("ignore")
 # CONSTANTS (physical, never change between experiments)
 # ─────────────────────────────────────────────────────────────
 
+# Unit conversion: raw data is in lb/yd³; multiply by this to get kg/m³
+LB_YD3_TO_KG_M3 = 0.5933  # 1 lb/yd³ = 0.4536 kg/lb ÷ 0.7646 m³/yd³
+
+# GWP emission factors in kg CO₂-eq / kg material (from PA database)
+# With inputs in kg/m³: GWP = Σ(ingredient[kg/m³] × factor[kg CO₂/kg]) = kg CO₂/m³
 GWP_FACTORS = {
     "PC": 1.048, "FA": 0.328, "SC": 0.264,
     "FAGG": 0.0026, "CAGG": 0.0037,
@@ -106,6 +118,10 @@ class ExperimentConfig:
 
 def load_df(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
+    # Convert ingredient quantities from lb/yd³ (raw data) to kg/m³ (SI)
+    for col in RAW_VARS:
+        if col in df.columns:
+            df[col] = df[col] * LB_YD3_TO_KG_M3
     return _add_derived(df)
 
 
@@ -163,7 +179,10 @@ def _engineer_one(mix: dict) -> dict:
 def predict(meta: dict, mix: dict) -> dict:
     fn  = meta["feature_names"]
     mdl = meta["models"]
-    m   = _engineer_one(mix)
+    # CatBoost was trained on lb/yd³ data — convert back before inference
+    mix_lb = {k: (v / LB_YD3_TO_KG_M3 if k in RAW_VARS else v)
+              for k, v in mix.items()}
+    m   = _engineer_one(mix_lb)
 
     r7  = pd.DataFrame([{k: m.get(k, 0.) for k in fn}])
     p7  = float(mdl["7day"].predict(r7)[0])
@@ -279,7 +298,7 @@ def run_ga(raw_b: dict, der_b: dict, meta: dict, cfg: ExperimentConfig) -> dict:
                 }
 
     if best:
-        print(f"[GA] Best: GWP={best['gwp']:.2f} lb/yd3  28d={best['pred_28day']:.2f} MPa")
+        print(f"[GA] Best: GWP={best['gwp']:.2f} kg/m³  28d={best['pred_28day']:.2f} MPa")
     else:
         print("[GA] No feasible solution found.")
     return best
@@ -369,23 +388,24 @@ def retrieve_similar_mixes(current_mix: dict, df: pd.DataFrame,
 KNOWLEDGE_TABLE = """\
 MATERIAL EFFECTS — DECISION TABLE
 ===================================
-Each material affects both GWP and 28-day strength. Use this table every step:
+Each material affects both GWP and 28-day strength. Use this table every step.
+All quantities are in kg/m³; GWP is in kg CO₂-eq/m³.
 
   PC   (Portland cement)
-       GWP factor : 1.048  HIGH — largest CO2 contributor
+       GWP factor : 1.048 kg CO₂/kg  — largest CO₂ contributor
        Strength   : STRONG positive — PC is the primary strength driver
        Strategy   : Reduce PC as much as possible, but never below what
-                    strength requires. Each 10 lb PC reduced saves 10.48 lb CO2.
+                    strength requires. Each 10 kg/m³ PC reduced saves ~10.5 kg CO₂/m³.
 
   SC   (Slag cement / GGBS)
-       GWP factor : 0.264  LOW — most efficient binder for CO2 reduction
+       GWP factor : 0.264 kg CO₂/kg  — most efficient binder for CO₂ reduction
        Strength   : MODERATE positive at 28d — activates via PC hydration products;
                     high SC substitution (>60%) may slightly reduce 28d strength.
        Strategy   : PREFERRED substitute for PC.
-                    Net saving per lb PC->SC swap = 1.048 - 0.264 = 0.784 lb CO2.
+                    Net saving per kg/m³ PC→SC swap = 1.048 - 0.264 = 0.784 kg CO₂/m³.
 
   FA   (Fly ash)
-       GWP factor : 0.328  LOW — second best option for CO2 reduction
+       GWP factor : 0.328 kg CO₂/kg  — second best option for CO₂ reduction
        Strength   : WEAK positive at 28d — FA is slow-reacting (pozzolanic).
        Strategy   : Use FA after SC is maximised. High FA risks falling below floor.
 
@@ -395,24 +415,24 @@ Each material affects both GWP and 28-day strength. Use this table every step:
        Strategy   : Reduce WATER to improve strength at zero GWP cost.
 
   FAGG / CAGG  (Fine / Coarse aggregate)
-       GWP factor : 0.0026 / 0.0037  — nearly zero
-       Strength   : More aggregate = lower b/a = less paste per yd3.
+       GWP factor : 0.0026 / 0.0037 kg CO₂/kg  — nearly zero
+       Strength   : More aggregate = lower b/a = less paste per m³.
        Strategy   : Increasing FAGG+CAGG enables Path 2 (lower total binder).
 
   WR / WR_HR  (Water reducer / Superplasticiser)
        GWP factor : 0.000  ZERO
        Strength   : Indirect — allows lower WATER, enabling lower w/b.
-       Strategy   : High WR+WR_HR (50-200 lb) is essential for Path 2.
+       Strategy   : High WR+WR_HR (30-120 kg/m³) is essential for Path 2.
 
   ACC  (Accelerator)
        GWP factor : 0.000  ZERO
        Strength   : Direct positive — useful when total binder is low.
-       Strategy   : ACC 200-750 lb can compensate strength loss on Path 2.
+       Strategy   : ACC 120-450 kg/m³ can compensate strength loss on Path 2.
 
 KEY INSIGHT — TWO PATHS TO LOW GWP:
-  Path 1: substitute PC with SC/FA (total binder 500-600 lb, GWP 280-400 kg)
-  Path 2: reduce total binder <420 kg + high FAGG/CAGG + high WR/WR_HR + ACC
-          (GWP 200-280 kg — harder but lower)
+  Path 1: substitute PC with SC/FA (total binder 300-360 kg/m³, GWP 165-240 kg/m³)
+  Path 2: reduce total binder <250 kg/m³ + high FAGG/CAGG + high WR/WR_HR + ACC
+          (GWP 120-165 kg/m³ — harder but lower)
 
 STRENGTH-GWP RELATIONSHIP:
   Higher strength = higher binder = higher GWP.
@@ -422,31 +442,33 @@ STRENGTH-GWP RELATIONSHIP:
 SITUATION_RULES = """\
 HOW TO OPTIMISE — SITUATION-BASED STRATEGIES
 =============================================
+All quantities below are in kg/m³.
+
 SITUATION A: Strength well above floor (margin > 8 MPa)
   -> Over-engineered. Reduce total binder.
-  -> Reduce PC+SC by 20-30 kg each, OR increase FAGG+CAGG by 100-200 kg,
-     OR switch to Path 2 (total binder < 420 kg + WR 50-100 kg).
+  -> Reduce PC+SC by 12-18 kg/m³ each, OR increase FAGG+CAGG by 60-120 kg/m³,
+     OR switch to Path 2 (total binder < 250 kg/m³ + WR 30-60 kg/m³).
 
 SITUATION B: Strength close to floor (margin 0-5 MPa)  [efficient zone]
-  -> Swap 10-20 kg PC -> SC (saves ~7.8-15.7 kg CO2).
-  -> OR reduce WATER 5-10 kg first, then swap PC->SC.
-  -> OR add ACC 50-100 kg to create headroom for further PC reduction.
+  -> Swap 6-12 kg/m³ PC -> SC (saves ~4.7-9.4 kg CO₂/m³).
+  -> OR reduce WATER 3-6 kg/m³ first, then swap PC->SC.
+  -> OR add ACC 30-60 kg/m³ to create headroom for further PC reduction.
 
 SITUATION C: Strength below floor (infeasible)
-  -> 1. Reduce WATER 10-15 kg (zero GWP cost, strong strength boost)
-  -> 2. Add ACC 100-300 kg (zero GWP cost)
-  -> 3. Increase WR/WR_HR 30-50 kg (allows more WATER reduction)
-  -> 4. Increase PC 10-20 kg (last resort — raises GWP)
+  -> 1. Reduce WATER 6-9 kg/m³ (zero GWP cost, strong strength boost)
+  -> 2. Add ACC 60-180 kg/m³ (zero GWP cost)
+  -> 3. Increase WR/WR_HR 18-30 kg/m³ (allows more WATER reduction)
+  -> 4. Increase PC 6-12 kg/m³ (last resort — raises GWP)
   -> Never increase SC or FA to recover strength at 28d.
 
 SITUATION D: Stuck in local optimum (no GWP improvement)
   -> Check which variables have been CONSTANT in last 5 iterations.
   -> Option 1 (most impactful): Switch to Path 2
-       total binder < 420 kg, FAGG 800-1000, CAGG 1700-2000,
-       WR 100-200 kg, WR_HR 50-100 kg, ACC 200-500 kg.
-  -> Option 2: Add ACC 100-400 kg (free strength boost, try lower PC).
+       total binder < 250 kg/m³, FAGG 470-590, CAGG 1010-1190,
+       WR 60-120 kg/m³, WR_HR 30-60 kg/m³, ACC 120-300 kg/m³.
+  -> Option 2: Add ACC 60-240 kg/m³ (free strength boost, try lower PC).
   -> Option 3: Different binder blend (high FA, or pure PC+SC).
-  -> Option 4: Increase WR 50-100 kg to allow cutting WATER 20-30 kg.
+  -> Option 4: Increase WR 30-60 kg/m³ to allow cutting WATER 12-18 kg/m³.
 """
 
 SYSTEM_PROMPT_TEMPLATE = """\
@@ -454,14 +476,15 @@ You are an expert concrete mix design engineer specialising in low-carbon concre
 
 OPTIMISATION PROBLEM
 ====================
-OBJECTIVE  : MINIMISE total GWP (kg CO2-eq/yd3)
+OBJECTIVE  : MINIMISE total GWP (kg CO₂-eq/m³)
 CONSTRAINT : 28-day compressive strength >= {strength_min} MPa (HARD LIMIT)
 
-GWP = PC*1.048 + FA*0.328 + SC*0.264 + CAGG*0.0037 + FAGG*0.0026
+GWP (kg CO₂/m³) = PC*1.048 + FA*0.328 + SC*0.264 + CAGG*0.0037 + FAGG*0.0026
+  (all ingredient quantities in kg/m³)
 
 {knowledge_block}
 
-VARIABLE BOUNDS (kg/yd3, from dataset)
+VARIABLE BOUNDS (kg/m³, from dataset)
 =======================================
 {raw_bounds}
 
@@ -507,9 +530,9 @@ Start optimisation. Propose an initial mix satisfying ALL of:
   - All variable bounds and derived ratio bounds satisfied
 
 SAFE STARTING POINT to guarantee feasibility:
-  Use PC >= 250 kg as a starting point — this reliably achieves {strength_min} MPa.
+  Use PC >= 150 kg/m³ as a starting point — this reliably achieves {strength_min} MPa.
   Then reduce GWP by substituting PC with SC in later iterations.
-  Do NOT start with PC < 200 kg — it risks falling below the strength floor.
+  Do NOT start with PC < 120 kg/m³ — it risks falling below the strength floor.
 
 Output ONLY the JSON object.\
 """
@@ -527,7 +550,7 @@ CatBoost evaluation:
 
 GWP breakdown:
 {gwp_breakdown}
-  TOTAL GWP : {gwp:.2f} kg CO2-eq/yd3
+  TOTAL GWP : {gwp:.2f} kg CO₂-eq/m³
 
 Derived ratios:
 {ratio_check}
@@ -588,7 +611,7 @@ def build_system_prompt(raw_b: dict, der_b: dict, few_shot: list,
             mix_str = "  ".join(f"{k}={ex[k]}" for k in RAW_VARS)
             parts.append(
                 f"[{ex['label']}]\n  {mix_str}\n"
-                f"  -> 28d={ex['pred_28day']} MPa  GWP={ex['gwp']} kg CO2/yd3"
+                f"  -> 28d={ex['pred_28day']} MPa  GWP={ex['gwp']} kg CO₂/m³"
             )
         few_shot_block = (
             f"REFERENCE MIXES FROM DATASET (all satisfy 28d >= {cfg.strength_min} MPa)\n"
@@ -644,7 +667,7 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
         key=lambda x: -x[1]
     )
     gwp_breakdown = "\n".join(
-        f"  {k:<6} {mix.get(k,0):6.1f} kg x {GWP_FACTORS[k]:.4f} = {c:6.2f} kg CO2"
+        f"  {k:<6} {mix.get(k,0):6.1f} kg/m³ x {GWP_FACTORS[k]:.4f} = {c:6.2f} kg CO₂/m³"
         for k, c in contribs if c > 0.05
     )
 
@@ -672,9 +695,9 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
     str_change = round(p28 - prev_28, 2)
 
     if gwp_change < -0.5:
-        gwp_trend = f"DECREASED {abs(gwp_change):.2f} kg -- good"
+        gwp_trend = f"DECREASED {abs(gwp_change):.2f} kg/m³ -- good"
     elif gwp_change > 0.5:
-        gwp_trend = f"INCREASED {gwp_change:.2f} kg -- WRONG DIRECTION"
+        gwp_trend = f"INCREASED {gwp_change:.2f} kg/m³ -- WRONG DIRECTION"
     else:
         gwp_trend = "barely changed -- need a bigger move"
 
@@ -722,7 +745,7 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
             osc_warning = (
                 "*** OSCILLATION WARNING ***\n"
                 "Last 3 proposals nearly identical. "
-                "Change at least 2 ingredients by > 20 kg.\n\n"
+                "Change at least 2 ingredients by > 12 kg/m³.\n\n"
             )
 
     infeas_warning = ""
@@ -763,7 +786,7 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
                 for i, s in enumerate(similar, 1):
                     mix_str = "  ".join(f"{v}={s[v]}" for v in RAW_VARS)
                     rag_lines.append(f"  [{i}] {mix_str}")
-                    rag_lines.append(f"       -> 28d={s['pred_28day']} MPa  GWP={s['gwp']:.1f} kg")
+                    rag_lines.append(f"       -> 28d={s['pred_28day']} MPa  GWP={s['gwp']:.1f} kg/m³")
             rag_block = "\n".join(rag_lines) + "\n\n"
 
     # Directional feedback
@@ -780,14 +803,14 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
         if gwp_change > 0.5:
             fb.append("  GWP went UP — wrong direction. Swap PC->SC or reduce WATER.")
         elif abs(gwp_change) <= 0.5:
-            fb.append("  GWP barely changed — make a BIGGER move (20-30 kg increments).")
+            fb.append("  GWP barely changed — make a BIGGER move (12-18 kg/m³ increments).")
         else:
-            fb.append(f"  GWP decreased {abs(gwp_change):.2f} kg — keep going.")
+            fb.append(f"  GWP decreased {abs(gwp_change):.2f} kg/m³ — keep going.")
 
         if str_margin > 8 and gwp > best_gwp + 5:
             fb.append(
                 f"  Over-engineered: {str_margin:.1f} MPa above floor. "
-                "Reduce PC+SC by 20 kg each, or increase aggregates."
+                "Reduce PC+SC by 12 kg/m³ each, or increase aggregates."
             )
         elif str_margin > 3:
             fb.append(f"  Good headroom ({str_margin:.1f} MPa). Swap PC->SC or increase WR.")
@@ -795,15 +818,15 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
             fb.append("  Tight margin. Reduce WATER before cutting PC further.")
 
         cur_wr = mix.get("WR", 0) + mix.get("WR_HR", 0)
-        if cur_wr > 200:
-            fb.append(f"  WR+WR_HR={cur_wr:.0f} kg — very high. Do NOT increase further.")
-        elif cur_wr < 50 and mix.get("WATER", 200) > 170:
-            fb.append("  WR low — increase WR 50-100 kg to allow cutting WATER.")
+        if cur_wr > 120:
+            fb.append(f"  WR+WR_HR={cur_wr:.0f} kg/m³ — very high. Do NOT increase further.")
+        elif cur_wr < 30 and mix.get("WATER", 120) > 100:
+            fb.append("  WR low — increase WR 30-60 kg/m³ to allow cutting WATER.")
 
-        if mix.get("ACC", 0) < 100 and str_margin < 3:
-            fb.append("  ACC=0 — adding ACC 200-400 kg boosts strength at zero GWP cost.")
+        if mix.get("ACC", 0) < 60 and str_margin < 3:
+            fb.append("  ACC low — adding ACC 120-240 kg/m³ boosts strength at zero GWP cost.")
 
-        if mix.get("FAGG", 0) + mix.get("CAGG", 0) < 2000 and str_margin > 5:
+        if mix.get("FAGG", 0) + mix.get("CAGG", 0) < 1200 and str_margin > 5:
             fb.append("  Aggregates low — increase FAGG+CAGG to dilute binder and cut GWP.")
 
     return FEEDBACK_TEMPLATE.format(
