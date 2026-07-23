@@ -91,6 +91,7 @@ class ExperimentConfig:
     rag_mode: str = "static"         # "static" | "dynamic" | "none"
     rag_k: int = 3
     rag_pool: str = "feasible"       # "feasible" | "full"
+    rag_format: str = "tabular"      # "tabular" | "text"
 
     # File paths
     data_path: str = "data/Super_Cleaned_Concrete_Data.csv"
@@ -737,13 +738,32 @@ def build_feedback(it: int, max_it: int, mix: dict, preds: dict,
         similar = retrieve_similar_mixes(mix, df, cfg.strength_min,
                                          k=cfg.rag_k, pool=cfg.rag_pool)
         if similar:
-            rag_lines = [
-                "SIMILAR MIXES FROM DATASET (k-NN retrieval based on your current proposal):"
-            ]
-            for i, s in enumerate(similar, 1):
-                mix_str = "  ".join(f"{v}={s[v]}" for v in RAW_VARS)
-                rag_lines.append(f"  [{i}] {mix_str}")
-                rag_lines.append(f"       -> 28d={s['pred_28day']} MPa  GWP={s['gwp']:.1f} kg")
+            if cfg.rag_format == "text":
+                rag_lines = [
+                    "=== SIMILAR MIXES FROM DATASET (retrieved based on your current proposal) ===",
+                    "These are real historical mixes closest to what you just proposed.",
+                    "Study their GWP and strength outcomes to guide your next step:\n",
+                ]
+                for i, s in enumerate(similar, 1):
+                    tb = s.get("PC", 0) + s.get("FA", 0) + s.get("SC", 0)
+                    wb = s.get("WATER", 0) / (tb + 1e-9)
+                    rag_lines.append(
+                        f"  [{i}] A mix with {s.get('PC',0):.0f} kg/m³ Portland cement, "
+                        f"{s.get('SC',0):.0f} kg/m³ slag cement, and {s.get('FA',0):.0f} kg/m³ "
+                        f"fly ash achieves {s['pred_28day']:.1f} MPa 28-day strength "
+                        f"with GWP of {s['gwp']:.1f} kg CO₂/m³. "
+                        f"Total binder: {tb:.0f} kg/m³, w/b ratio: {wb:.2f}, "
+                        f"FAGG: {s.get('FAGG',0):.0f}, CAGG: {s.get('CAGG',0):.0f}, "
+                        f"ACC: {s.get('ACC',0):.0f}, WR: {s.get('WR',0):.0f} kg/m³.\n"
+                    )
+            else:  # tabular (default)
+                rag_lines = [
+                    "SIMILAR MIXES FROM DATASET (k-NN retrieval based on your current proposal):"
+                ]
+                for i, s in enumerate(similar, 1):
+                    mix_str = "  ".join(f"{v}={s[v]}" for v in RAW_VARS)
+                    rag_lines.append(f"  [{i}] {mix_str}")
+                    rag_lines.append(f"       -> 28d={s['pred_28day']} MPa  GWP={s['gwp']:.1f} kg")
             rag_block = "\n".join(rag_lines) + "\n\n"
 
     # Directional feedback

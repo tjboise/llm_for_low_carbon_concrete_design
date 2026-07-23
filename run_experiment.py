@@ -13,12 +13,13 @@ Usage
 
 Ablation experiments defined here
 ----------------------------------
-  baseline       Full prompt (knowledge + rules + static few-shot)
-  no_knowledge   Remove Material Effects table
-  no_rules       Remove Situation A-D strategies
-  no_fewshot     Remove few-shot examples (zero-shot)
-  zero_shot      Remove all three (pure zero-shot)
-  dynamic_rag    Replace static few-shot with dynamic k-NN retrieval
+  baseline            Full prompt (knowledge + rules + static few-shot)  [= No-RAG in paper]
+  no_knowledge        Remove Material Effects table
+  no_rules            Remove Situation A-D strategies
+  no_fewshot          Remove few-shot examples
+  zero_shot           Remove all three (pure zero-shot)
+  dynamic_rag_tabular Dynamic RAG with tabular format (variable=value pairs)
+  dynamic_rag_text    Dynamic RAG with natural language text format
 """
 
 import argparse
@@ -130,28 +131,30 @@ EXPERIMENTS = {
         rag_mode="none",
     ),
 
-    # ── E5: Dynamic RAG (feasible pool) ──────────────────────
-    "dynamic_rag_feasible": make_base_cfg(
-        name="dynamic_rag_feasible",
-        description="Dynamic RAG: k-NN retrieval from feasible subset each iteration",
+    # ── E5: Dynamic RAG (tabular format) ─────────────────────
+    "dynamic_rag_tabular": make_base_cfg(
+        name="dynamic_rag_tabular",
+        description="Dynamic RAG: k-NN retrieval, tabular format (variable=value pairs)",
         use_knowledge_table=True,
         use_situation_rules=True,
         use_few_shot=True,
         rag_mode="dynamic",
-        rag_k=3,
+        rag_k=5,
         rag_pool="feasible",
+        rag_format="tabular",
     ),
 
-    # ── E6: Dynamic RAG (full dataset) ───────────────────────
-    "dynamic_rag_full": make_base_cfg(
-        name="dynamic_rag_full",
-        description="Dynamic RAG: k-NN retrieval from full 756-row dataset",
+    # ── E6: Dynamic RAG (natural language text format) ───────
+    "dynamic_rag_text": make_base_cfg(
+        name="dynamic_rag_text",
+        description="Dynamic RAG: k-NN retrieval, natural language text format",
         use_knowledge_table=True,
         use_situation_rules=True,
         use_few_shot=True,
         rag_mode="dynamic",
-        rag_k=3,
-        rag_pool="full",
+        rag_k=5,
+        rag_pool="feasible",
+        rag_format="text",
     ),
 }
 
