@@ -6,7 +6,7 @@ from sklearn.model_selection import RandomizedSearchCV, train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error
 
 # 1. 加载数据
-df = pd.read_csv('Super_Cleaned_Concrete_Data.csv')
+df = pd.read_csv('../data/Super_Cleaned_Concrete_Data.csv')
 
 # --- 改进 A: 特征工程 (Feature Engineering) ---
 # 增加物理意义更强的特征，帮助模型理解化学反应基础

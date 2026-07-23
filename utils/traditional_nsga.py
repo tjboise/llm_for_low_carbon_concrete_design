@@ -111,7 +111,7 @@ def run_topsis(F, weights=np.array([0.5, 0.5])):
 
 if __name__ == "__main__":
     BRAIN_FILE = "concrete_catboost_optimized.pkl"
-    DATA_FILE = "Super_Cleaned_Concrete_Data.csv"
+    DATA_FILE = "../data/Super_Cleaned_Concrete_Data.csv"
 
     print("--- 🚀 初始化传统搜索模型 (无 LLM 审计) ---")
     brain = TraditionalBrain(BRAIN_FILE, DATA_FILE)

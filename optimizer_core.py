@@ -93,7 +93,7 @@ class ExperimentConfig:
     rag_pool: str = "feasible"       # "feasible" | "full"
 
     # File paths
-    data_path: str = "Super_Cleaned_Concrete_Data.csv"
+    data_path: str = "data/Super_Cleaned_Concrete_Data.csv"
     model_pkl: str = "concrete_catboost_optimized.pkl"
     ga_csv: str = "ga_reference_solution.csv"
     output_prefix: str = "results"   # CSVs and reports named {output_prefix}_*

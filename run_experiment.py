@@ -47,7 +47,7 @@ MAX_ITERS      = 40
 GA_GENS        = 200
 GA_POP         = 100
 
-DATA_PATH  = "Super_Cleaned_Concrete_Data_model_train.csv"
+DATA_PATH  = "data/Super_Cleaned_Concrete_Data_model_train.csv"
 MODEL_PKL  = "concrete_catboost_optimized.pkl"
 GA_CSV     = "ga_reference_solution.csv"
 
