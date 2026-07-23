@@ -1,132 +1,223 @@
-import pandas as pd
+"""
+train_model.py
+==============
+Train a chained CatBoost surrogate model for concrete compressive strength.
+
+Architecture (CatBoost-Chain, as described in the paper):
+  Stage 1: predict 7-day  strength  <- raw mix features only
+  Stage 2: predict 28-day strength  <- raw mix features + predicted 7-day
+  Stage 3: predict 56-day strength  <- raw mix features + predicted 28-day
+
+Unit convention:
+  Raw data is in lb/yd³. This script converts to kg/m³ at load time
+  (× 0.5933) so the saved model expects kg/m³ inputs — consistent with
+  optimizer_core.py after its load_df() conversion.
+
+Output:
+  ../concrete_catboost_optimized.pkl
+    keys: models, feature_names, unit
+
+Usage:
+  cd utils/
+  python train_model.py
+"""
+
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 import numpy as np
-import xgboost as xgb
+import pandas as pd
 import joblib
-from sklearn.model_selection import RandomizedSearchCV, train_test_split
+from catboost import CatBoostRegressor
+from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error
 
-# 1. 加载数据
-df = pd.read_csv('../data/Super_Cleaned_Concrete_Data.csv')
+# ─────────────────────────────────────────────────────────────
+# CONSTANTS  (must match optimizer_core.py)
+# ─────────────────────────────────────────────────────────────
 
-# --- 改进 A: 特征工程 (Feature Engineering) ---
-# 增加物理意义更强的特征，帮助模型理解化学反应基础
-df['binder_water_ratio'] = df['TOTAL_BINDER'] / (df['WATER'])
-df['PC_ratio'] = df['PC'] / (df['TOTAL_BINDER'] )
-df['FA_ratio'] = df['FA'] / (df['TOTAL_BINDER'] )
-df['SC_ratio'] = df['SC'] / (df['TOTAL_BINDER'] )
+LB_YD3_TO_KG_M3 = 0.5933
+RAW_VARS = ["PC", "FA", "SC", "FAGG", "CAGG", "WATER", "AEA", "WR_HR", "WR", "ACC"]
+DATA_PATH = "../data/Super_Cleaned_Concrete_Data_model_train.csv"
+OUT_PKL   = "../concrete_catboost_optimized.pkl"
 
-# 自动获取基础特征列表（排除目标列和中间列）
-base_features = [col for col in df.columns if col not in ['7day', '28day', '56day']]
-print(f"基础特征数量: {len(base_features)} | 包括: {base_features}")
 
-# 2. 设置参数空间
-param_dist = {
-    'n_estimators': [500, 1000, 1500],
-    'learning_rate': [0.01, 0.05, 0.1],
-    'max_depth': [3, 6, 9],
-    'subsample': [0.8, 1.0],
-    'colsample_bytree': [0.8, 1.0],
-    'reg_lambda': [1, 10, 100],  # 增加正则化控制
-    'min_child_weight': [1, 3, 5]
+# ─────────────────────────────────────────────────────────────
+# 1. LOAD & CONVERT DATA
+# ─────────────────────────────────────────────────────────────
+
+print("Loading data ...")
+df = pd.read_csv(DATA_PATH)
+print(f"  Raw rows: {len(df)}")
+
+# Convert ingredients from lb/yd³ to kg/m³
+for col in RAW_VARS:
+    if col in df.columns:
+        df[col] = df[col] * LB_YD3_TO_KG_M3
+
+print(f"  Unit conversion applied: lb/yd³ × {LB_YD3_TO_KG_M3} = kg/m³")
+print(f"  PC range: [{df['PC'].min():.1f}, {df['PC'].max():.1f}] kg/m³")
+print(f"  WATER range: [{df['WATER'].min():.1f}, {df['WATER'].max():.1f}] kg/m³")
+
+
+# ─────────────────────────────────────────────────────────────
+# 2. FEATURE ENGINEERING  (identical to optimizer_core._engineer_one)
+# ─────────────────────────────────────────────────────────────
+
+e = 1e-9
+tb  = df["PC"] + df["FA"] + df["SC"]
+agg = df["FAGG"] + df["CAGG"]
+
+df["TOTAL_BINDER"] = tb
+df["w/b"]   = df["WATER"] / (tb + e)
+df["b/a"]   = tb / (agg + e)
+df["SCM%"]  = (df["FA"] + df["SC"]) / (tb + e)
+df["CAGG%"] = df["CAGG"] / (agg + e)
+df["FAGG%"] = df["FAGG"] / (agg + e)
+df["PC%"]   = df["PC"]   / (tb + e)
+df["FA%"]   = df["FA"]   / (tb + e)
+df["SC%"]   = df["SC"]   / (tb + e)
+
+# Base feature set: raw ingredients + derived ratios (no strength columns)
+base_features = [col for col in df.columns
+                 if col not in ["7day", "28day", "56day"]]
+
+print(f"\nFeatures ({len(base_features)}): {base_features}")
+
+
+# ─────────────────────────────────────────────────────────────
+# 3. CATBOOST HYPERPARAMETER GRID
+# ─────────────────────────────────────────────────────────────
+
+param_grid = {
+    "iterations":    [500, 1000],
+    "learning_rate": [0.05, 0.1],
+    "depth":         [6, 8],
+    "l2_leaf_reg":   [3, 5, 10],
 }
 
 
-def get_best_model_random(X, y, name):
-    print(f"\n>>> 正在寻优 {name} 模型 (样本数: {len(X)})...")
-    random_search = RandomizedSearchCV(
-        xgb.XGBRegressor(random_state=42, tree_method='hist'),
-        param_distributions=param_dist,
-        n_iter=30,  # 可根据时间调大
-        cv=3,
-        scoring='r2',
-        n_jobs=-1,
-        random_state=42,
-        verbose=0
+def tune_catboost(X_train, y_train, name: str) -> CatBoostRegressor:
+    print(f"\n>>> Tuning CatBoost for [{name}] (n={len(X_train)}) ...")
+    base_model = CatBoostRegressor(
+        random_seed=42,
+        verbose=0,
+        eval_metric="R2",
     )
-    random_search.fit(X, y)
-    print(f"[{name}] 最佳参数: {random_search.best_params_}")
-    return random_search.best_estimator_
+    gs = GridSearchCV(
+        base_model,
+        param_grid,
+        cv=5,
+        scoring="r2",
+        n_jobs=-1,
+        verbose=0,
+    )
+    gs.fit(X_train, y_train)
+    print(f"  Best params : {gs.best_params_}")
+    print(f"  CV R²       : {gs.best_score_:.4f}")
+    return gs.best_estimator_
 
 
-# --- 改进 B: 训练逻辑 (按目标过滤以保留更多样本) ---
-models = {}
+# ─────────────────────────────────────────────────────────────
+# 4. CHAINED TRAINING
+# ─────────────────────────────────────────────────────────────
+#
+#  Stage 1: 7-day   <- base_features
+#  Stage 2: 28-day  <- base_features + [7day]
+#  Stage 3: 56-day  <- base_features + [28day]
+#
+# Each stage only uses rows that have a valid target value,
+# maximising training data at each stage.
+
+models        = {}
 train_test_data = {}
 
-# 分别为三个目标准备数据并训练
-for target in ['7day', '28day', '56day']:
-    # 确定当前阶段的输入特征
-    if target == '7day':
+for target, prev_target in [("7day", None), ("28day", "7day"), ("56day", "28day")]:
+    if prev_target is None:
         current_features = base_features
-    elif target == '28day':
-        current_features = base_features + ['7day']
-    else:  # 56day
-        current_features = base_features + ['28day']
+    else:
+        current_features = base_features + [prev_target]
 
-    # 仅针对当前有目标值的行进行训练（不强制要求三者都有值，增加 56 天的训练样本）
-    target_df = df.dropna(subset=[target]).copy()
-    if target != '7day':
-        # 确保链式特征（前一阶段强度）也没有空值
-        prev_target = '7day' if target == '28day' else '28day'
-        target_df = target_df.dropna(subset=[prev_target])
+    # Keep only rows with valid target (and valid chain input if needed)
+    subset = df.dropna(subset=[target]).copy()
+    if prev_target:
+        subset = subset.dropna(subset=[prev_target])
+
+    X = subset[current_features]
+    y = subset[target]
 
     X_train, X_test, y_train, y_test = train_test_split(
-        target_df[current_features], target_df[target],
-        test_size=0.2, random_state=42
+        X, y, test_size=0.2, random_state=42
     )
 
-    # 训练模型
-    best_model = get_best_model_random(X_train, y_train, target)
-    models[target] = best_model
+    model = tune_catboost(X_train, y_train, target)
+    models[target] = model
+    train_test_data[target] = (X_train, X_test, y_train, y_test,
+                               current_features)
 
-    # 保存该目标的测试集，用于最后的模拟真实推理
-    train_test_data[target] = (X_train, X_test, y_train, y_test)
 
-# --- 改进 C: 全面精度评估 (Train vs Test) ---
-print("\n" + "=" * 50)
-print("各阶段模型拟合度评估 (独立评估):")
-for target in ['7day', '28day', '56day']:
-    X_train, X_test, y_train, y_test = train_test_data[target]
+# ─────────────────────────────────────────────────────────────
+# 5. EVALUATION — INDEPENDENT (each stage uses true prior value)
+# ─────────────────────────────────────────────────────────────
+
+print("\n" + "=" * 55)
+print("Stage-wise evaluation (true prior-stage values as input):")
+print("=" * 55)
+for target, _, in [("7day", None), ("28day", "7day"), ("56day", "28day")]:
+    X_train, X_test, y_train, y_test, _ = train_test_data[target]
     train_r2 = r2_score(y_train, models[target].predict(X_train))
-    test_r2 = r2_score(y_test, models[target].predict(X_test))
-    print(f"[{target:5s}] Train R2: {train_r2:.4f} | Test R2: {test_r2:.4f}")
+    test_r2  = r2_score(y_test,  models[target].predict(X_test))
+    test_mae = mean_absolute_error(y_test, models[target].predict(X_test))
+    print(f"  [{target:5s}]  Train R²={train_r2:.4f}  "
+          f"Test R²={test_r2:.4f}  Test MAE={test_mae:.2f} MPa")
 
-# --- 5. 模拟真实情况测试 (考虑误差累积) ---
-print("\n" + "=" * 50)
-print("开始模拟真实预测场景 (链式预测 + 误差累积评估)...")
 
-# 为了模拟真实预测，我们需要一个包含所有阶段真实值的子集进行链式比对
-# 这里我们取 test_df（三个值全有的行）
-eval_df = df.dropna(subset=['7day', '28day', '56day']).copy()
-_, test_real_df = train_test_split(eval_df, test_size=0.2, random_state=42)
+# ─────────────────────────────────────────────────────────────
+# 6. EVALUATION — CHAINED (simulates real inference with error propagation)
+# ─────────────────────────────────────────────────────────────
 
-# 1. 预测 7天
-test_real_df['pred_7day'] = models['7day'].predict(test_real_df[base_features])
+print("\n" + "=" * 55)
+print("Chained evaluation (simulates real deployment, error propagates):")
+print("=" * 55)
 
-# 2. 预测 28天 (使用预测的 7天结果)
-X_28_sim = test_real_df[base_features].copy()
-X_28_sim['7day'] = test_real_df['pred_7day']
-test_real_df['pred_28day'] = models['28day'].predict(X_28_sim)
+# Use rows that have all three strength values
+eval_df = df.dropna(subset=["7day", "28day", "56day"]).copy()
+_, test_df = train_test_split(eval_df, test_size=0.2, random_state=42)
 
-# 3. 预测 56天 (使用预测的 28天结果)
-X_56_sim = test_real_df[base_features].copy()
-X_56_sim['28day'] = test_real_df['pred_28day']
-test_real_df['pred_56day'] = models['56day'].predict(X_56_sim)
+# Stage 1
+test_df["pred_7day"] = models["7day"].predict(test_df[base_features])
 
-# 6. 计算模拟推理下的 R2
-final_metrics = []
-for day in ['7day', '28day', '56day']:
-    r2 = r2_score(test_real_df[day], test_real_df[f'pred_{day}'])
-    mae = mean_absolute_error(test_real_df[day], test_real_df[f'pred_{day}'])
-    final_metrics.append({'龄期': day, '链式预测测试集 R2': round(r2, 4), 'MAE': round(mae, 4)})
+# Stage 2: use predicted 7-day
+X28 = test_df[base_features].copy()
+X28["7day"] = test_df["pred_7day"]
+test_df["pred_28day"] = models["28day"].predict(X28)
 
-print("\n最终评估结果 (链式推理场景):")
-print(pd.DataFrame(final_metrics))
+# Stage 3: use predicted 28-day
+X56 = test_df[base_features].copy()
+X56["28day"] = test_df["pred_28day"]
+test_df["pred_56day"] = models["56day"].predict(X56)
 
-# 7. 保存
+rows = []
+for day in ["7day", "28day", "56day"]:
+    r2  = r2_score(test_df[day], test_df[f"pred_{day}"])
+    mae = mean_absolute_error(test_df[day], test_df[f"pred_{day}"])
+    rows.append({"Stage": day, "Chained R²": round(r2, 4), "MAE (MPa)": round(mae, 2)})
+
+print(pd.DataFrame(rows).to_string(index=False))
+
+
+# ─────────────────────────────────────────────────────────────
+# 7. SAVE
+# ─────────────────────────────────────────────────────────────
+
 meta = {
-    'models': models,
-    'feature_names': base_features,
-    'engineered_features': ['binder_water_ratio', 'PC_ratio', 'FA_ratio', 'SC_ratio']
+    "models":        models,           # {"7day": model, "28day": model, "56day": model}
+    "feature_names": base_features,    # features for stage 1 (no prior-stage strength)
+    "unit":          "kg/m3",          # inputs must be in kg/m³
 }
-joblib.dump(meta, 'concrete_optimized_chained.pkl')
-print("\n✅ 优化寻优完成！")
+joblib.dump(meta, OUT_PKL)
+print(f"\n✅ Model saved to: {OUT_PKL}")
+print(f"   Feature count : {len(base_features)}")
+print(f"   Input unit    : kg/m³")
+print(f"   Predict call  : predict(meta, mix)  where mix values are in kg/m³")

@@ -179,10 +179,14 @@ def _engineer_one(mix: dict) -> dict:
 def predict(meta: dict, mix: dict) -> dict:
     fn  = meta["feature_names"]
     mdl = meta["models"]
-    # CatBoost was trained on lb/yd³ data — convert back before inference
-    mix_lb = {k: (v / LB_YD3_TO_KG_M3 if k in RAW_VARS else v)
-              for k, v in mix.items()}
-    m   = _engineer_one(mix_lb)
+    # If model was trained on lb/yd³ (old model, no 'unit' key), convert back.
+    # New models trained by utils/train_model.py store unit='kg/m3' and need no conversion.
+    if meta.get("unit", "lb/yd3") == "kg/m3":
+        mix_in = mix
+    else:
+        mix_in = {k: (v / LB_YD3_TO_KG_M3 if k in RAW_VARS else v)
+                  for k, v in mix.items()}
+    m   = _engineer_one(mix_in)
 
     r7  = pd.DataFrame([{k: m.get(k, 0.) for k in fn}])
     p7  = float(mdl["7day"].predict(r7)[0])
