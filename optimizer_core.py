@@ -34,7 +34,8 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
-import google.generativeai as genai
+from google import genai
+from google.genai import types as genai_types
 
 warnings.filterwarnings("ignore")
 
@@ -77,7 +78,7 @@ class ExperimentConfig:
 
     # LLM settings
     gemini_api_key: str = ""
-    gemini_model: str = "gemini-2.5-flash-lite"
+    gemini_model: str = "gemini-2.5-flash"
     temperature: float = 0.9
 
     # GA settings
@@ -1027,7 +1028,8 @@ def compute_metrics(trajectory: list, ga_ref: dict,
 
 def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
             few_shot: list, cfg: ExperimentConfig,
-            memory: list = None, df: pd.DataFrame = None):
+            memory: list = None, df: pd.DataFrame = None,
+            on_iter=None):
     """
     Run the LLM iterative optimizer.
     Returns: (trajectory, run_summary, total_catboost_calls)
@@ -1042,19 +1044,20 @@ def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
     print(f"{'='*62}")
 
     sys_prompt = build_system_prompt(raw_b, der_b, few_shot, cfg, memory)
-    genai.configure(api_key=cfg.gemini_api_key)
+    _client = genai.Client(api_key=cfg.gemini_api_key)
 
-    def _make_model(temp):
-        return genai.GenerativeModel(
-            model_name=cfg.gemini_model,
-            system_instruction=sys_prompt,
-            generation_config=genai.types.GenerationConfig(
-                temperature=temp, max_output_tokens=1024),
+    def _make_chat(temp):
+        return _client.chats.create(
+            model=cfg.gemini_model,
+            config=genai_types.GenerateContentConfig(
+                system_instruction=sys_prompt,
+                temperature=temp,
+                max_output_tokens=1024,
+            ),
         )
 
     cur_temp      = cfg.temperature
-    model         = _make_model(cur_temp)
-    chat          = model.start_chat(history=[])
+    chat          = _make_chat(cur_temp)
     trajectory    = []
     parse_fails   = 0
     restart_count = 0
@@ -1090,8 +1093,7 @@ def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
             restart_count += 1
             mode      = f"RESTART#{restart_count}"
             cur_temp  = cfg.restart_temp
-            model     = _make_model(cur_temp)
-            chat      = model.start_chat(history=[])
+            chat      = _make_chat(cur_temp)
             user_msg  = build_restart_msg(trajectory, ga_ref, restart_count)
             print(f"\n  [!] Stagnation — restart #{restart_count}")
 
@@ -1101,8 +1103,7 @@ def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
         else:
             if cur_temp != cfg.temperature:
                 cur_temp = cfg.temperature
-                model    = _make_model(cur_temp)
-                chat     = model.start_chat(history=[])
+                chat     = _make_chat(cur_temp)
                 feas_sf  = [r for r in trajectory if r["feasible"]]
                 if feas_sf:
                     best = min(feas_sf, key=lambda r: r["gwp"])
@@ -1172,6 +1173,19 @@ def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
             cur_mix, cur_preds, cur_gwp, cur_feas = mix, preds, g, feas
             print(f"  {'--':>4}  {preds['28day']:8.2f}  {g:8.2f}  "
                   f"{'infeasible':>9}  {mode}[retry {inner_retry}]")
+            if on_iter:
+                on_iter({
+                    "iteration": it,
+                    "mode": mode,
+                    "reasoning": reasoning,
+                    **mix,
+                    "pred_7day": preds["7day"],
+                    "pred_28day": preds["28day"],
+                    "pred_56day": preds["56day"],
+                    "gwp": g,
+                    "str_margin": round(preds["28day"] - cfg.strength_min, 2),
+                    "feasible": False,
+                })
 
             if consec_fail >= 30:
                 print(f"  [!] 30 consecutive infeasible attempts — aborting.")
@@ -1258,6 +1272,8 @@ def run_llm(raw_b: dict, der_b: dict, meta: dict, ga_ref: dict,
             "feasible":     True,
         }
         trajectory.append(record)
+        if on_iter:
+            on_iter(record)
 
         gap_s = f"{gwp_gap:+.2f}" if not np.isnan(gwp_gap) else "   n/a"
         print(f"  {it:4d}  {preds['28day']:8.2f}  {g:8.2f}  {gap_s:>9}  {mode}")
