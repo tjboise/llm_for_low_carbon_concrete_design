@@ -66,7 +66,7 @@ A generated mix is feasible only if **all** of the following hold (checked after
 | Ratio bounds | min/max of w/b, b/a, SCM%, CAGG%, FAGG%, PC%, FA%, SC%, and the four admixture `*_pct` (key `derived`). |
 | Volume balance | `0.95 ≤ Vfinal ≤ 1.05` (key `physics.Vfinal`). Also Vagg and TOTAL_BINDER dataset ranges. |
 | Strength | predicted 28-day strength ≥ the experiment's strength floor. |
-| Durability | predicted probability of passing RCPT at 28 days ≥ 0.5, meaning coulomb < **1200 C**. |
+| Durability | chloride classifier probability of passing RCPT at 28 days (coulomb < **1200 C**) ≥ **0.7** (`durability.min_pass_probability`). |
 
 Why 1200 C: the Port Authority (NY/NJ) Low Carbon Concrete Pilot Program states a maximum of 1200 C at 28 days
 for its structural categories (1700 C for marine). Taken from search summaries of the Task A and Task B reports. Verify the
@@ -95,14 +95,15 @@ Hold-out results (`models/metrics.json`):
 | 28 d | 139 | 0.89 | **0.73** | 4.6 |
 | 56 d | 56 | 0.87 | 0.73 | 5.4 |
 
-The optimizer uses chained inference, so the **chained numbers are the relevant ones**. The 7-day stage is the weak link
-and degrades the 28-day prediction.
+The headline metric chosen for the paper is the stage-wise 28-day R² = 0.89 (true 7-day strength as input); the paper must state that
+premise. At deployment the optimizer uses chained inference (predicted 7-day input), where 28-day R² is 0.73, so keep both numbers.
+A direct 28-day model from raw features gives R² 0.755 (MAE 4.4), i.e. no better.
 
 ### Chloride: CatBoost classifier (`models/chloride_clf.pkl`)
 - Target: 28-day RCPT < 1200 C (binary), 156 mixes with a 28-day test, 49% pass.
 - Pickle keys: `model`, `feature_names`, `unit`, `limit`, `age_days`. The final model is refit on all 156 mixes.
-- Test AUC 0.93 and accuracy 0.84 on only 32 mixes (noisy). **5-fold CV on all rows: AUC 0.76, accuracy 0.72.**
-  Quote the CV figures. Treat this model as a soft screen; compliance still needs a lab test.
+- Test AUC 0.93 and accuracy 0.84 on only 32 mixes (noisy). **5-fold CV on all rows: AUC 0.76, accuracy 0.72 at threshold 0.5.**
+  Quote the CV figures. Threshold choice (CV, 79 failing mixes of 156): 0.5 → acc 0.72, 22 false passes; 0.6 → acc 0.74, 16; **0.7 → acc 0.74, precision 0.79, recall 0.64, 13 false passes** (chosen: same accuracy as 0.6, fewest failing mixes let through). Treat this model as a soft screen; compliance still needs a lab test.
 
 ## 4. Status and open items
 

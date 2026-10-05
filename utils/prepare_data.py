@@ -163,7 +163,7 @@ def main():
                     "Vagg": {"min": float(vagg.min()), "max": float(vagg.max())},
                     "TOTAL_BINDER": {"min": float(mix["TOTAL_BINDER"].min()),
                                      "max": float(mix["TOTAL_BINDER"].max())}},
-        "durability": {"rcpt_limit_coulomb": RCPT_LIMIT, "age_days": 28},
+        "durability": {"rcpt_limit_coulomb": RCPT_LIMIT, "age_days": 28, "min_pass_probability": 0.7},
         "densities": {k: DENSITIES[k] for k in RAW_VARS},
         "gwp_factors": GWP_FACTORS,
     }
