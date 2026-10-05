@@ -2,6 +2,12 @@
 
 **Rutgers University CAIT** — Single-objective optimization framework using a Gemini LLM guided by a CatBoost surrogate model to minimize Global Warming Potential (GWP) under compressive strength constraints.
 
+> **Important (2026-10):** the data pipeline, design constraints and surrogate models were rebuilt
+> after fixing unit errors (admixtures are oz/yd³, not lb/yd³) and a WR/WR_HR label swap.
+> See [docs/DATA_AND_MODELS.md](docs/DATA_AND_MODELS.md) for the current, authoritative description.
+> `optimizer_core.py`, `app.py`, `run_experiment.py`, `results/` and `pictures/` below still reflect the
+> old data and must be migrated and rerun; do not trust their numbers.
+
 ## Overview
 
 This project implements an iterative LLM optimizer that proposes concrete mix designs, evaluates them with a trained CatBoost surrogate (predicting 7/28/56-day strength), and refines proposals based on structured feedback — including domain knowledge injection, RAG retrieval, and few-shot examples.
@@ -10,7 +16,10 @@ This project implements an iterative LLM optimizer that proposes concrete mix de
 
 ```
 ├── optimizer_core.py          # Core LLM optimizer (single-objective)
-├── train_model.py             # CatBoost chained surrogate training
+├── utils/prepare_data.py      # raw data -> SI dataset + constraints (current)
+├── utils/train_model.py       # strength chain + chloride classifier (current)
+├── models/                    # strength_chain.pkl, chloride_clf.pkl, metrics.json (current)
+├── docs/DATA_AND_MODELS.md    # data, constraints, surrogates
 ├── app.py                     # Flask web demo (real-time SSE streaming)
 ├── templates/index.html       # Web UI (Predict + Optimize tabs)
 ├── data/

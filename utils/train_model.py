@@ -1,223 +1,138 @@
 """
 train_model.py
 ==============
-Train a chained CatBoost surrogate model for concrete compressive strength.
+Train the two surrogate models used by the optimizer.
 
-Architecture (CatBoost-Chain, as described in the paper):
-  Stage 1: predict 7-day  strength  <- raw mix features only
-  Stage 2: predict 28-day strength  <- raw mix features + predicted 7-day
-  Stage 3: predict 56-day strength  <- raw mix features + predicted 28-day
+1. Strength: chained CatBoost regressors (7d -> 28d -> 56d).
+     Training  : stage k uses the TRUE strength of stage k-1 as an input feature.
+     Inference : stage k uses the PREDICTED strength of stage k-1 (errors propagate).
+     One 80/20 split of mixes is shared by all stages and by the chloride model;
+     stage-wise (true input) and chained (predicted input) test metrics are both reported.
+2. Chloride: CatBoost classifier for the 28-day RCPT result (pass = coulomb < 1200, i.e. Low or better).
 
-Unit convention:
-  Raw data is in lb/yd³. This script converts to kg/m³ at load time
-  (× 0.5933) so the saved model expects kg/m³ inputs — consistent with
-  optimizer_core.py after its load_df() conversion.
+Data: data/Concrete_Dataset_SI.xlsx (built by utils/prepare_data.py, all quantities in kg/m3).
 
 Output:
-  ../concrete_catboost_optimized.pkl
-    keys: models, feature_names, unit
+  models/strength_chain.pkl     keys: models, feature_names, unit
+  models/chloride_clf.pkl       keys: model, feature_names, unit, limit
+  models/metrics.json           hold-out and cross-validation metrics (for the paper)
 
-Usage:
-  cd utils/
-  python train_model.py
+Usage:  python utils/train_model.py
 """
-
-import sys
+import json
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
+import joblib
 import numpy as np
 import pandas as pd
-import joblib
-from catboost import CatBoostRegressor
-from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.metrics import r2_score, mean_absolute_error
+from catboost import CatBoostClassifier, CatBoostRegressor
+from sklearn.metrics import (accuracy_score, mean_absolute_error, r2_score,
+                             roc_auc_score)
+from sklearn.model_selection import (GridSearchCV, StratifiedKFold, cross_val_predict,
+                                     train_test_split)
 
-# ─────────────────────────────────────────────────────────────
-# CONSTANTS  (must match optimizer_core.py)
-# ─────────────────────────────────────────────────────────────
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+DATA_XLSX = os.path.join(ROOT, "data", "Concrete_Dataset_SI.xlsx")
+OUT_DIR = os.path.join(ROOT, "models")
+SEED = 42
 
-LB_YD3_TO_KG_M3 = 0.5933
 RAW_VARS = ["PC", "FA", "SC", "FAGG", "CAGG", "WATER", "AEA", "WR_HR", "WR", "ACC"]
-DATA_PATH = "../data/Super_Cleaned_Concrete_Data_model_train.csv"
-OUT_PKL   = "../concrete_catboost_optimized.pkl"
+FEATURES = (RAW_VARS + ["TOTAL_BINDER", "w/b", "b/a", "SCM%", "CAGG%", "FAGG%", "PC%", "FA%", "SC%",
+                        "AEA_pct", "WR_HR_pct", "WR_pct", "ACC_pct"])
+RCPT_LIMIT = 1200
+
+REG_GRID = {"iterations": [500, 1000], "learning_rate": [0.05, 0.1],
+            "depth": [6, 8], "l2_leaf_reg": [3, 5, 10]}
+CLF_GRID = {"iterations": [300, 600], "learning_rate": [0.03, 0.05, 0.1],
+            "depth": [4, 6], "l2_leaf_reg": [3, 5, 10]}
 
 
-# ─────────────────────────────────────────────────────────────
-# 1. LOAD & CONVERT DATA
-# ─────────────────────────────────────────────────────────────
+def train_strength(df: pd.DataFrame, train_idx, test_idx) -> dict:
+    """Chained 7d -> 28d -> 56d regressors, one train/test split of mixes shared by all stages."""
+    tr, te = df.loc[train_idx], df.loc[test_idx]
+    models = {}
+    for target, prev in [("7day", None), ("28day", "7day"), ("56day", "28day")]:
+        feats = FEATURES + ([prev] if prev else [])
+        sub = tr.dropna(subset=[target] + ([prev] if prev else []))
+        print(f"\n>>> Tuning [{target}] n_train={len(sub)}")
+        gs = GridSearchCV(CatBoostRegressor(random_seed=SEED, verbose=0), REG_GRID,
+                          cv=5, scoring="r2", n_jobs=-1)
+        gs.fit(sub[feats], sub[target])
+        print(f"  best {gs.best_params_}  CV R2={gs.best_score_:.4f}")
+        models[target] = gs.best_estimator_
 
-print("Loading data ...")
-df = pd.read_csv(DATA_PATH)
-print(f"  Raw rows: {len(df)}")
+    metrics = {"stagewise": {}, "chained": {}}
+    # (a) stage-wise: true previous-stage strength as input
+    for target, prev in [("7day", None), ("28day", "7day"), ("56day", "28day")]:
+        feats = FEATURES + ([prev] if prev else [])
+        t_ = te.dropna(subset=[target] + ([prev] if prev else []))
+        p = models[target].predict(t_[feats])
+        metrics["stagewise"][target] = {"n_test": len(t_), "r2": round(r2_score(t_[target], p), 4),
+                                        "mae": round(mean_absolute_error(t_[target], p), 3)}
+        print(f"  stagewise [{target}] {metrics['stagewise'][target]}")
+    # (b) chained: predicted previous-stage strength is propagated (deployment setting)
+    te = te.copy()
+    te["p7"] = models["7day"].predict(te[FEATURES])
+    te["p28"] = models["28day"].predict(te[FEATURES].assign(**{"7day": te["p7"]}))
+    te["p56"] = models["56day"].predict(te[FEATURES].assign(**{"28day": te["p28"]}))
+    for day, col in [("7day", "p7"), ("28day", "p28"), ("56day", "p56")]:
+        t_ = te.dropna(subset=[day])
+        metrics["chained"][day] = {"n_test": len(t_), "r2": round(r2_score(t_[day], t_[col]), 4),
+                                   "mae": round(mean_absolute_error(t_[day], t_[col]), 3)}
+        print(f"  chained   [{day}] {metrics['chained'][day]}")
 
-# Convert ingredients from lb/yd³ to kg/m³
-for col in RAW_VARS:
-    if col in df.columns:
-        df[col] = df[col] * LB_YD3_TO_KG_M3
-
-print(f"  Unit conversion applied: lb/yd³ × {LB_YD3_TO_KG_M3} = kg/m³")
-print(f"  PC range: [{df['PC'].min():.1f}, {df['PC'].max():.1f}] kg/m³")
-print(f"  WATER range: [{df['WATER'].min():.1f}, {df['WATER'].max():.1f}] kg/m³")
-
-
-# ─────────────────────────────────────────────────────────────
-# 2. FEATURE ENGINEERING  (identical to optimizer_core._engineer_one)
-# ─────────────────────────────────────────────────────────────
-
-e = 1e-9
-tb  = df["PC"] + df["FA"] + df["SC"]
-agg = df["FAGG"] + df["CAGG"]
-
-df["TOTAL_BINDER"] = tb
-df["w/b"]   = df["WATER"] / (tb + e)
-df["b/a"]   = tb / (agg + e)
-df["SCM%"]  = (df["FA"] + df["SC"]) / (tb + e)
-df["CAGG%"] = df["CAGG"] / (agg + e)
-df["FAGG%"] = df["FAGG"] / (agg + e)
-df["PC%"]   = df["PC"]   / (tb + e)
-df["FA%"]   = df["FA"]   / (tb + e)
-df["SC%"]   = df["SC"]   / (tb + e)
-
-# Base feature set: raw ingredients + derived ratios (no strength columns)
-base_features = [col for col in df.columns
-                 if col not in ["7day", "28day", "56day"]]
-
-print(f"\nFeatures ({len(base_features)}): {base_features}")
+    joblib.dump({"models": models, "feature_names": FEATURES, "unit": "kg/m3"},
+                os.path.join(OUT_DIR, "strength_chain.pkl"))
+    return metrics
 
 
-# ─────────────────────────────────────────────────────────────
-# 3. CATBOOST HYPERPARAMETER GRID
-# ─────────────────────────────────────────────────────────────
+def train_chloride(df: pd.DataFrame, train_idx, test_idx) -> dict:
+    """Binary classifier: 28-day RCPT < RCPT_LIMIT coulombs."""
+    sub = df.dropna(subset=["RCPT_28d"]).copy()
+    sub["y"] = (sub["RCPT_28d"] < RCPT_LIMIT).astype(int)
+    X, y = sub[FEATURES], sub["y"]
+    print(f"\n>>> Chloride classifier  n={len(sub)}  pass rate={y.mean():.2f}")
 
-param_grid = {
-    "iterations":    [500, 1000],
-    "learning_rate": [0.05, 0.1],
-    "depth":         [6, 8],
-    "l2_leaf_reg":   [3, 5, 10],
-}
+    is_tr = sub.index.isin(train_idx)           # same mix split as the strength model
+    Xtr, Xte, ytr, yte = X[is_tr], X[~is_tr], y[is_tr], y[~is_tr]
+    cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
+    gs = GridSearchCV(CatBoostClassifier(random_seed=SEED, verbose=0), CLF_GRID,
+                      cv=cv, scoring="roc_auc", n_jobs=-1)
+    gs.fit(Xtr, ytr)
+    print(f"  best {gs.best_params_}  CV AUC={gs.best_score_:.4f}")
+    clf = gs.best_estimator_
+    prob = clf.predict_proba(Xte)[:, 1]
+    metrics = {"n": len(sub), "n_train": len(Xtr), "n_test": len(Xte),
+               "pass_rate": round(float(y.mean()), 3),
+               "cv_auc_train": round(gs.best_score_, 4),
+               "test_auc": round(roc_auc_score(yte, prob), 4),
+               "test_acc": round(accuracy_score(yte, prob >= 0.5), 4)}
+    # cross-validated estimate on all rows with the selected hyper-parameters
+    p_all = cross_val_predict(CatBoostClassifier(random_seed=SEED, verbose=0, **gs.best_params_),
+                              X, y, cv=cv, method="predict_proba")[:, 1]
+    metrics["cv_auc_all"] = round(roc_auc_score(y, p_all), 4)
+    metrics["cv_acc_all"] = round(accuracy_score(y, p_all >= 0.5), 4)
+    print(f"  {metrics}")
 
-
-def tune_catboost(X_train, y_train, name: str) -> CatBoostRegressor:
-    print(f"\n>>> Tuning CatBoost for [{name}] (n={len(X_train)}) ...")
-    base_model = CatBoostRegressor(
-        random_seed=42,
-        verbose=0,
-        eval_metric="R2",
-    )
-    gs = GridSearchCV(
-        base_model,
-        param_grid,
-        cv=5,
-        scoring="r2",
-        n_jobs=-1,
-        verbose=0,
-    )
-    gs.fit(X_train, y_train)
-    print(f"  Best params : {gs.best_params_}")
-    print(f"  CV R²       : {gs.best_score_:.4f}")
-    return gs.best_estimator_
-
-
-# ─────────────────────────────────────────────────────────────
-# 4. CHAINED TRAINING
-# ─────────────────────────────────────────────────────────────
-#
-#  Stage 1: 7-day   <- base_features
-#  Stage 2: 28-day  <- base_features + [7day]
-#  Stage 3: 56-day  <- base_features + [28day]
-#
-# Each stage only uses rows that have a valid target value,
-# maximising training data at each stage.
-
-models        = {}
-train_test_data = {}
-
-for target, prev_target in [("7day", None), ("28day", "7day"), ("56day", "28day")]:
-    if prev_target is None:
-        current_features = base_features
-    else:
-        current_features = base_features + [prev_target]
-
-    # Keep only rows with valid target (and valid chain input if needed)
-    subset = df.dropna(subset=[target]).copy()
-    if prev_target:
-        subset = subset.dropna(subset=[prev_target])
-
-    X = subset[current_features]
-    y = subset[target]
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
-
-    model = tune_catboost(X_train, y_train, target)
-    models[target] = model
-    train_test_data[target] = (X_train, X_test, y_train, y_test,
-                               current_features)
+    clf.fit(X, y)       # final model on all 28-day mixes
+    joblib.dump({"model": clf, "feature_names": FEATURES, "unit": "kg/m3",
+                 "limit": RCPT_LIMIT, "age_days": 28},
+                os.path.join(OUT_DIR, "chloride_clf.pkl"))
+    return metrics
 
 
-# ─────────────────────────────────────────────────────────────
-# 5. EVALUATION — INDEPENDENT (each stage uses true prior value)
-# ─────────────────────────────────────────────────────────────
-
-print("\n" + "=" * 55)
-print("Stage-wise evaluation (true prior-stage values as input):")
-print("=" * 55)
-for target, _, in [("7day", None), ("28day", "7day"), ("56day", "28day")]:
-    X_train, X_test, y_train, y_test, _ = train_test_data[target]
-    train_r2 = r2_score(y_train, models[target].predict(X_train))
-    test_r2  = r2_score(y_test,  models[target].predict(X_test))
-    test_mae = mean_absolute_error(y_test, models[target].predict(X_test))
-    print(f"  [{target:5s}]  Train R²={train_r2:.4f}  "
-          f"Test R²={test_r2:.4f}  Test MAE={test_mae:.2f} MPa")
+def main():
+    os.makedirs(OUT_DIR, exist_ok=True)
+    df = pd.read_excel(DATA_XLSX, sheet_name="mix_level")
+    print(f"Mixes: {len(df)}")
+    train_idx, test_idx = train_test_split(df.index, test_size=0.2, random_state=SEED)
+    metrics = {"split": {"n_train_mixes": len(train_idx), "n_test_mixes": len(test_idx), "seed": SEED},
+               "strength": train_strength(df, train_idx, test_idx),
+               "chloride": train_chloride(df, train_idx, test_idx)}
+    with open(os.path.join(OUT_DIR, "metrics.json"), "w") as f:
+        json.dump(metrics, f, indent=2)
+    print(f"\nSaved models and metrics to {OUT_DIR}")
 
 
-# ─────────────────────────────────────────────────────────────
-# 6. EVALUATION — CHAINED (simulates real inference with error propagation)
-# ─────────────────────────────────────────────────────────────
-
-print("\n" + "=" * 55)
-print("Chained evaluation (simulates real deployment, error propagates):")
-print("=" * 55)
-
-# Use rows that have all three strength values
-eval_df = df.dropna(subset=["7day", "28day", "56day"]).copy()
-_, test_df = train_test_split(eval_df, test_size=0.2, random_state=42)
-
-# Stage 1
-test_df["pred_7day"] = models["7day"].predict(test_df[base_features])
-
-# Stage 2: use predicted 7-day
-X28 = test_df[base_features].copy()
-X28["7day"] = test_df["pred_7day"]
-test_df["pred_28day"] = models["28day"].predict(X28)
-
-# Stage 3: use predicted 28-day
-X56 = test_df[base_features].copy()
-X56["28day"] = test_df["pred_28day"]
-test_df["pred_56day"] = models["56day"].predict(X56)
-
-rows = []
-for day in ["7day", "28day", "56day"]:
-    r2  = r2_score(test_df[day], test_df[f"pred_{day}"])
-    mae = mean_absolute_error(test_df[day], test_df[f"pred_{day}"])
-    rows.append({"Stage": day, "Chained R²": round(r2, 4), "MAE (MPa)": round(mae, 2)})
-
-print(pd.DataFrame(rows).to_string(index=False))
-
-
-# ─────────────────────────────────────────────────────────────
-# 7. SAVE
-# ─────────────────────────────────────────────────────────────
-
-meta = {
-    "models":        models,           # {"7day": model, "28day": model, "56day": model}
-    "feature_names": base_features,    # features for stage 1 (no prior-stage strength)
-    "unit":          "kg/m3",          # inputs must be in kg/m³
-}
-joblib.dump(meta, OUT_PKL)
-print(f"\n✅ Model saved to: {OUT_PKL}")
-print(f"   Feature count : {len(base_features)}")
-print(f"   Input unit    : kg/m³")
-print(f"   Predict call  : predict(meta, mix)  where mix values are in kg/m³")
+if __name__ == "__main__":
+    main()

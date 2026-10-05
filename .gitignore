@@ -27,3 +27,10 @@ faiss_index/
 *.xlsx
 PDFs/
 standard/
+
+# Tracked data and models needed for reproducibility
+!data/Concrete_Dataset_SI.xlsx
+!data/classified_chloride_Classification.xlsx
+!data/constraints.json
+!models/*.pkl
+!models/metrics.json

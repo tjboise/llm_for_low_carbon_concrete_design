@@ -1,0 +1,54 @@
+{
+  "split": {
+    "n_train_mixes": 554,
+    "n_test_mixes": 139,
+    "seed": 42
+  },
+  "strength": {
+    "stagewise": {
+      "7day": {
+        "n_test": 139,
+        "r2": 0.7002,
+        "mae": 4.075
+      },
+      "28day": {
+        "n_test": 139,
+        "r2": 0.8921,
+        "mae": 2.962
+      },
+      "56day": {
+        "n_test": 56,
+        "r2": 0.8673,
+        "mae": 3.505
+      }
+    },
+    "chained": {
+      "7day": {
+        "n_test": 139,
+        "r2": 0.7002,
+        "mae": 4.075
+      },
+      "28day": {
+        "n_test": 139,
+        "r2": 0.7296,
+        "mae": 4.613
+      },
+      "56day": {
+        "n_test": 56,
+        "r2": 0.7315,
+        "mae": 5.352
+      }
+    }
+  },
+  "chloride": {
+    "n": 156,
+    "n_train": 124,
+    "n_test": 32,
+    "pass_rate": 0.494,
+    "cv_auc_train": 0.7072,
+    "test_auc": 0.9336,
+    "test_acc": 0.8438,
+    "cv_auc_all": 0.7598,
+    "cv_acc_all": 0.7179
+  }
+}
