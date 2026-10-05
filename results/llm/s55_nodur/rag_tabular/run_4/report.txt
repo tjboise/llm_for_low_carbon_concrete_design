@@ -1,0 +1,60 @@
+Experiment: rag_tabular   rag_tabular | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 336
+  rcalls                : 0.0168
+  api_calls             : 336
+  prompt_tokens         : 39261685
+  completion_tokens     : 71510
+  llm_time_s            : 423.23
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3508
+  QER                   : 0.2151
+  MCE                   : 0.1642
+  best_gwp              : 196.79
+  ga_gwp                : 145.68
+  gwp_gap               : 51.11
+  convergence_iter      : 8
+  str_margin_at_best    : 0.2
+  feasibility_rate      : 0.0893
+  scenario              : s55_nodur
+  method                : rag_tabular
+  run                   : 4
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=269.06 28d=55.6 (exploit): Strength is compliant at 55.53 MPa. Vfinal is at the lower limit of 0.950, meaning it's slightly too low. I need to increase the volume slightly. To achieve this with minimal GWP increase and maintain strength, I will slightly increase aggregates (FAGG/CAGG). Then, to reduce GWP, I will swap PC for SC. This is a Path 1 strategy and should reduce GWP while maintaining strength.
+[2] GWP=259.67 28d=55.5 (exploit): Strength is compliant at 55.6 MPa. Vfinal is 0.052 short. I will increase aggregates (FAGG/CAGG) to meet the Vfinal target of 0.95. This will have a small positive impact on GWP, but is necessary for feasibility.
+[3] GWP=235.18 28d=55.9 (exploit): Strength is compliant at 55.9 MPa. Vfinal is 0.052 short. I will increase aggregates (FAGG/CAGG) to meet the Vfinal target of 0.95. This will have a small positive impact on GWP, but is necessary for feasibility. The GWP has decreased significantly due to the PC->SC swap.
+[4] GWP=223.98 28d=55.5 (exploit): Strength is 0.3 MPa below the 55 MPa floor. ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and the slight strength shortfall, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[5] GWP=214.57 28d=55.1 (exploit): The current mix is feasible with a GWP of 223.98 kg/m³ and a strength margin of 0.54 MPa. Following SITUATION B, I will first reduce WATER to improve strength without GWP cost. Then, I will swap a larger increment of PC for SC (12 kg/m³) to achieve a more significant GWP reduction, ensuring strength remains above 55 MPa.
+[6] GWP=205.16 28d=55.4 (exploit): The current mix is feasible with a GWP of 214.57 kg/m³ and a strength margin of 0.13 MPa. Following SITUATION B, I will first reduce WATER to improve strength without GWP cost. Then, I will swap a larger increment of PC for SC (12 kg/m³) to achieve a more significant GWP reduction, ensuring strength remains above 55 MPa.
+[7] GWP=197.32 28d=55.2 (exploit): Strength is compliant at 55.1 MPa and Vfinal is 0.953. However, ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will slightly increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[8] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.1 MPa and Vfinal is 0.953. However, ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will slightly increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[9] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[10] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[11] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[12] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[13] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[14] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[15] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[16] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.1 MPa and Vfinal is 0.953. However, ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[17] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[18] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[19] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[20] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[21] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[22] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[23] GWP=198.36 28d=55.2 (exploit): Strength is just below the 55 MPa floor, and ACC_pct violates its bound. I will reduce ACC to comply. To compensate for strength loss from reduced ACC and the slight shortfall, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also reduce WATER to its lower bound to maximize strength.
+[24] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.1 MPa and Vfinal is 0.953. However, ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[25] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[26] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.1 MPa and Vfinal is 0.953. However, ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[27] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[28] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[29] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.
+[30] GWP=196.79 28d=55.2 (exploit): Strength is compliant at 55.06 MPa, but ACC_pct violates its bound. I will reduce ACC to comply with its bound. To compensate for the strength loss from reduced ACC and to maintain strength, I will increase PC. This will increase GWP, but is necessary to meet constraints. I will also slightly reduce WATER to maintain strength.

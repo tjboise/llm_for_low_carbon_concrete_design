@@ -1,0 +1,60 @@
+Experiment: rag_text   rag_text | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 93
+  rcalls                : 0.00465
+  api_calls             : 93
+  prompt_tokens         : 4099722
+  completion_tokens     : 22279
+  llm_time_s            : 91.17
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3731
+  QER                   : 1.1773
+  MCE                   : 0.4001
+  best_gwp              : 200.04
+  ga_gwp                : 145.68
+  gwp_gap               : 54.36
+  convergence_iter      : 22
+  str_margin_at_best    : 4.75
+  feasibility_rate      : 0.3226
+  scenario              : s55_nodur
+  method                : rag_text
+  run                   : 2
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=309.53 28d=55.7 (exploit): The ACC_pct (0.0694) constraint is violated. The current mix is feasible in terms of strength and Vfinal. To address the ACC violation, I will reduce ACC by 5 kg/m³ to 20 kg/m³. This will likely decrease strength, so to compensate, I will reduce WATER by 3 kg/m³ and slightly increase PC by 5 kg/m³. This aims to maintain strength feasibility while fixing the ACC violation and making a small reduction in GWP by decreasing ACC.
+[2] GWP=303.04 28d=58.5 (exploit): Vfinal (0.950) is still at the minimum acceptable value and is considered short. Strength and GWP are excellent. I will add 1 kg/m³ of CAGG to bring Vfinal slightly above 0.95, ensuring it meets the constraint. This adjustment has a negligible impact on GWP and strength.
+[3] GWP=296.55 28d=58.5 (exploit): Vfinal (0.947) is below the minimum 0.95 requirement. Strength (58.7 MPa) and GWP (296.5 kg CO₂-eq/m³) are good. To correct the volume, I will add 8 kg/m³ of CAGG. This adjustment is solely to meet the volume constraint and will have a negligible impact on GWP and strength.
+[4] GWP=290.06 28d=57.6 (exploit): Vfinal (0.947) is below the minimum 0.95 requirement. Strength and GWP are acceptable. To correct the volume deficit, I will add 8 kg/m³ of CAGG. This adjustment is purely to meet the volume constraint and has a minimal impact on GWP and strength.
+[5] GWP=283.57 28d=61.2 (exploit): Vfinal (0.947) is below the minimum 0.95 requirement. Strength and GWP are good. To address the volume deficit, I will add 8 kg/m³ of CAGG. This adjustment is solely to meet the volume constraint and will have a negligible impact on GWP and strength.
+[6] GWP=277.08 28d=60.5 (exploit): Vfinal (0.950) is at the minimum acceptable value. Strength and GWP are good. To ensure Vfinal is slightly above 0.95, I will add a minimal amount of CAGG (1 kg/m³). This adjustment is to ensure the constraint is comfortably met and has a negligible impact on GWP and strength.
+[7] GWP=270.57 28d=59.8 (exploit): Vfinal (0.949) is below the minimum 0.95 requirement. Strength and GWP are good. To address the volume deficit, I will add 2 kg/m³ of CAGG. This adjustment is solely to meet the volume constraint and will have a negligible impact on GWP and strength.
+[8] GWP=264.08 28d=63.0 (exploit): Vfinal (0.947) is below the minimum 0.95 requirement, and w/b (0.2325) is below the minimum 0.2353. Strength and GWP are good. To fix Vfinal, I will add 8 kg/m³ of CAGG. To fix w/b, I will increase WATER by 2 kg/m³ (to 95 kg/m³). These adjustments should maintain strength and GWP while satisfying the constraints.
+[9] GWP=252.32 28d=62.6 (exploit): The w/b ratio (0.2350) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 95 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[10] GWP=240.56 28d=61.7 (exploit): The w/b ratio (0.2350) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 95 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[11] GWP=228.80 28d=61.5 (exploit): The w/b ratio (0.2350) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 95 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[12] GWP=217.04 28d=60.8 (exploit): The w/b ratio (0.2350) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 95 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[13] GWP=205.28 28d=59.9 (exploit): The w/b ratio (0.2350) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 95 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[14] GWP=201.36 28d=59.8 (exploit): The w/b ratio (0.2350) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 95 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[15] GWP=201.36 28d=59.8 (exploit): The w/b ratio (0.2350) is still just below the minimum, and SC% (0.7250) is slightly above its limit. Strength and GWP are good. To fix w/b, I will increase WATER by 1 kg/m³ to 95 kg/m³. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. These adjustments aim to bring all values within limits while maintaining feasibility.
+[16] GWP=201.36 28d=59.8 (exploit): The w/b ratio (0.2350) is slightly below the minimum and SC% (0.7250) is slightly above its limit. Strength is good, and GWP is reduced. To fix w/b, I will increase WATER by 1 kg/m³ to 95 kg/m³. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. These adjustments aim to bring all values within limits while maintaining feasibility and continuing GWP reduction.
+[17] GWP=201.36 28d=59.8 (exploit): The SC% (0.7375) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 10 kg/m³ and increase PC by 10 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[18] GWP=202.68 28d=59.9 (exploit): The w/b ratio (0.2346) is still just below the minimum requirement of 0.2353. Strength and GWP are good. To fix this, I will increase WATER by 1 kg/m³ to 96 kg/m³. This slight increase will bring the w/b ratio into compliance. The impact on strength and GWP will be minimal.
+[19] GWP=201.89 28d=60.0 (exploit): The w/b ratio (0.2289) is below the minimum. Strength and GWP are good. To fix w/b, I will increase WATER by 3 kg/m³ to 95 kg/m³. This should bring the w/b ratio into compliance. The GWP will slightly increase but should remain competitive.
+[20] GWP=201.36 28d=59.8 (exploit): The SC% (0.7250) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[21] GWP=201.36 28d=59.8 (exploit): The SC% (0.7250) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[22] GWP=200.04 28d=59.8 (exploit): The SC% (0.7342) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 10 kg/m³ and increase PC by 10 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[23] GWP=201.36 28d=59.8 (exploit): The SC% (0.7250) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[24] GWP=201.36 28d=59.8 (exploit): The w/b ratio (0.2300) is below the minimum. Strength and GWP are good. To fix w/b, I will increase WATER by 3 kg/m³ to 95 kg/m³. This should bring the w/b ratio into compliance. The GWP will slightly increase but should remain competitive.
+[25] GWP=200.04 28d=59.8 (exploit): The SC% (0.7342) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 10 kg/m³ and increase PC by 10 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[26] GWP=201.36 28d=59.8 (exploit): The SC% (0.7250) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[27] GWP=201.36 28d=59.8 (exploit): The w/b ratio (0.2300) is below the minimum. Strength and GWP are good. To fix w/b, I will increase WATER by 3 kg/m³ to 95 kg/m³. This should bring the w/b ratio into compliance. The GWP will slightly increase but should remain competitive.
+[28] GWP=200.04 28d=59.8 (exploit): The SC% (0.7342) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 10 kg/m³ and increase PC by 10 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[29] GWP=201.36 28d=59.8 (exploit): The SC% (0.7250) is slightly above its limit. Strength, GWP, and w/b are acceptable. To fix SC%, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. This adjustment aims to bring SC% within limits while maintaining feasibility and continuing GWP reduction.
+[30] GWP=201.36 28d=59.8 (exploit): The w/b ratio (0.2300) is below the minimum. Strength and GWP are good. To fix w/b, I will increase WATER by 3 kg/m³ to 95 kg/m³. This should bring the w/b ratio into compliance. The GWP will slightly increase but should remain competitive.

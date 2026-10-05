@@ -1,0 +1,53 @@
+Experiment: baseline   baseline | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 23
+  n_feasible            : 23
+  surrogate_evals       : 85
+  rcalls                : 0.00425
+  api_calls             : 86
+  prompt_tokens         : 1210209
+  completion_tokens     : 18843
+  llm_time_s            : 80.74
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2847
+  QER                   : 2.1407
+  MCE                   : 0.9057
+  best_gwp              : 187.15
+  ga_gwp                : 145.68
+  gwp_gap               : 41.47
+  convergence_iter      : 19
+  str_margin_at_best    : 6.99
+  feasibility_rate      : 0.2706
+  scenario              : s55_nodur
+  method                : baseline
+  run                   : 1
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=369.11 28d=55.0 (exploit): Vfinal is feasible, and strength is now above the floor. However, ACC is still slightly over its percentage limit. Reduce ACC to within bounds. This might slightly reduce strength, so PC is kept high for now. The current path has led to very high GWP, and it's time to consider reducing PC by substituting with SC or FA.
+[2] GWP=362.59 28d=55.1 (exploit): The mix is infeasible due to low strength. Water is at its minimum. ACC is increased to help strength. PC must be increased to meet the 55 MPa target. This will increase GWP, but feasibility is paramount. We are trying to reduce PC, but strength is the immediate constraint. More SC will be introduced later once strength is secured.
+[3] GWP=350.83 28d=55.1 (exploit): The mix is feasible and GWP has decreased. Strength margin is tight. Water is at its minimum. ACC can be reduced slightly. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom.
+[4] GWP=339.07 28d=56.4 (exploit): The mix is feasible and GWP has decreased significantly. Strength margin is tight. Water is at its minimum. ACC can be reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[5] GWP=327.31 28d=58.4 (exploit): The mix is feasible and GWP has decreased further. Strength margin is still a bit tight. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[6] GWP=315.55 28d=59.7 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[7] GWP=303.79 28d=60.0 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[8] GWP=292.03 28d=60.2 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[9] GWP=280.27 28d=61.6 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[10] GWP=268.51 28d=63.0 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[11] GWP=256.75 28d=63.2 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is reduced. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. ACC is reduced to create more headroom and efficiency.
+[12] GWP=244.99 28d=63.0 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is at its minimum. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. This continues the strategy of substituting PC with SC.
+[13] GWP=233.23 28d=63.0 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is at its minimum. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. This continues the strategy of substituting PC with SC.
+[14] GWP=221.47 28d=63.1 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is at its minimum. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. This continues the strategy of substituting PC with SC.
+[15] GWP=209.71 28d=62.5 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is at its minimum. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. This continues the strategy of substituting PC with SC.
+[16] GWP=197.95 28d=61.5 (exploit): The mix is feasible and GWP has decreased further. Strength margin is good. Water is at its minimum. ACC is at its minimum. PC is reduced by 15 kg/m³ and SC is increased by 15 kg/m³ to further reduce GWP while maintaining strength. This continues the strategy of substituting PC with SC.
+[17] GWP=197.95 28d=61.5 (exploit): The mix is feasible for strength and Vfinal, but SC% is now above its limit. To fix this, I need to reduce SC and increase PC. This will increase GWP, but the SC% constraint must be met. I will reduce SC by 15 kg/m³ and increase PC by 15 kg/m³. ACC remains at 0, and water is at its minimum.
+[18] GWP=197.95 28d=61.5 (exploit): The mix is feasible for strength and Vfinal, but SC% is now above its limit. To fix this, I need to reduce SC and increase PC. This will increase GWP, but the SC% constraint must be met. I will reduce SC by 15 kg/m³ and increase PC by 15 kg/m³. ACC remains at 0, and water is at its minimum.
+[19] GWP=187.15 28d=62.0 (exploit): The mix is feasible and GWP is relatively low. Strength margin is good. Water is at its minimum. ACC is at its minimum. SC% is at its maximum allowed limit (0.7174). To further reduce GWP, I must now consider using FA. I will reduce PC by 15 kg/m³ and increase FA by 15 kg/m³. SC will remain at its limit for now. This strategy aims to reduce GWP while maintaining strength and staying within SC% bounds. WR_HR is slightly increased to compensate for potential workability changes from FA.
+[20] GWP=187.60 28d=62.7 (exploit): The mix is infeasible because the w/b ratio is too low. This means water must be increased. Increasing water will decrease strength slightly. To compensate, PC is increased, and FA is slightly decreased to maintain a reasonable binder percentage. This will increase GWP, but w/b and strength are the immediate priorities. WR_HR is reduced slightly as less water reducer may be needed with more water.
+[21] GWP=188.56 28d=63.7 (exploit): The mix is feasible and GWP has slightly increased. Strength margin is good. Water is at its minimum. ACC is at its minimum. PC is at its minimum. To further reduce GWP, I need to increase FA at the expense of SC, as FA has a slightly higher GWP but is the next best option for substitution. PC cannot be reduced further. I will reduce SC by 15 kg/m³ and increase FA by 15 kg/m³ to reduce GWP. WR_HR is slightly increased to maintain workability.
+[22] GWP=189.52 28d=64.5 (exploit): GWP increased, which is the wrong direction. To reduce GWP, I need to swap PC for SC or FA, or reduce water. PC is at its minimum. Water is at its minimum. I will swap SC for FA, as FA is slightly more efficient for GWP reduction. I will reduce SC by 15 kg/m³ and increase FA by 15 kg/m³ to reduce GWP. WR_HR is slightly increased to maintain workability.
+[23] GWP=190.48 28d=65.0 (exploit): GWP increased again, which is the wrong direction. PC is at its minimum, and water is at its minimum. I need to reduce GWP by swapping SC for FA. I will reduce SC by 15 kg/m³ and increase FA by 15 kg/m³. WR_HR is slightly increased to maintain workability.

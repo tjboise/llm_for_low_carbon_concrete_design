@@ -1,0 +1,60 @@
+Experiment: rag_tabular   rag_tabular | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 72
+  rcalls                : 0.0036
+  api_calls             : 72
+  prompt_tokens         : 2421701
+  completion_tokens     : 15871
+  llm_time_s            : 67.17
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3042
+  QER                   : 1.4843
+  MCE                   : 0.3848
+  best_gwp              : 190.0
+  ga_gwp                : 145.68
+  gwp_gap               : 44.32
+  convergence_iter      : 23
+  str_margin_at_best    : 3.17
+  feasibility_rate      : 0.4167
+  scenario              : s55_nodur
+  method                : rag_tabular
+  run                   : 3
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=296.87 28d=55.1 (exploit): Strength is still just below the 55 MPa floor. Water is very low, and ACC is at its maximum. To meet the strength constraint, I must increase PC again. This will increase GWP, but it's the only remaining lever to push strength higher. This is the last iteration for this strategy; if it fails, a significant strategy change might be needed.
+[2] GWP=286.43 28d=55.6 (exploit): Strength is now above 55 MPa, but Vfinal is too low. I will increase aggregates to bring Vfinal into the acceptable range. Since strength is met, and water is very low, I will slightly increase PC to ensure strength margin and maintain SC for GWP reduction. ACC is already at its max.
+[3] GWP=289.09 28d=55.6 (exploit): Strength is adequate, but Vfinal is too low. I will increase aggregates to bring Vfinal into range. Water has been reduced significantly. To maintain strength and achieve Vfinal, I will slightly increase PC and SC, accepting a small GWP increase.
+[4] GWP=280.49 28d=55.3 (exploit): Strength is adequate, but Vfinal is too low. I will increase aggregates to bring Vfinal into the acceptable range. Water is already very low. To maintain strength and achieve Vfinal, I will slightly increase PC and SC. ACC is at its maximum.
+[5] GWP=283.14 28d=55.1 (exploit): Strength is adequate, but Vfinal is too low. I will increase aggregates to bring Vfinal into the acceptable range. Water is at its minimum. To maintain strength and achieve Vfinal, I will slightly increase PC and SC. ACC is at its maximum.
+[6] GWP=275.04 28d=55.2 (exploit): GWP increased in the last iteration, and the strength margin is tight. Water is at its minimum allowed. I will swap some PC for SC, as this is an effective GWP reduction strategy and SC can help maintain strength. I will also slightly increase aggregates to ensure Vfinal stays within bounds, as water cannot be reduced further.
+[7] GWP=290.56 28d=55.3 (exploit): Strength is still below the 55 MPa floor. Water is at its minimum, and ACC is at its maximum. To achieve the required strength, I must increase PC. This will increase GWP. I will also increase SC slightly to support strength development and maintain its beneficial properties.
+[8] GWP=272.24 28d=57.1 (exploit): GWP has increased significantly, and the strength margin is tight. Water is at its minimum. I need to reduce GWP. I will swap a substantial amount of PC for SC, as this is the most effective way to reduce GWP while maintaining strength. Aggregates will be slightly increased to compensate for the binder change and maintain Vfinal.
+[9] GWP=266.76 28d=58.0 (exploit): GWP has decreased significantly, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly adjusted to maintain Vfinal.
+[10] GWP=261.28 28d=59.1 (exploit): GWP has decreased, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[11] GWP=255.79 28d=58.6 (exploit): GWP has decreased, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[12] GWP=250.31 28d=58.5 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[13] GWP=244.83 28d=58.6 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[14] GWP=239.34 28d=58.2 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[15] GWP=233.86 28d=58.8 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[16] GWP=228.38 28d=58.5 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[17] GWP=222.90 28d=58.5 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[18] GWP=217.41 28d=58.5 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[19] GWP=211.93 28d=59.1 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[20] GWP=206.45 28d=59.0 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[21] GWP=200.96 28d=58.7 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[22] GWP=195.48 28d=58.1 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[23] GWP=190.00 28d=58.2 (exploit): GWP has decreased again, and the mix is feasible with a good strength margin. Water is at its minimum. To further reduce GWP, I will continue to swap PC for SC. I will reduce PC by another 7 kg/m³ and increase SC accordingly. Aggregates will be slightly increased to maintain Vfinal.
+[24] GWP=191.32 28d=58.4 (exploit): The SC% constraint has been violated. I need to reduce the SC content. To maintain strength and GWP reduction, I will increase PC slightly and decrease SC accordingly. Water is at its minimum, and ACC is at its maximum. Aggregates will be adjusted to maintain Vfinal.
+[25] GWP=192.91 28d=58.3 (exploit): The SC% constraint has been violated again. I must reduce SC. I will increase PC and decrease SC to stay within bounds. Water is at its minimum. Aggregates will be adjusted to maintain Vfinal. This means a slight increase in GWP to resolve the SC% violation.
+[26] GWP=192.65 28d=58.3 (exploit): The SC% constraint is violated again. I need to reduce SC. I will increase PC and decrease SC to stay within bounds. Water is at its minimum. Aggregates will be adjusted to maintain Vfinal. This means a slight increase in GWP to resolve the SC% violation.
+[27] GWP=192.39 28d=58.4 (exploit): The SC% constraint is violated. I need to reduce SC. I will increase PC and decrease SC to stay within bounds. Water is at its minimum. Aggregates will be adjusted to maintain Vfinal. This means a slight increase in GWP to resolve the SC% violation.
+[28] GWP=192.39 28d=58.4 (exploit): The SC% constraint is violated. I need to reduce SC. I will increase PC and decrease SC to stay within bounds. Water is at its minimum. Aggregates will be adjusted to maintain Vfinal. This means a slight increase in GWP to resolve the SC% violation.
+[29] GWP=192.39 28d=58.4 (exploit): The SC% constraint is violated. I need to reduce SC. I will increase PC and decrease SC to stay within bounds. Water is at its minimum. Aggregates will be adjusted to maintain Vfinal. This means a slight increase in GWP to resolve the SC% violation.
+[30] GWP=192.39 28d=58.4 (exploit): The SC% constraint is violated. I need to reduce SC. I will increase PC and decrease SC to stay within bounds. Water is at its minimum. Aggregates will be adjusted to maintain Vfinal. This means a slight increase in GWP to resolve the SC% violation.

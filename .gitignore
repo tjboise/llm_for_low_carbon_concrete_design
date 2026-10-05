@@ -34,3 +34,5 @@ standard/
 !data/constraints.json
 !models/*.pkl
 !models/metrics.json
+!results/**/*.json
+!results/**/*.csv

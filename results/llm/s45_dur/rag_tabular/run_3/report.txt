@@ -1,0 +1,43 @@
+Experiment: rag_tabular   rag_tabular | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 13
+  n_feasible            : 13
+  surrogate_evals       : 141
+  rcalls                : 0.00705
+  api_calls             : 141
+  prompt_tokens         : 7157159
+  completion_tokens     : 28743
+  llm_time_s            : 151.54
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.1272
+  QER                   : 0.1525
+  MCE                   : 0.2345
+  best_gwp              : 150.6
+  ga_gwp                : 133.6
+  gwp_gap               : 17.0
+  convergence_iter      : 12
+  str_margin_at_best    : 8.02
+  feasibility_rate      : 0.0922
+  scenario              : s45_dur
+  method                : rag_tabular
+  run                   : 3
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=172.10 28d=56.9 (exploit): Chloride probability remains the primary infeasibility, and it has slightly decreased. Vfinal is feasible. PC, WATER, and SC are at their limits. Increasing aggregate slightly has not improved chloride resistance. Since I cannot adjust the binder composition further to improve chloride resistance within current constraints without sacrificing strength or increasing GWP significantly, and further aggregate adjustments are unlikely to help, I must conclude that this specific binder blend (Path 1 focused on SC) is not achieving the chloride resistance target. I will try to introduce a small amount of AEA to see if it has any unexpected positive effect on chloride resistance, although it typically reduces strength.
+[2] GWP=168.18 28d=56.1 (exploit): The mix is now feasible! Chloride probability is met. GWP is 172.10 kg CO₂-eq/m³, and 28-day strength is 56.85 MPa. The strength margin is good. To reduce GWP, I need to make a bigger move. I will try to reduce PC and SC slightly, and increase aggregates, aiming for a lower total binder content. This could be a step towards Path 2 if further reduction is possible. I will reduce PC by 15 kg/m³ and SC by 15 kg/m³ and compensate with aggregate.
+[3] GWP=168.50 28d=56.5 (exploit): The mix is feasible, with good chloride resistance and strength. GWP has decreased to 168.18 kg CO₂-eq/m³. The PC is at its minimum. SC is still high, which is good for chloride resistance and GWP. I need to make another significant move to reduce GWP. I will try to increase aggregates further, which will allow for a slight reduction in total binder (PC+SC) while maintaining Vfinal and strength. I will increase FAGG and CAGG by about 50kg each.
+[4] GWP=164.73 28d=57.5 (exploit): The mix is feasible, but GWP has increased slightly. The previous move to increase aggregates did not yield a GWP reduction and pushed Vfinal close to its upper limit. PC is at its minimum. To make a bigger GWP reduction move, I need to reduce the total binder (PC+SC) further. I will decrease SC by 15 kg/m³ and increase aggregates by roughly 60 kg total to maintain volume balance and compensate for any potential strength loss. This moves further towards Path 2.
+[5] GWP=159.78 28d=55.1 (exploit): Vfinal is too high. I need to reduce aggregate volume. Since GWP is already quite low, I'll make a small reduction in aggregates (FAGG, CAGG) to bring Vfinal back in line. PC is at its minimum, and SC reduction is yielding GWP benefits. Strength and chloride resistance are feasible. I will reduce aggregates by a total of 3 kg.
+[6] GWP=159.52 28d=54.8 (exploit): Vfinal is at the upper limit. GWP has slightly decreased. Strength and chloride resistance are feasible. I will reduce aggregates slightly to bring Vfinal back in line. This is a minor adjustment to maintain feasibility.
+[7] GWP=155.60 28d=53.8 (exploit): Vfinal is too high. I will reduce aggregate (FAGG, CAGG) by approximately 6 kg to bring Vfinal within limits. GWP has decreased significantly, and strength/chloride resistance remain feasible. This adjustment maintains the GWP reduction while ensuring volume balance.
+[8] GWP=151.66 28d=53.4 (exploit): WR_HR_pct is now at the boundary of the violation. I will reduce WR_HR slightly to bring it within the limit and increase WATER to compensate. Aggregate amounts are adjusted minimally. GWP is excellent, and strength/chloride are feasible.
+[9] GWP=151.65 28d=53.4 (exploit): WR_HR_pct is still slightly violated. I will reduce WR_HR further to bring it within bounds and increase WATER to compensate. Aggregate amounts are adjusted minimally. GWP is excellent, and strength/chloride are feasible.
+[10] GWP=151.65 28d=53.3 (exploit): WR_HR_pct is still slightly violated. I will reduce WR_HR further to bring it within bounds and increase WATER to compensate. Aggregate amounts are adjusted minimally. GWP is excellent, and strength/chloride are feasible.
+[11] GWP=151.66 28d=53.3 (exploit): Chloride probability has dropped below the threshold, and WR_HR_pct is violated. I will increase SC and decrease WR_HR. To maintain Vfinal, I will slightly adjust aggregates. Increasing SC will improve chloride resistance and GWP. Decreasing WR_HR and increasing WATER will bring WR_HR_pct within bounds. To address the oscillation warning, I'll make a larger shift in SC and aggregates.
+[12] GWP=150.60 28d=53.0 (exploit): Chloride pass probability is just below the threshold. I will increase SC slightly and decrease WR_HR. To maintain Vfinal, I will slightly adjust aggregates. Increasing SC will improve chloride resistance. Decreasing WR_HR and increasing WATER will bring WR_HR_pct within bounds. GWP is excellent, and strength is feasible.
+[13] GWP=150.86 28d=53.0 (exploit): Chloride pass probability is just below the threshold. I will increase SC slightly and decrease WR_HR. To maintain Vfinal, I will slightly adjust aggregates. Increasing SC will improve chloride resistance. Decreasing WR_HR and increasing WATER will bring WR_HR_pct within bounds. GWP is excellent, and strength is feasible.

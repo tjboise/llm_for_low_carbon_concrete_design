@@ -1,0 +1,42 @@
+Experiment: rag_text   rag_text | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 12
+  n_feasible            : 12
+  surrogate_evals       : 61
+  rcalls                : 0.00305
+  api_calls             : 62
+  prompt_tokens         : 698987
+  completion_tokens     : 13290
+  llm_time_s            : 54.16
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.1596
+  QER                   : 0.3459
+  MCE                   : 0.1934
+  best_gwp              : 154.92
+  ga_gwp                : 133.6
+  gwp_gap               : 21.32
+  convergence_iter      : 8
+  str_margin_at_best    : 1.49
+  feasibility_rate      : 0.1967
+  scenario              : s45_dur
+  method                : rag_text
+  run                   : 5
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=176.02 28d=52.3 (exploit): Chloride probability is too low (0.14) and Vfinal is too low (0.824). To address chloride resistance, I will increase SC's share of the binder to 50% and reduce water. To fix Vfinal, I will add a significant amount of aggregate. I'll increase SC by 150 kg and decrease PC by 150 kg to reach SCM% = 50%. This will also reduce GWP. I will add 341 kg of aggregate (split between FAGG and CAGG) and slightly increase water to maintain workability and volume.
+[2] GWP=165.32 28d=51.2 (exploit): The previous mix had Vfinal slightly too low (0.947). To correct this, I will add 10 kg of aggregate, split between FAGG and CAGG. The strength and chloride resistance remain good, and GWP has slightly decreased. This adjustment is solely to satisfy the volume balance constraint.
+[3] GWP=162.71 28d=50.7 (exploit): The previous mix was infeasible due to Vfinal being slightly too low (0.947). To rectify this, I will add 9 kg of aggregate, distributed between FAGG and CAGG. The strength, GWP, and chloride resistance remain satisfactory. This adjustment is solely to meet the volume balance requirement.
+[4] GWP=160.10 28d=49.9 (exploit): The previous mix was infeasible due to Vfinal being slightly too low (0.947). To correct this, I will add 9 kg of aggregate, distributed between FAGG and CAGG. The strength (49.9 MPa), GWP (160.1 kg CO₂-eq/m³), and chloride resistance (0.72) remain satisfactory and meet constraints. This is a minor adjustment to satisfy the volume balance.
+[5] GWP=157.52 28d=48.1 (exploit): The previous mix was infeasible due to low Vfinal (0.947) and slightly low chloride probability (0.69). To address chloride probability, I will increase SC share and decrease water. I'll increase SC by 10 kg and decrease PC by 10 kg to maintain the PC bound and keep SC/binder ratio high. To fix Vfinal, I will add 9 kg of aggregate. I will also slightly reduce water to help with chloride resistance.
+[6] GWP=157.53 28d=48.1 (exploit): The previous mix was infeasible due to low Vfinal (0.948) and just barely meeting chloride probability (0.70). Strength is also close to the floor (+1.11 MPa). To fix Vfinal, I will add 6 kg of aggregate. To improve chloride probability and GWP, I will increase SC by 10 kg and decrease PC by 10 kg (while staying within PC bounds). This increases SC share. I will also slightly reduce water to aid chloride resistance and potentially lower w/b.
+[7] GWP=157.54 28d=48.7 (exploit): The previous mix was infeasible due to low Vfinal (0.949) and just meeting chloride probability (0.70). Strength is very close to the floor (+1.11 MPa). To fix Vfinal, I will add 2 kg of aggregate. To improve chloride probability and GWP, I will increase SC by 10 kg and decrease PC by 10 kg (staying at PC bound). I will also slightly reduce water to aid chloride resistance and potentially lower w/b.
+[8] GWP=154.92 28d=46.5 (exploit): The previous mix was infeasible due to low Vfinal (0.948). Strength (46.5 MPa) and chloride probability (0.70) are just acceptable. To fix Vfinal, I will add 6 kg of aggregate, split between FAGG and CAGG. This is a minor adjustment to satisfy the volume balance.
+[9] GWP=156.31 28d=48.7 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (48.7 MPa) and chloride probability (0.71) are acceptable. To fix Vfinal, I will add 4 kg of aggregate, split between FAGG and CAGG. This is a minor adjustment to satisfy the volume balance.
+[10] GWP=160.27 28d=50.4 (exploit): The previous iteration increased GWP and has a tight strength margin (+3.71 MPa). To reduce GWP and improve strength, I will swap PC for SC. I will decrease PC by 15 kg/m³ and increase SC by 15 kg/m³. This maintains the PC bound and increases SC share, which is beneficial for chloride resistance. I will also slightly decrease WATER to lower the w/b ratio and potentially improve strength and chloride resistance.
+[11] GWP=164.23 28d=52.1 (exploit): The previous iteration increased GWP and has a reasonable strength margin (+5.43 MPa). To reduce GWP and recover from the previous increase, I will swap PC for SC. I will decrease PC by 15 kg/m³ and increase SC by 15 kg/m³. This maintains the PC bound and increases SC share, beneficial for chloride resistance. I will also slightly decrease WATER to further lower w/b ratio and improve strength and chloride resistance.
+[12] GWP=168.19 28d=54.8 (exploit): The previous iteration increased GWP significantly. The strength margin is good (+7.11 MPa). To reduce GWP and correct the upward trend, I will swap PC for SC. I will decrease PC by 15 kg/m³ and increase SC by 15 kg/m³. This maintains the PC bound and increases SC share, beneficial for chloride resistance. I will also slightly decrease WATER to further lower w/b ratio and improve strength and chloride resistance.

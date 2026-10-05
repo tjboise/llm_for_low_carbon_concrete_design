@@ -1,0 +1,60 @@
+Experiment: zero_shot   zero_shot | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 69
+  rcalls                : 0.00345
+  api_calls             : 70
+  prompt_tokens         : 800011
+  completion_tokens     : 15222
+  llm_time_s            : 69.24
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2603
+  QER                   : 1.1868
+  MCE                   : 1.3582
+  best_gwp              : 166.3
+  ga_gwp                : 131.95
+  gwp_gap               : 34.35
+  convergence_iter      : 6
+  str_margin_at_best    : 7.36
+  feasibility_rate      : 0.4348
+  scenario              : s45_nodur
+  method                : zero_shot
+  run                   : 4
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=248.19 28d=48.9 (exploit): Strength (48.2 MPa) is good. Vfinal (0.949) is still slightly low. I will add a very small amount of CAGG to meet the volume constraint. To continue reducing GWP, I will further substitute PC with SC, ensuring I stay within bounds.
+[2] GWP=228.87 28d=50.5 (exploit): The current mix is feasible and meets strength requirements. GWP is 248.19 kg/m³. To further reduce GWP, I will significantly increase SC content by decreasing PC. I will also slightly increase CAGG to maintain volume balance and adjust WATER to keep the w/b ratio optimal, ensuring strength and feasibility.
+[3] GWP=213.22 28d=50.5 (exploit): The current mix is feasible, meets strength requirements, and has a GWP of 228.87 kg/m³. To further reduce GWP, I will continue to substitute PC with SC. I will also increase CAGG slightly to help maintain volume and adjust WATER to keep the w/b ratio in check, ensuring strength and feasibility.
+[4] GWP=197.58 28d=50.9 (exploit): The current mix is feasible with a GWP of 213.22 kg/m³. To further reduce GWP, I will continue substituting PC with SC. I will also increase CAGG slightly to maintain volume and adjust WATER to keep the w/b ratio optimal, aiming for further GWP reduction while ensuring strength and feasibility.
+[5] GWP=181.94 28d=51.1 (exploit): The current mix is feasible with a GWP of 197.58 kg/m³. To further reduce GWP, I will continue substituting PC with SC. I will also increase CAGG slightly to maintain volume and adjust WATER to keep the w/b ratio optimal, aiming for further GWP reduction while ensuring strength and feasibility.
+[6] GWP=166.30 28d=52.4 (exploit): The current mix is feasible with a GWP of 181.94 kg/m³. To further reduce GWP, I will continue substituting PC with SC. I will also increase CAGG slightly to maintain volume and adjust WATER to keep the w/b ratio optimal, aiming for further GWP reduction while ensuring strength and feasibility.
+[7] GWP=168.78 28d=50.7 (exploit): The current mix is feasible with a GWP of 166.30 kg/m³. To further reduce GWP, I will continue substituting PC with SC. I will also increase CAGG slightly to maintain volume and adjust WATER to keep the w/b ratio optimal, aiming for further GWP reduction while ensuring strength and feasibility.
+[8] GWP=170.08 28d=50.7 (exploit): The last iteration (iter 7) resulted in an increased GWP and a slight drop in strength, moving away from the best feasible mix (iter 6). To correct this and reduce GWP, I will revert to the previous successful PC/SC ratio and slightly increase SC again, while decreasing PC. I will also add a small amount of CAGG to ensure volume balance and adjust WATER to maintain strength.
+[9] GWP=171.38 28d=51.3 (exploit): The GWP has increased in the last two iterations, and strength has also slightly decreased. I need to reduce GWP. I will try to increase SC further by decreasing PC, and also slightly reduce WATER to improve strength and potentially lower GWP. I will also add a bit more CAGG to maintain volume balance.
+[10] GWP=168.74 28d=50.7 (exploit): The GWP has increased for the third consecutive iteration, and the strength is fluctuating. The best GWP of 166.30 kg/m³ was achieved at iteration 6 with PC=100, SC=210, WATER=105. I will revert to this recipe and attempt to reduce GWP by increasing SC and decreasing PC, while also slightly reducing WATER to maintain strength and potentially improve GWP.
+[11] GWP=170.08 28d=51.9 (exploit): The GWP has decreased slightly, but strength has also decreased. The best GWP of 166.30 kg/m³ was achieved at iteration 6. I will try to increase SC further by decreasing PC, and also slightly reduce WATER to maintain strength and potentially improve GWP. I will also increase CAGG to ensure volume balance.
+[12] GWP=170.10 28d=51.9 (exploit): The GWP has increased again, and strength has improved but GWP is higher than the best found so far. I need to reduce GWP. I will try to shift more PC to SC, and also try reducing WATER further while maintaining strength. I will increase CAGG to maintain volume.
+[13] GWP=171.40 28d=51.4 (exploit): The GWP has remained stubbornly high, hovering around 170 kg/m³, and is higher than the best found (166.30 kg/m³ at iter 6). To make a bigger move, I will significantly increase SC and decrease PC. I will also try to slightly reduce WATER to see if strength can be maintained, and add CAGG to balance volume.
+[14] GWP=172.70 28d=51.5 (exploit): The GWP has increased for the fourth consecutive iteration, and strength is fluctuating. The best GWP remains at 166.30 kg/m³. To attempt a significant GWP reduction, I will try to increase SC again by decreasing PC. I will also further reduce WATER and increase CAGG to maintain volume and strength.
+[15] GWP=203.86 28d=54.4 (RESTART#1): The previous mix was infeasible due to low Vfinal. To correct this, aggregate (FAGG and CAGG) was increased significantly, prioritizing FAGG to maintain good GWP. This also increased the GWP and strength. A small amount of ACC was added to help disperse the increased fines and ensure workability. The water-to-binder ratio was adjusted to maintain the target strength.
+[16] GWP=172.57 28d=58.3 (exploit): The Vfinal is at 0.950, meeting the minimum. To reduce GWP further, I've slightly decreased PC and increased SC, while keeping FA constant. Water is adjusted to maintain the w/b ratio. ACC is reduced to minimize GWP contributions. Strength remains well above the requirement.
+[17] GWP=174.15 28d=59.0 (exploit): The current mix is feasible with GWP 172.57 and strength 58.32 MPa. To further reduce GWP, I will decrease PC and increase SC, as SC has a lower GWP and is within its bounds. FA is kept constant. Water is adjusted to maintain w/b ratio. ACC is reduced to minimize GWP. The strength margin is high, allowing for this adjustment. The goal is to get closer to the best feasible GWP of 166.30.
+[18] GWP=175.48 28d=58.7 (exploit): The previous mix's GWP increased, which is undesirable. To reduce GWP, I will decrease PC and increase SC, as SC has a lower GWP and is within bounds. FA remains constant. Water is adjusted to maintain the w/b ratio. ACC is reduced to minimize GWP. Strength is high, allowing for this adjustment. The aim is to get closer to the best feasible GWP of 166.30.
+[19] GWP=176.81 28d=58.8 (exploit): The GWP has increased again. To reduce GWP, I will decrease PC and increase SC, as SC has a lower GWP and is within bounds. FA remains constant. Water is adjusted to maintain the w/b ratio. ACC is reduced to minimize GWP. Strength is high, allowing for this adjustment. The aim is to get closer to the best feasible GWP of 166.30.
+[20] GWP=178.19 28d=59.9 (exploit): The previous mix violated the SC% constraint. I've reduced SC and slightly increased FA to compensate, ensuring the SCM percentage is valid. The Vfinal is adequate. PC is maintained at its lower bound, and water is adjusted to maintain w/b ratio. ACC is minimized. The aim is to reduce GWP while adhering to all constraints.
+[21] GWP=179.85 28d=60.0 (exploit): The SC% constraint was violated. I've reduced SC and increased FA slightly to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[22] GWP=181.57 28d=59.7 (exploit): The SC% constraint was violated again. I've reduced SC further and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[23] GWP=183.55 28d=59.6 (exploit): The SC% constraint was violated again. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[24] GWP=184.94 28d=59.8 (exploit): The SC% constraint was violated. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[25] GWP=186.39 28d=59.8 (exploit): The SC% constraint was violated again. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[26] GWP=187.78 28d=59.4 (exploit): The SC% constraint was violated. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[27] GWP=189.23 28d=59.9 (exploit): The SC% constraint was violated again. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[28] GWP=190.62 28d=59.9 (exploit): The SC% constraint was violated. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[29] GWP=192.01 28d=59.9 (exploit): The SC% constraint was violated. I've reduced SC and increased FA to compensate, ensuring the SCM percentage is valid. PC remains at its minimum, and water is adjusted to maintain the w/b ratio. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.
+[30] GWP=193.53 28d=61.4 (exploit): Multiple constraints were violated: SC%, PC%, and SC% again. I've adjusted SC and FA to meet SC% limits. PC% was also too low, so I increased PC and decreased SC accordingly. Water is adjusted to maintain w/b. ACC is minimized. The aim is to reduce GWP while ensuring all constraints are met and strength remains high.

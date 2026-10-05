@@ -1,0 +1,38 @@
+Experiment: rag_tabular   rag_tabular | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 81
+  rcalls                : 0.00405
+  api_calls             : 81
+  prompt_tokens         : 2561987
+  completion_tokens     : 20982
+  llm_time_s            : 81.93
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.6445
+  QER                   : 0.0
+  MCE                   : 0.2584
+  best_gwp              : 219.7
+  ga_gwp                : 133.6
+  gwp_gap               : 86.1
+  convergence_iter      : 1
+  str_margin_at_best    : 18.73
+  feasibility_rate      : 0.0988
+  scenario              : s45_dur
+  method                : rag_tabular
+  run                   : 5
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=219.70 28d=63.7 (exploit): The w/b ratio is still slightly too low. I'm increasing WATER to 102 kg/m³ to bring w/b to 0.235, meeting the lower bound. PC and SC remain unchanged to maintain strength and chloride resistance. Other components are kept the same to ensure Vfinal stays within limits. GWP increases minimally with the slight water adjustment.
+[2] GWP=240.18 28d=71.4 (exploit): The w/b ratio is still too low. I'm increasing WATER to 112 kg/m³ to bring w/b to 0.235 (at the lower bound). PC and SC remain unchanged to maintain strength and chloride resistance, which are now satisfactory. Aggregates are slightly adjusted to maintain Vfinal within limits. GWP increases slightly due to the increased water.
+[3] GWP=235.56 28d=71.1 (exploit): The w/b ratio is still too low. I'm increasing WATER to 112 kg/m³ to bring w/b to 0.235, meeting the lower bound. PC and SC remain unchanged to maintain strength and chloride resistance, which are now satisfactory. Aggregates are adjusted slightly to keep Vfinal within limits. GWP increases minimally due to the increased water.
+[4] GWP=235.34 28d=71.0 (exploit): The SC% constraint is violated. I will reduce SC to 332.235 kg/m³ (its upper bound), and increase PC to 134.765 kg/m³ to compensate for strength and maintain SCM% (71.7%) close to the previous level for chloride resistance. WATER remains at 112 kg/m³ to keep w/b and Vfinal stable. GWP will increase slightly due to more PC.
+[5] GWP=234.07 28d=70.3 (exploit): Vfinal is slightly too high. I will reduce FAGG by 1.5 kg and CAGG by 1.5 kg to bring Vfinal within limits. The SC% constraint was previously addressed, and other constraints are met. PC, SC, WATER, and WR_HR remain unchanged to maintain strength, chloride resistance, and w/b. GWP remains stable.
+[6] GWP=231.72 28d=70.1 (exploit): Vfinal is at the upper limit (1.050). To bring it down, I will slightly reduce FAGG by 0.5 kg and CAGG by 0.5 kg. The SC% constraint was previously addressed. All other constraints are met. PC, SC, WATER, and WR_HR remain unchanged to maintain strength, chloride resistance, and w/b. GWP remains stable.
+[7] GWP=231.47 28d=68.4 (exploit): Vfinal is at the upper limit (1.050). I will slightly reduce FAGG by 0.5 kg and CAGG by 0.5 kg to bring Vfinal within limits. The SC% constraint was previously addressed. All other constraints are met. PC, SC, WATER, and WR_HR remain unchanged to maintain strength, chloride resistance, and w/b. GWP remains stable.
+[8] GWP=232.27 28d=71.2 (exploit): Vfinal is exactly at the upper limit. I will reduce FAGG by 0.5 kg and CAGG by 0.5 kg to bring Vfinal within limits. The SC% constraint was previously addressed, and other constraints are met. PC, SC, WATER, and WR_HR remain unchanged to maintain strength, chloride resistance, and w/b. GWP remains stable.

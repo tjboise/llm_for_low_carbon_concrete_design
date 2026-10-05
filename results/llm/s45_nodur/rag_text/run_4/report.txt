@@ -1,0 +1,60 @@
+Experiment: rag_text   rag_text | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 123
+  rcalls                : 0.00615
+  api_calls             : 125
+  prompt_tokens         : 2861958
+  completion_tokens     : 26126
+  llm_time_s            : 108.17
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.0721
+  QER                   : 0.7344
+  MCE                   : 1.0759
+  best_gwp              : 141.46
+  ga_gwp                : 131.95
+  gwp_gap               : 9.51
+  convergence_iter      : 26
+  str_margin_at_best    : 4.79
+  feasibility_rate      : 0.2439
+  scenario              : s45_nodur
+  method                : rag_text
+  run                   : 4
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=231.79 28d=49.0 (exploit): Vfinal is too low (0.852). Increase aggregate volume by ~265 kg to meet the 0.95 minimum. Distribute this increase between FAGG and CAGG to maintain proportions and strength. Strength is sufficient, so focus on volume.
+[2] GWP=217.68 28d=47.9 (exploit): The current mix is feasible but GWP has not decreased. The strength margin is about 4 MPa. To reduce GWP, I will reduce PC by 18 kg/m³ and substitute it with SC. This swap is the most effective way to lower GWP while maintaining strength. I'll also slightly reduce water to further improve strength efficiency.
+[3] GWP=208.27 28d=46.7 (exploit): GWP has decreased successfully. The strength margin is now around 3 MPa. To further reduce GWP, I will swap another 12 kg/m³ of PC for SC. I will also slightly reduce water to improve strength efficiency and create a larger margin for future adjustments.
+[4] GWP=198.89 28d=48.7 (exploit): The last mix was infeasible due to Vfinal being just below the minimum (0.9499). I need to increase the volume slightly, which can be done by adding a small amount of aggregate. I'll add 4 kg of aggregate, distributed between FAGG and CAGG, to bring Vfinal to 0.95. This will likely slightly increase GWP but fix the infeasibility. Strength is adequate.
+[5] GWP=189.51 28d=49.5 (exploit): Vfinal is too low (0.947). Increase aggregate volume by ~9 kg to meet the 0.95 minimum. Distribute this increase between FAGG and CAGG. Strength and GWP are good. This adjustment is for volume balance.
+[6] GWP=170.77 28d=54.6 (exploit): Vfinal is at the minimum acceptable level (0.950). Strength and GWP are good. No immediate constraint violation requires fixing. I will proceed to further reduce GWP, as the strength margin is sufficient.
+[7] GWP=171.12 28d=56.7 (exploit): The previous mix was infeasible due to Vfinal being just below the minimum (0.9499). I've added a very small amount of aggregate to bring it to 0.95. GWP is very low and strength is good. I will try to reduce PC slightly further by swapping for SC and also slightly reduce water to maintain strength efficiency and headroom.
+[8] GWP=171.17 28d=57.3 (exploit): Vfinal is at the minimum acceptable level (0.950). Strength and GWP are good. No immediate constraint violation requires fixing. I will proceed to further reduce GWP, as the strength margin is sufficient.
+[9] GWP=171.21 28d=57.5 (exploit): The Vfinal is just at the limit (0.9496). I will slightly increase aggregate to ensure Vfinal is above 0.95. PC is at its lower bound. To attempt further GWP reduction, I will swap PC (at lower bound) with SC and slightly reduce water to maintain strength efficiency.
+[10] GWP=175.19 28d=59.2 (exploit): The Vfinal is just at the limit (0.9499). I will slightly increase aggregate to ensure Vfinal is above 0.95. PC is at its lower bound. To attempt further GWP reduction, I will swap PC (at lower bound) with SC and slightly reduce water to maintain strength efficiency. I am also increasing FA to try and break the oscillation and potentially improve strength at lower w/b.
+[11] GWP=171.56 28d=57.9 (RESTART#1): Stagnation detected, moving to Path 2 (strategy A). Total binder reduced to 330 kg/m³. Increased FAGG+CAGG to compensate for binder reduction and maintain volume. Added WR_HR to further reduce water and ACC to ensure strength despite lower binder content. This strategy aims for significantly lower GWP.
+[12] GWP=169.05 28d=58.4 (exploit): The current mix has a GWP of 171.56 and strength of 57.91 MPa, which is well above the 45 MPa requirement. The best GWP so far is 170.77 MPa. Mix [5] from the dataset is very close in GWP (169.0 kg CO₂/m³) and strength (55.5 MPa), and has a lower total binder content (326 kg/m³). I will try to replicate this by reducing the total binder, particularly PC and SC, and increasing aggregates. I'll slightly increase WR_HR to maintain workability with reduced water.
+[13] GWP=167.55 28d=56.5 (exploit): The current mix (GWP 169.05, 28d strength 58.36 MPa) has matched the best GWP found so far. Mix [2] from the dataset is identical in composition and achieves 55.5 MPa at 169.0 GWP. To further reduce GWP, I will try reducing the binder content slightly, aiming for lower strength while staying above 45 MPa. I'll decrease SC and PC marginally and increase aggregates, while slightly increasing WR_HR to compensate for potential workability reduction with lower water.
+[14] GWP=166.78 28d=57.5 (exploit): The current mix has a GWP of 167.55 and a strength of 56.53 MPa, which is good progress. However, the strength margin is now closer to the floor (11.53 MPa). To further reduce GWP, I will slightly decrease SC and increase WR_HR to allow for a reduction in water, maintaining strength. This will also slightly reduce the overall binder content.
+[15] GWP=166.26 28d=56.6 (exploit): The current mix has achieved a new best GWP of 166.78 kg CO₂-eq/m³ with a strength of 57.46 MPa. The strength margin is good (12.46 MPa). To push GWP lower, I will try reducing the SC content slightly and increasing WR_HR further to enable a small reduction in water, aiming to maintain strength. This will slightly decrease the total binder content.
+[16] GWP=165.75 28d=56.5 (exploit): The current mix has achieved a new best GWP of 166.26 kg CO₂-eq/m³ with a strength of 56.60 MPa. The strength margin is adequate (11.60 MPa). To continue reducing GWP, I will slightly decrease the SC content again and increase WR_HR to enable a marginal reduction in water and total binder, aiming to maintain strength. This is a fine-tuning step.
+[17] GWP=161.11 28d=56.0 (exploit): The last few iterations have yielded minimal GWP improvements and have shown signs of oscillation. The current strength (56.49 MPa) provides a decent margin. To break this oscillation and further reduce GWP, I will try a more significant reduction in SC and increase aggregates, while also increasing WR_HR to manage workability and potentially reduce water slightly. This deviates more from the recent narrow adjustments.
+[18] GWP=158.53 28d=55.4 (exploit): The WR_HR_pct violation is still present, though very close to the limit. I will reduce WR_HR slightly more to ensure it is within the bounds. The GWP and strength are stable. The binder and aggregate amounts will be kept the same as the previous iteration to focus on fixing the constraint.
+[19] GWP=155.96 28d=54.4 (exploit): The WR_HR_pct constraint is still violated, though very close. I will reduce WR_HR by a small increment to ensure it is within the acceptable range. The GWP and strength remain stable. Binder and aggregate quantities will be kept the same to resolve the constraint violation.
+[20] GWP=153.38 28d=53.8 (exploit): The WR_HR_pct violation persists, just over the limit. I will reduce WR_HR slightly further to ensure it is within the acceptable range. The GWP and strength are stable. Binder, aggregate, and ACC quantities will be kept the same to focus on fixing the constraint.
+[21] GWP=150.80 28d=54.1 (exploit): The WR_HR_pct is still slightly above the limit. I will reduce WR_HR by a small increment to ensure it is within the allowed range. The GWP and strength remain stable. Binder, aggregate, and ACC quantities will be kept the same to focus on fixing the constraint.
+[22] GWP=148.22 28d=53.5 (exploit): The WR_HR_pct is still slightly above the limit. I will reduce WR_HR by a small increment to ensure it is within the allowed range. The GWP and strength are stable. Binder, aggregate, and ACC quantities will be kept the same to focus on fixing the constraint.
+[23] GWP=145.65 28d=50.8 (exploit): The WR_HR_pct is still slightly above the limit. I will reduce WR_HR by a small increment to ensure it is within the allowed range. The GWP and strength are stable. Binder, aggregate, and ACC quantities will be kept the same to focus on fixing the constraint.
+[24] GWP=143.07 28d=49.7 (exploit): The WR_HR_pct is still slightly above the limit. I will reduce WR_HR by a small increment to ensure it is within the allowed range. The GWP and strength are stable. Binder, aggregate, and ACC quantities will be kept the same to focus on fixing the constraint.
+[25] GWP=141.72 28d=49.8 (exploit): Two constraints are violated: b/a ratio and WR_HR_pct. I need to increase b/a (reduce aggregates or increase binder) and decrease WR_HR_pct. I will slightly increase SC to improve b/a and reduce WR_HR to meet its limit. ACC will be increased to help maintain strength.
+[26] GWP=141.46 28d=49.8 (exploit): The b/a ratio is still slightly violated. I need to increase it. I will slightly increase SC and reduce aggregates. WR_HR and ACC are within bounds. This aims to fix the b/a ratio while minimally impacting GWP.
+[27] GWP=141.46 28d=49.8 (exploit): The b/a ratio is still slightly violated. I need to increase it. I will slightly increase SC and reduce aggregates. WR_HR and ACC are within bounds. This aims to fix the b/a ratio while minimally impacting GWP.
+[28] GWP=141.46 28d=49.8 (exploit): The b/a ratio is still slightly violated. I need to increase it. I will slightly increase SC and reduce aggregates. WR_HR and ACC are within bounds. This aims to fix the b/a ratio while minimally impacting GWP.
+[29] GWP=141.46 28d=49.8 (exploit): The b/a ratio is still slightly violated. I need to increase it. I will slightly increase SC and reduce aggregates. WR_HR and ACC are within bounds. This aims to fix the b/a ratio while minimally impacting GWP.
+[30] GWP=269.10 28d=46.6 (exploit): The mix is infeasible due to low strength. Water is at its minimum. To increase strength, I will significantly increase PC and add ACC. This approach directly addresses the strength deficit while accepting the GWP increase, as meeting the strength requirement is paramount.

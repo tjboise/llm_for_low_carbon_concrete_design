@@ -5,8 +5,8 @@
 > **Important (2026-10):** the data pipeline, design constraints and surrogate models were rebuilt
 > after fixing unit errors (admixtures are oz/yd³, not lb/yd³) and a WR/WR_HR label swap.
 > See [docs/DATA_AND_MODELS.md](docs/DATA_AND_MODELS.md) for the current, authoritative description.
-> `optimizer_core.py`, `app.py`, `run_experiment.py`, `results/` and `pictures/` below still reflect the
-> old data and must be migrated and rerun; do not trust their numbers.
+> The optimizer, experiments, results and figures were rerun on the corrected data; see
+> [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md). Parts of this README below (usage snippets, model description) are older.
 
 ## Overview
 

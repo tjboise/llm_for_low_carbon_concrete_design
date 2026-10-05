@@ -1,0 +1,31 @@
+Experiment: rag_text   rag_text | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 1
+  n_feasible            : 1
+  surrogate_evals       : 40
+  rcalls                : 0.002
+  api_calls             : 40
+  prompt_tokens         : 627254
+  completion_tokens     : 10970
+  llm_time_s            : 37.44
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.6343
+  QER                   : 0.0
+  MCE                   : 0.0
+  best_gwp              : 238.09
+  ga_gwp                : 145.68
+  gwp_gap               : 92.41
+  convergence_iter      : 1
+  str_margin_at_best    : 0.12
+  feasibility_rate      : 0.025
+  scenario              : s55_nodur
+  method                : rag_text
+  run                   : 4
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=238.09 28d=55.1 (exploit): Strength (53.9 MPa) is still below the 55 MPa floor. To increase strength: first, reduce WATER by 3 kg/m³ (from 128 to 125) to improve the w/b ratio. As WATER is reduced, WR_HR can be decreased by 0.5 kg/m³ (from 2.0 to 1.5). Vfinal is within limits. Chloride probability is good due to high SC content. GWP remains stable. This iteration aims to push strength closer to the requirement.

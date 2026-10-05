@@ -1,0 +1,60 @@
+Experiment: rag_tabular   rag_tabular | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 93
+  rcalls                : 0.00465
+  api_calls             : 94
+  prompt_tokens         : 2871316
+  completion_tokens     : 21804
+  llm_time_s            : 94.06
+  parse_fails           : 0
+  restarts              : 1
+  OGR                   : 0.0456
+  QER                   : 1.0135
+  MCE                   : 0.4992
+  best_gwp              : 137.97
+  ga_gwp                : 131.95
+  gwp_gap               : 6.02
+  convergence_iter      : 28
+  str_margin_at_best    : 1.94
+  feasibility_rate      : 0.3226
+  scenario              : s45_nodur
+  method                : rag_tabular
+  run                   : 4
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=232.23 28d=46.2 (exploit): Strength is still below the 45 MPa floor (44.1 MPa). ACC_pct is violated. Reduce ACC by 5 kg/m³ to 15 kg/m³ to meet the ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 198 kg/m³. This addresses both violations.
+[2] GWP=219.65 28d=46.4 (exploit): The current mix is feasible but has a tight strength margin and GWP has not improved. To reduce GWP, we will attempt to decrease PC. First, reduce WATER by 4 kg/m³ to 102 kg/m³ to create more strength headroom. Then, reduce PC by 12 kg/m³ to 186 kg/m³. This should lower GWP while maintaining strength above 45 MPa.
+[3] GWP=217.59 28d=46.2 (exploit): Strength is below the 45 MPa floor (43.9 MPa). ACC_pct is violated. Reduce ACC by 2 kg/m³ to 13 kg/m³ to meet ACC_pct bound. To compensate for strength loss and the low Vfinal, increase PC by 10 kg/m³ to 184 kg/m³ and add 8 kg of CAGG to meet volume balance.
+[4] GWP=205.07 28d=46.1 (exploit): Vfinal is slightly low (0.9499). To correct this, I will increase CAGG by 1 kg to 1098 kg to bring Vfinal to 0.950. The strength margin is still tight, so no other changes are made, as this is the most minimal adjustment to fix the constraint violation.
+[5] GWP=192.57 28d=46.5 (exploit): Vfinal is slightly low (0.9499). To correct this, I will increase CAGG by 1 kg to 1117 kg to bring Vfinal to 0.950. The strength margin is sufficient, and GWP has significantly decreased. No other changes are made.
+[6] GWP=190.51 28d=46.6 (exploit): Strength is below the 45 MPa floor (43.5 MPa). ACC_pct is violated. Reduce ACC by 5 kg/m³ to 13 kg/m³ to meet ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 158 kg/m³. WATER remains at 82.771 kg/m³.
+[7] GWP=198.90 28d=46.1 (exploit): Strength is still below the 45 MPa floor (44.8 MPa). ACC_pct is violated. Reduce ACC by 4 kg/m³ to 12 kg/m³ to meet ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 166 kg/m³. WATER remains at 79.771 kg/m³.
+[8] GWP=189.49 28d=47.0 (exploit): GWP increased, which is undesirable. The strength margin is tight. To reduce GWP and maintain strength, I will reduce WATER by 4 kg/m³ to 86.771 kg/m³. I will also swap 12 kg of PC to SC (PC to 154 kg/m³, SC to 82 kg/m³). ACC remains at 12 kg/m³.
+[9] GWP=187.39 28d=46.9 (exploit): Strength is below the 45 MPa floor (44.1 MPa). ACC_pct is violated. Reduce ACC by 5 kg/m³ to 12 kg/m³ to meet ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 152 kg/m³. WATER remains at 82.771 kg/m³.
+[10] GWP=185.30 28d=45.5 (exploit): Strength is below the 45 MPa floor (44.2 MPa). ACC_pct is violated. Reduce ACC by 5 kg/m³ to 12 kg/m³ to meet ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 150 kg/m³. WATER remains at 82.771 kg/m³.
+[11] GWP=183.20 28d=45.5 (exploit): Strength is below the 45 MPa floor (43.9 MPa). ACC_pct is violated. Reduce ACC by 5 kg/m³ to 12 kg/m³ to meet ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 148 kg/m³. WATER remains at 82.771 kg/m³.
+[12] GWP=181.10 28d=46.4 (exploit): Strength is below the 45 MPa floor (43.9 MPa). ACC_pct is violated. Reduce ACC by 5 kg/m³ to 12 kg/m³ to meet ACC_pct bound. To compensate for strength loss, increase PC by 10 kg/m³ to 146 kg/m³. WATER remains at 82.771 kg/m³.
+[13] GWP=191.58 28d=46.6 (exploit): ACC_pct is violated. Reduce ACC by 4 kg/m³ to 11 kg/m³ to meet the bound. To compensate for the strength loss, increase PC by 8 kg/m³ to 156 kg/m³. WATER remains at 90.771 kg/m³.
+[14] GWP=182.18 28d=46.9 (exploit): GWP increased, which is undesirable. The strength margin is tight. To reduce GWP and maintain strength, I will decrease PC by 12 kg/m³ to 144 kg/m³ and increase SC by 12 kg/m³ to 94 kg/m³. Before these changes, I will decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 11 kg/m³.
+[15] GWP=173.79 28d=45.7 (exploit): Strength is now above 45 MPa, but ACC_pct is violated. Reduce ACC by 4 kg/m³ to 11 kg/m³ to meet ACC_pct bound. To compensate for the slight strength reduction from lowering ACC, increase PC by 4 kg/m³ to 136 kg/m³. WATER remains at 83.771 kg/m³.
+[16] GWP=169.60 28d=45.4 (exploit): Strength is now above 45 MPa, but ACC_pct is violated. Reduce ACC by 5 kg/m³ to 10 kg/m³ to meet ACC_pct bound. To compensate for the slight strength reduction from lowering ACC, increase PC by 4 kg/m³ to 132 kg/m³. WATER remains at 79.771 kg/m³.
+[17] GWP=173.81 28d=46.7 (exploit): ACC_pct is violated. Reduce ACC by 4 kg/m³ to 10 kg/m³ to meet the bound. To compensate for strength loss, increase PC by 4 kg/m³ to 136 kg/m³. WATER remains at 90.771 kg/m³.
+[18] GWP=164.41 28d=49.6 (exploit): GWP increased, which is undesirable. The strength margin is tight. To reduce GWP and maintain strength, I will decrease PC by 12 kg/m³ to 124 kg/m³ and increase SC by 12 kg/m³ to 106 kg/m³. Before these changes, I will decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[19] GWP=151.83 28d=45.9 (exploit): GWP has decreased significantly, and the mix is feasible with a good strength margin. To further reduce GWP, I will decrease PC by 12 kg/m³ to 112 kg/m³. I will also decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[20] GWP=152.40 28d=48.8 (exploit): Strength is now above 45 MPa. Vfinal is low, and b/a is violated. Add 6 kg of CAGG to restore Vfinal. To fix b/a, increase binder content and/or decrease aggregate. I will increase PC by 10 kg/m³ to 110 kg/m³ and increase SC by 10 kg/m³ to 116 kg/m³. CAGG is increased by 6 kg to 1140 kg.
+[21] GWP=140.35 28d=46.8 (exploit): GWP increased, which is undesirable. The strength margin is good. To reduce GWP, I will swap 12 kg of PC to SC (PC to 98 kg/m³, SC to 118 kg/m³). I will also decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[22] GWP=139.10 28d=46.3 (exploit): Strength is now above 45 MPa. Vfinal is low, and b/a is violated. Add 3 kg of CAGG to restore Vfinal. To fix b/a, increase binder content and/or decrease aggregate. I will increase PC by 10 kg/m³ to 96 kg/m³ and increase SC by 10 kg/m³ to 116 kg/m³. CAGG is increased by 3 kg to 1143 kg.
+[23] GWP=139.10 28d=46.3 (exploit): GWP has decreased, and the mix is feasible. The strength margin is tight. To further reduce GWP, I will decrease PC by 12 kg/m³ to 85 kg/m³. Before this reduction, I will decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[24] GWP=142.26 28d=49.1 (exploit): GWP has not decreased, and the mix is feasible but the strength margin is tight. To further reduce GWP and avoid oscillation, I will decrease PC by 12 kg/m³ to 85 kg/m³ and increase SC by 12 kg/m³ to 128 kg/m³. Before these changes, I will decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[25] GWP=145.43 28d=51.1 (exploit): GWP increased, which is undesirable. The strength margin is good. To reduce GWP and maintain strength, I will decrease PC by 12 kg/m³ to 85 kg/m³ and increase SC by 12 kg/m³ to 140 kg/m³. Before these changes, I will decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[26] GWP=148.60 28d=52.3 (exploit): GWP increased, which is undesirable. The strength margin is good. To reduce GWP and maintain strength, I will decrease PC by 12 kg/m³ to 85 kg/m³ and increase SC by 12 kg/m³ to 152 kg/m³. Before these changes, I will decrease WATER by 4 kg/m³ to 86.771 kg/m³ to maintain strength. ACC remains at 10 kg/m³.
+[27] GWP=142.68 28d=45.4 (RESTART#1): The mix is still borderline infeasible with b/a at the absolute lower limit. To ensure it is strictly feasible, I will increase the binder content slightly (PC and SC) while making minimal adjustments to aggregates. This should push b/a just above the threshold without negatively impacting GWP or strength significantly.
+[28] GWP=137.97 28d=46.9 (exploit): The current mix has a tight strength margin and is slightly higher in GWP than the best achieved so far. To reduce GWP further while maintaining strength, I will reduce water by 5 kg/m³ and increase SC by 6 kg/m³ (swapping PC for SC). This swap is small, and the water reduction will help maintain the 28-day strength. WR_HR and ACC remain to support strength and workability.
+[29] GWP=139.11 28d=48.0 (exploit): The previous attempt resulted in a volume deficit (Vfinal=0.948). To fix this, I will add 7 kg of aggregate, distributing it between FAGG and CAGG proportionally. This will restore Vfinal to be within the [0.95, 1.05] range. The GWP and strength are still good, so no other changes are needed.
+[30] GWP=141.79 28d=50.0 (exploit): The previous attempt resulted in a volume deficit (Vfinal=0.948). To fix this, I will add 6 kg of aggregate, distributing it between FAGG and CAGG proportionally. This will restore Vfinal to be within the [0.95, 1.05] range. The GWP and strength are still good, so no other changes are needed.

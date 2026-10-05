@@ -1,0 +1,33 @@
+Experiment: zero_shot   zero_shot | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 3
+  n_feasible            : 3
+  surrogate_evals       : 42
+  rcalls                : 0.0021
+  api_calls             : 42
+  prompt_tokens         : 549843
+  completion_tokens     : 10892
+  llm_time_s            : 39.4
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 2.0956
+  QER                   : 0.0
+  MCE                   : 0.0773
+  best_gwp              : 450.97
+  ga_gwp                : 145.68
+  gwp_gap               : 305.29
+  convergence_iter      : 1
+  str_margin_at_best    : 1.52
+  feasibility_rate      : 0.0714
+  scenario              : s55_nodur
+  method                : zero_shot
+  run                   : 5
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=450.97 28d=56.5 (exploit): The strength (56.3 MPa) is now adequate, but Vfinal (0.946) is slightly low. To fix this, I will add a small amount of CAGG (10 kg) to bring the volume just above the 0.95 threshold. This minor adjustment should not significantly impact strength or GWP. Other ratios are checked and within bounds.
+[2] GWP=453.68 28d=56.9 (exploit): The strength (56.5 MPa) is adequate, but Vfinal (0.943) is still slightly low. To bring Vfinal above 0.95, I will add 18 kg of CAGG. This is a minor adjustment to address the volume deficit without significantly altering the mix properties or GWP. The GWP has slightly increased due to the addition of CAGG, but it's a necessary step for feasibility.
+[3] GWP=465.51 28d=56.3 (exploit): The strength (57.0 MPa) and Vfinal (0.957) are now adequate. However, the w/b ratio (0.2308) is slightly below the lower bound of 0.2353. To rectify this, I will increase the WATER content by 5 kg/m³ and, to maintain the w/b ratio and strength, I will also increase the binder content (PC) by 5 kg/m³. This adjustment aims to bring the w/b ratio within limits while minimally impacting GWP and ensuring strength.

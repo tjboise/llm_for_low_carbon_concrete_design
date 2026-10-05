@@ -1,0 +1,60 @@
+Experiment: no_knowledge   no_knowledge | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 106
+  rcalls                : 0.0053
+  api_calls             : 106
+  prompt_tokens         : 3482923
+  completion_tokens     : 21485
+  llm_time_s            : 87.29
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3713
+  QER                   : 0.5811
+  MCE                   : 0.7505
+  best_gwp              : 180.94
+  ga_gwp                : 131.95
+  gwp_gap               : 48.99
+  convergence_iter      : 12
+  str_margin_at_best    : 11.48
+  feasibility_rate      : 0.283
+  scenario              : s45_nodur
+  method                : no_knowledge
+  run                   : 3
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=242.54 28d=53.2 (exploit): Vfinal is below the 0.95 lower bound. I will add 2.5 kg each of FAGG and CAGG to increase the total volume and bring it into the feasible range. The strength and GWP are still acceptable. The focus remains on achieving feasibility before further GWP reduction.
+[2] GWP=222.96 28d=53.7 (exploit): Vfinal is below the 0.95 lower bound. I will add 1 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP has decreased, and strength is adequate. The immediate priority is to ensure Vfinal is within bounds.
+[3] GWP=215.13 28d=53.1 (exploit): Vfinal is below the 0.95 lower bound. I will add 1 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP has decreased, and strength is adequate. The immediate priority is to ensure Vfinal is within bounds.
+[4] GWP=191.62 28d=51.3 (exploit): Vfinal is below the 0.95 lower bound. I will add 1 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP has decreased, and strength is adequate. The immediate priority is to ensure Vfinal is within bounds.
+[5] GWP=183.59 28d=51.6 (exploit): Vfinal is at the 0.95 lower bound. The GWP is good. The strength is slightly above the minimum. To push GWP lower, I will swap another 10 kg of PC for SC, reducing GWP by approx 7.84 kg/m³. I will slightly decrease water and increase WR_HR to maintain strength and Vfinal.
+[6] GWP=182.90 28d=53.8 (exploit): Vfinal is below the 0.95 lower bound. I will add 1.5 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP is good, and strength is excellent. The immediate priority is to ensure Vfinal is within bounds.
+[7] GWP=182.59 28d=54.5 (exploit): Vfinal is below the 0.95 lower bound. I will add 2 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP has decreased slightly, and strength is excellent. The immediate priority is to ensure Vfinal is within bounds.
+[8] GWP=181.66 28d=55.1 (exploit): Vfinal is below the 0.95 lower bound. I will add 3.5 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP has decreased, and strength is excellent. The immediate priority is to ensure Vfinal is within bounds.
+[9] GWP=181.35 28d=55.2 (exploit): Vfinal is below the 0.95 lower bound. I will add 2 kg each of FAGG and CAGG to bring the volume into the feasible range. The GWP has decreased, and strength is excellent. The immediate priority is to ensure Vfinal is within bounds.
+[10] GWP=181.90 28d=56.7 (exploit): Vfinal is at the 0.95 lower bound. GWP is good, and strength is excellent. PC is at its minimum. FA is very low. To slightly improve GWP and maintain feasibility, I'll increase FAGG and CAGG by 1kg each to push Vfinal slightly higher, and then swap 2kg of FA for SC. This will have a negligible GWP impact but improve chloride resistance.
+[11] GWP=181.26 28d=57.2 (exploit): GWP increased, which is undesirable. PC is at its minimum. I will swap 10 kg of FA for SC, reducing GWP by approximately 10 * (0.3280 - 0.2640) = 0.64 kg CO₂/m³. I will also slightly decrease water and increase WR_HR to maintain strength and Vfinal.
+[12] GWP=180.94 28d=56.5 (exploit): GWP has decreased slightly. PC is at its minimum. FA is very low. To continue reducing GWP, I will swap 5 kg of FA for SC, reducing GWP by approximately 5 * (0.3280 - 0.2640) = 0.32 kg CO₂/m³. I will also slightly decrease water and increase WR_HR to maintain strength and Vfinal.
+[13] GWP=183.90 28d=55.6 (exploit): Vfinal is below the 0.95 lower bound and SC% is too high. I will add 1.5 kg each of FAGG and CAGG to address Vfinal. To fix SC%, I will swap 10 kg of SC for FA. This will increase GWP slightly but resolve the SC% violation and help Vfinal. Strength is good.
+[14] GWP=183.58 28d=56.1 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[15] GWP=183.59 28d=56.1 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[16] GWP=183.61 28d=56.3 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[17] GWP=183.62 28d=58.6 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[18] GWP=183.64 28d=59.3 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[19] GWP=183.65 28d=59.9 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[20] GWP=183.67 28d=59.4 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[21] GWP=183.68 28d=59.3 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[22] GWP=183.70 28d=59.2 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[23] GWP=183.71 28d=59.0 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[24] GWP=183.73 28d=59.1 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[25] GWP=183.75 28d=61.1 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[26] GWP=183.76 28d=61.1 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[27] GWP=183.78 28d=63.3 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[28] GWP=183.79 28d=63.2 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[29] GWP=183.81 28d=63.2 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.
+[30] GWP=183.82 28d=63.2 (exploit): SC% is too high. I will swap 5 kg of SC for FA to bring SC% within bounds and reduce GWP slightly. Water is reduced and WR_HR increased to maintain strength and Vfinal.

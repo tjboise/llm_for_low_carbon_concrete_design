@@ -1,0 +1,35 @@
+Experiment: rag_text   rag_text | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 5
+  n_feasible            : 5
+  surrogate_evals       : 53
+  rcalls                : 0.00265
+  api_calls             : 53
+  prompt_tokens         : 1281591
+  completion_tokens     : 12697
+  llm_time_s            : 52.1
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.7085
+  QER                   : 1.226
+  MCE                   : 0.1381
+  best_gwp              : 232.22
+  ga_gwp                : 135.92
+  gwp_gap               : 96.3
+  convergence_iter      : 5
+  str_margin_at_best    : 20.72
+  feasibility_rate      : 0.0943
+  scenario              : s50_dur
+  method                : rag_text
+  run                   : 5
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=297.20 28d=73.8 (exploit): Chloride probability and w/b ratio are still problematic. I will increase WATER to 130 kg/m³ to fix the w/b ratio. To maintain high SCM% for chloride resistance, SC is kept at its upper bound (332.235 kg/m³). I will then reduce PC to 195 kg/m³ to create more room for SC substitution and attempt to lower GWP. ACC and WR_HR remain unchanged.
+[2] GWP=276.24 28d=72.7 (exploit): All constraints are now satisfied with the current mix. However, GWP has barely changed in the last few iterations. To further reduce GWP, I will try to reduce the total binder content. I will decrease PC by 20 kg/m³ to 175 kg/m³, keeping SC at its maximum (332.235 kg/m³) to maintain SCM% and chloride resistance. WATER will be slightly reduced to 125 kg/m³ to compensate for strength loss, and ACC will be increased to 5 kg/m³ to aid early strength. This move aligns with Path 2 strategy by lowering binder content.
+[3] GWP=260.52 28d=73.1 (exploit): GWP has been significantly reduced, and all constraints are met. To further reduce GWP, I will decrease PC by another 15 kg/m³ to 160 kg/m³, maintaining SC at its maximum and WATER at 125 kg/m³. ACC will be slightly increased to 6 kg/m³ to support strength. This continues the Path 2 strategy of lowering total binder content while leveraging high SC substitution.
+[4] GWP=244.80 28d=72.9 (exploit): GWP has been significantly reduced, and all constraints are met. To further decrease GWP, I will reduce PC by another 15 kg/m³ to 145 kg/m³, keeping SC at its maximum (332.235 kg/m³) and WATER at 125 kg/m³. ACC will be increased to 7 kg/m³ to ensure strength. This continues the Path 2 strategy of lowering total binder content while maximizing SC substitution.
+[5] GWP=232.22 28d=70.7 (exploit): The SC% constraint is violated. I will reduce SC to its upper bound of 332.235 kg/m³ (SC% = 71.74%). Since the previous PC was 130 kg/m³, and SC is at max, I will slightly increase PC to 133 kg/m³ to ensure strength and meet SCM% for chloride resistance. WATER, WR_HR, and ACC remain unchanged. This adjustment addresses the SC% violation while maintaining other parameters.

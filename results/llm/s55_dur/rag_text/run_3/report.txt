@@ -1,0 +1,32 @@
+Experiment: rag_text   rag_text | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 2
+  n_feasible            : 2
+  surrogate_evals       : 52
+  rcalls                : 0.0026
+  api_calls             : 52
+  prompt_tokens         : 1144570
+  completion_tokens     : 14263
+  llm_time_s            : 51.06
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 1.4318
+  QER                   : 0.0
+  MCE                   : 0.0202
+  best_gwp              : 347.43
+  ga_gwp                : 142.87
+  gwp_gap               : 204.56
+  convergence_iter      : 1
+  str_margin_at_best    : 0.14
+  feasibility_rate      : 0.0385
+  scenario              : s55_dur
+  method                : rag_text
+  run                   : 3
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=347.43 28d=55.1 (exploit): All constraints are now met, but the b/a ratio is slightly too high. To reduce b/a, I need to increase the aggregate volume or decrease the binder volume. Since GWP is the objective, I will increase CAGG by 20 kg/m³ (to 976 kg/m³) and decrease PC by 20 kg/m³ (to 230 kg/m³). This shift will lower b/a and slightly reduce GWP while keeping strength and chloride resistance within limits. The SC limit has been reached.
+[2] GWP=347.43 28d=55.4 (exploit): All constraints are met, but the strength margin is very tight. To maintain feasibility and slightly reduce GWP, I will decrease WATER by 5 kg/m³ (to 155 kg/m³). This will improve the w/b ratio and potentially increase strength without significantly impacting GWP. I will keep other components the same for now to ensure feasibility.

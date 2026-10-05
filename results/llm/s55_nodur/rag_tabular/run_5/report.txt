@@ -1,0 +1,56 @@
+Experiment: rag_tabular   rag_tabular | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 26
+  n_feasible            : 26
+  surrogate_evals       : 79
+  rcalls                : 0.00395
+  api_calls             : 80
+  prompt_tokens         : 1487871
+  completion_tokens     : 17387
+  llm_time_s            : 65.42
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2137
+  QER                   : 1.5287
+  MCE                   : 0.3859
+  best_gwp              : 176.81
+  ga_gwp                : 145.68
+  gwp_gap               : 31.13
+  convergence_iter      : 14
+  str_margin_at_best    : 4.23
+  feasibility_rate      : 0.3291
+  scenario              : s55_nodur
+  method                : rag_tabular
+  run                   : 5
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=297.58 28d=56.1 (exploit): Strength target is met (55.7 MPa), but Vfinal is too high. b/a is within bounds. To reduce Vfinal: 1. Reduce aggregates (FAGG/CAGG) to lower Vfinal. 2. Maintain PC and SC levels as strength is now met, but continue increasing SC slightly for GWP reduction. 3. Reduce WATER slightly as aggregate is reduced. ACC is maintained. WR_HR might be slightly reduced if possible.
+[2] GWP=287.64 28d=55.6 (exploit): The mix is now feasible, but GWP is high and strength margin is slim. To reduce GWP while maintaining strength: 1. Swap a significant amount of PC for SC. 2. Reduce WATER slightly to maintain strength with the PC reduction. 3. Maintain ACC and WR_HR. Aggregate levels are kept stable as Vfinal is OK. The goal is to leverage SC's GWP benefits.
+[3] GWP=281.91 28d=55.6 (exploit): Strength is now very close to the floor, but still slightly below. Other constraints are met. To increase strength: 1. Increase PC slightly to provide more inherent strength. 2. Increase ACC to provide a boost. 3. Increase WATER slightly to maintain workability. 4. Increase SC further for GWP reduction. Aggregate levels are stable.
+[4] GWP=271.98 28d=57.0 (exploit): The mix is feasible with good GWP reduction. Strength margin is tight. To further reduce GWP while maintaining strength: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution.
+[5] GWP=262.04 28d=58.6 (exploit): The mix is feasible and GWP has been significantly reduced. Strength is adequate. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[6] GWP=252.10 28d=60.2 (exploit): The mix is feasible with good GWP reduction and a healthy strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[7] GWP=242.17 28d=59.6 (exploit): The mix is feasible with good GWP reduction and a healthy strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[8] GWP=232.76 28d=59.2 (exploit): The mix is feasible with good GWP reduction and a healthy strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[9] GWP=222.82 28d=59.4 (exploit): The mix is feasible with a significant GWP reduction and a good strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[10] GWP=212.89 28d=58.7 (exploit): The mix is feasible with significant GWP reduction and a good strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[11] GWP=202.95 28d=58.5 (exploit): The mix is feasible with good GWP reduction and a healthy strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[12] GWP=193.02 28d=59.0 (exploit): The mix is feasible with significant GWP reduction and a good strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[13] GWP=183.08 28d=58.2 (exploit): The mix is feasible with significant GWP reduction and a good strength margin. To further reduce GWP: 1. Swap more PC for SC. 2. Reduce WATER slightly to compensate for reduced PC and maintain strength. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This continues the strategy of maximizing SC substitution and minimizing PC.
+[14] GWP=176.81 28d=59.2 (exploit): The SC% ratio constraint has been violated. To fix this: 1. Reduce SC slightly and increase PC to bring SC% back within its bound. 2. Maintain WATER and aggregates to keep strength and Vfinal in check. This will slightly increase GWP but is necessary for feasibility. ACC and WR_HR are kept constant.
+[15] GWP=177.45 28d=59.2 (exploit): The mix is feasible with good GWP reduction and a healthy strength margin. The SC% is now at its upper bound (0.7126), meaning we cannot increase SC further without violating constraints. To further reduce GWP: 1. Introduce FA as a partial substitute for SC. 2. Maintain PC and WATER levels. 3. Maintain ACC and WR_HR. Aggregate levels are stable. This strategy aims to reduce GWP by using FA's lower GWP while staying within SC% bound.
+[16] GWP=177.77 28d=59.3 (exploit): GWP increased, which is the wrong direction. The SC% is at its limit, so we cannot swap more PC for SC. To reduce GWP and maintain strength: 1. Reduce WATER slightly. 2. Re-evaluate the PC/SC/FA blend. Since SC% is maxed, attempt to use FA more effectively. Reduce SC and increase FA to keep SCM% high but lower GWP. PC and ACC remain. Aggregates are stable.
+[17] GWP=178.41 28d=59.3 (exploit): GWP increased slightly and then barely changed. The current mix has high SC and some FA. To further reduce GWP: 1. Swap more SC for FA as FA has a lower GWP. 2. Maintain PC and WATER. 3. Maintain ACC and WR_HR. This will reduce GWP while keeping strength and Vfinal stable. The SC% is still within limits, but FA is being increased to reduce overall binder GWP.
+[18] GWP=177.13 28d=59.4 (exploit): GWP increased, indicating the current blend of SC/FA isn't optimal for GWP reduction at this stage. The best feasible mix is still the one with only SC. To re-approach the lowest GWP: 1. Reduce FA and increase SC, as SC is more efficient for GWP reduction than FA when PC is low. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain ACC and WR_HR. Aggregates are stable.
+[19] GWP=177.77 28d=59.3 (exploit): GWP decreased slightly. The SC% is still within limits, and FA is a good option to further reduce GWP. To further reduce GWP: 1. Swap more SC for FA. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain PC, ACC, and WR_HR. Aggregates are stable. This strategy aims to leverage FA's lower GWP while keeping SC high.
+[20] GWP=177.13 28d=59.4 (exploit): GWP increased again, moving away from the lowest value. The previous approach of increasing FA at the expense of SC didn't work. To reduce GWP: 1. Revert FA to a minimal level and increase SC. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain PC, ACC, and WR_HR. This will aim to get back to the lower GWP range previously achieved with higher SC content.
+[21] GWP=178.41 28d=58.8 (exploit): GWP decreased slightly. To further reduce GWP: 1. Swap more SC for FA, as FA has a lower GWP than SC. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain PC, ACC, and WR_HR. Aggregates are stable. This strategy aims to leverage FA's lower GWP further while SC is still high.
+[22] GWP=177.13 28d=59.3 (exploit): GWP increased again, moving away from the lowest value. The previous approach of increasing FA at the expense of SC didn't work. To reduce GWP: 1. Revert FA to a minimal level and increase SC. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain PC, ACC, and WR_HR. Aggregates are stable. This will aim to get back to the lower GWP range previously achieved with higher SC content.
+[23] GWP=177.77 28d=58.9 (exploit): GWP decreased slightly. To further reduce GWP: 1. Swap more SC for FA. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain PC, ACC, and WR_HR. Aggregates are stable. This strategy aims to leverage FA's lower GWP further while SC is still high.
+[24] GWP=177.13 28d=59.3 (exploit): GWP increased again, moving away from the lowest value. The previous approach of increasing FA at the expense of SC didn't work. To reduce GWP: 1. Revert FA to a minimal level and increase SC. 2. Reduce WATER slightly to compensate for binder changes and maintain strength. 3. Maintain PC, ACC, and WR_HR. Aggregates are stable. This will aim to get back to the lower GWP range previously achieved with higher SC content.
+[25] GWP=177.77 28d=58.9 (exploit): GWP decreased slightly. To further reduce GWP: 1. Swap more SC for FA. 2. Maintain PC, ACC, and WR_HR. Aggregates are stable. This strategy aims to leverage FA's lower GWP further while SC is still high. Water is already at its minimum, so it cannot be reduced.
+[26] GWP=177.13 28d=59.3 (exploit): GWP increased again. The previous attempt to increase FA at the expense of SC did not yield a GWP reduction. To reduce GWP: 1. Revert FA to a minimal level and increase SC. 2. Maintain WATER at its minimum. 3. Maintain PC, ACC, and WR_HR. Aggregates are stable. This strategy aims to get back to the lower GWP range previously achieved with higher SC content.

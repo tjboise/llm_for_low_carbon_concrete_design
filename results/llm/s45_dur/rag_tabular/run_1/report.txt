@@ -1,0 +1,60 @@
+Experiment: rag_tabular   rag_tabular | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 94
+  rcalls                : 0.0047
+  api_calls             : 94
+  prompt_tokens         : 3833468
+  completion_tokens     : 22048
+  llm_time_s            : 98.74
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.478
+  QER                   : 0.111
+  MCE                   : 0.0678
+  best_gwp              : 197.46
+  ga_gwp                : 133.6
+  gwp_gap               : 63.86
+  convergence_iter      : 6
+  str_margin_at_best    : 17.29
+  feasibility_rate      : 0.3191
+  scenario              : s45_dur
+  method                : rag_tabular
+  run                   : 1
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=207.89 28d=64.8 (exploit): The SC% limit is still violated. To fix this, I will slightly reduce SC to 297 kg and increase PC slightly to 118 kg to maintain strength and keep SC% below the limit. WATER and WR_HR are adjusted minimally to maintain volume balance and workability. This aims to satisfy the SC% constraint while keeping other parameters stable.
+[2] GWP=203.94 28d=64.9 (exploit): The mix is currently infeasible because Vfinal is slightly too low. To correct this, I will add 4 kg of aggregate (split between FAGG and CAGG) to bring Vfinal back above 0.95. PC, SC, and WATER remain unchanged to preserve strength, chloride resistance, and GWP. WR_HR is also kept the same.
+[3] GWP=201.33 28d=65.2 (exploit): The mix is infeasible due to Vfinal being slightly low. To fix this, I will add 9 kg of aggregate (split between FAGG and CAGG) to bring Vfinal above the 0.95 threshold. PC, SC, and WATER remain unchanged to maintain strength, chloride resistance, and GWP. WR_HR is also kept the same.
+[4] GWP=198.74 28d=62.3 (exploit): The mix is infeasible due to low Vfinal and borderline chloride probability. To address this, I will increase SC by 10 kg to improve chloride resistance and slightly lower WATER to 97 kg/m³. To compensate for the volume deficit, I will add 9 kg of aggregate (split between FAGG and CAGG). PC and WR_HR remain unchanged.
+[5] GWP=198.76 28d=62.2 (exploit): The mix is infeasible due to low chloride probability and Vfinal. To address this, I will increase SC by 10 kg/m³ to improve chloride resistance. I will also slightly decrease WATER to 95 kg/m³ to further aid chloride resistance. To compensate for the volume deficit, I will add 10 kg of aggregate (split between FAGG and CAGG). PC and WR_HR remain unchanged.
+[6] GWP=197.46 28d=62.3 (exploit): The mix is infeasible due to low chloride probability and Vfinal. To address this, I will increase SC by 10 kg/m³ to improve chloride resistance. I will also slightly decrease WATER to 94 kg/m³ to further aid chloride resistance. To compensate for the volume deficit, I will add 7 kg of aggregate (split between FAGG and CAGG). PC and WR_HR remain unchanged.
+[7] GWP=197.47 28d=61.5 (exploit): The mix is infeasible due to low chloride probability and Vfinal. To address this, I will increase SC by 10 kg/m³ to improve chloride resistance. I will also slightly decrease WATER to 93 kg/m³ to further aid chloride resistance. To compensate for the volume deficit, I will add 3 kg of aggregate (split between FAGG and CAGG). PC and WR_HR remain unchanged.
+[8] GWP=197.50 28d=61.4 (exploit): The mix is infeasible due to chloride probability being exactly 0.70, which is borderline. To ensure it meets the >= 0.7 requirement, I will increase SC by 5 kg/m³ to improve chloride resistance and slightly decrease WATER to 91 kg/m³ to further enhance durability. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[9] GWP=200.15 28d=61.6 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 10 kg/m³ to improve chloride resistance and slightly decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[10] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 96 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are adjusted slightly to maintain volume balance after changing SC and WATER.
+[11] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 94 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[12] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 92 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[13] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 90 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[14] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[15] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[16] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[17] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[18] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[19] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[20] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[21] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[22] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[23] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[24] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[25] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[26] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[27] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[28] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[29] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.
+[30] GWP=198.83 28d=61.4 (exploit): The mix is infeasible due to low chloride probability. To address this, I will increase SC by 5 kg/m³ to improve chloride resistance and decrease WATER to 89 kg/m³ to further aid chloride resistance. PC and WR_HR remain unchanged. Aggregates are kept the same as Vfinal is acceptable.

@@ -1,0 +1,36 @@
+Experiment: baseline   baseline | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 6
+  n_feasible            : 6
+  surrogate_evals       : 46
+  rcalls                : 0.0023
+  api_calls             : 46
+  prompt_tokens         : 831637
+  completion_tokens     : 12289
+  llm_time_s            : 48.08
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3146
+  QER                   : 1.0226
+  MCE                   : 0.1222
+  best_gwp              : 187.82
+  ga_gwp                : 142.87
+  gwp_gap               : 44.95
+  convergence_iter      : 5
+  str_margin_at_best    : 2.82
+  feasibility_rate      : 0.1304
+  scenario              : s55_dur
+  method                : baseline
+  run                   : 1
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=234.86 28d=58.6 (exploit): The mix is very close to feasibility, with strength and volume well within limits. Only chloride pass probability is slightly below target. To fix this, SC is increased by 10 kg/m³ to further boost SCM content. Water is slightly reduced by 5 kg/m³ to help chloride resistance. PC and ACC remain unchanged to preserve strength and volume. GWP increases slightly due to more SC.
+[2] GWP=223.10 28d=58.0 (exploit): The mix is now feasible, but GWP has not improved. The strength margin is acceptable (3.6 MPa). Chloride resistance is just above the threshold. To reduce GWP, I will try reducing the total binder content by swapping PC for SC, while keeping strength and chloride resistance stable. I'll reduce PC by 15 kg/m³ and increase SC by 15 kg/m³. This maintains SCM% and should slightly decrease GWP.
+[3] GWP=211.34 28d=58.4 (exploit): GWP was successfully reduced by swapping PC for SC. The strength margin is still acceptable, and chloride resistance is adequate. To further reduce GWP, I will continue this strategy. I'll reduce PC by another 15 kg/m³ and increase SC by 15 kg/m³. This maintains the SCM% and should yield another GWP reduction. Water and aggregates remain unchanged.
+[4] GWP=199.58 28d=58.3 (exploit): The strategy of swapping PC for SC continues to successfully reduce GWP while maintaining strength and chloride resistance. The current mix is feasible and has a decent GWP. To further decrease GWP, I will repeat the PC to SC swap. PC will be reduced by 15 kg/m³ and SC increased by 15 kg/m³. This maintains SCM% and should provide another GWP reduction. Water and aggregates remain unchanged.
+[5] GWP=187.82 28d=57.8 (exploit): The PC to SC swap continues to be effective in reducing GWP while maintaining feasibility. The strength margin is still comfortable, and chloride resistance is good. I will continue this strategy by reducing PC by 15 kg/m³ and increasing SC by 15 kg/m³. This maintains SCM% and should further lower GWP. Other components remain unchanged.
+[6] GWP=187.82 28d=57.8 (exploit): The previous mix was feasible but violated the SC% constraint (SCM% is fine, but SC as a % of binder is too high). To fix this, I need to reduce SC and increase PC. I will reduce SC by 15 kg/m³ and increase PC by 15 kg/m³ to bring SC% back within limits. This will slightly increase GWP but is necessary for feasibility. Strength, volume, and chloride resistance are expected to remain acceptable.

@@ -1,0 +1,33 @@
+Experiment: baseline   baseline | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 3
+  n_feasible            : 3
+  surrogate_evals       : 68
+  rcalls                : 0.0034
+  api_calls             : 68
+  prompt_tokens         : 1382866
+  completion_tokens     : 16059
+  llm_time_s            : 61.68
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.1356
+  QER                   : 0.1593
+  MCE                   : 0.1689
+  best_gwp              : 162.25
+  ga_gwp                : 142.87
+  gwp_gap               : 19.38
+  convergence_iter      : 3
+  str_margin_at_best    : 0.24
+  feasibility_rate      : 0.0441
+  scenario              : s55_dur
+  method                : baseline
+  run                   : 2
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=173.08 28d=55.1 (exploit): Strength is still below the 55 MPa target (54.7 MPa). Chloride probability and Vfinal are acceptable. To achieve the required strength, I will slightly decrease WATER and increase ACC. PC and SC levels remain unchanged to minimize GWP impact. This is a fine-tuning adjustment to reach the strength floor.
+[2] GWP=164.81 28d=55.7 (exploit): Strength is below the 55 MPa target (54.9 MPa). GWP and Vfinal are acceptable. Chloride probability is good. To increase strength, I will slightly reduce WATER and increase ACC. PC and SC remain constant to maintain the achieved GWP reduction. This adjustment focuses on meeting the strength requirement.
+[3] GWP=162.25 28d=55.2 (exploit): Strength is still below 55 MPa (54.9 MPa), and ACC_pct (0.0616) violates its bound. To fix this, I will reduce ACC to its limit (15.0 kg/m³). To compensate for the strength loss and meet the 55 MPa target, I'll slightly decrease WATER. PC and SC remain constant to maintain the GWP reduction. This mix prioritizes meeting all constraints.

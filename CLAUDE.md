@@ -11,5 +11,5 @@ Rules that matter:
 - Feasible mix = within `data/constraints.json` (ingredient bounds, ratio bounds, Vfinal in [0.95, 1.05]) + predicted 28-day strength ≥ floor + predicted 28-day RCPT < 1200 C (Port Authority "Low or better").
 - Chloride classes are the Port Authority ones (<800 / 800–1200 / 1200–2000 / >2000 C), not ASTM bins.
 - Strength inference is chained (predicted previous stage); report chained metrics, not stage-wise ones.
-- `optimizer_core.py`, `app.py`, `run_experiment.py`, `results/`, `pictures/` are from the pre-fix data and not yet migrated; see section 4 of the doc.
+- `optimizer_core.py`, `run_experiment.py`, `app.py` use the corrected data, constraints and surrogates; `results/` and `pictures/` come from the rerun described in `docs/EXPERIMENTS.md`. GA and LLM share one `check_feasibility` (no tolerance).
 - Never commit `.env` or API keys.

@@ -1,0 +1,38 @@
+Experiment: baseline   baseline | s50_nodur
+strength >= 50 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 65
+  rcalls                : 0.00325
+  api_calls             : 65
+  prompt_tokens         : 1336510
+  completion_tokens     : 13580
+  llm_time_s            : 55.06
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3738
+  QER                   : 1.0972
+  MCE                   : 0.3874
+  best_gwp              : 184.38
+  ga_gwp                : 134.21
+  gwp_gap               : 50.17
+  convergence_iter      : 8
+  str_margin_at_best    : 5.67
+  feasibility_rate      : 0.1231
+  scenario              : s50_nodur
+  method                : baseline
+  run                   : 2
+  strength_min          : 50
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=255.70 28d=54.2 (exploit): Strength is now above 50 MPa, but ACC_pct is still too high. I need to reduce ACC to meet the constraint. To compensate for the strength loss from reducing ACC and maintain strength above the floor, I will increase PC slightly and reduce water. This strategy aims to satisfy the ACC_pct constraint and maintain strength, while accepting a GWP increase.
+[2] GWP=245.51 28d=54.4 (exploit): The mix is now feasible with strength well above the floor. To reduce GWP, I will increase SC (a good GWP reducer) and decrease PC accordingly. This swap is a core strategy for lowering GWP. I'll also slightly reduce water to maintain strength and potentially improve w/b ratio, and decrease ACC as it's no longer needed as heavily for strength.
+[3] GWP=235.31 28d=54.5 (exploit): The GWP has decreased significantly by swapping PC for SC. Strength is still comfortably above the minimum. I will continue this strategy, increasing SC further and decreasing PC. I will also slightly decrease water and ACC as strength is sufficient, aiming for further GWP reduction with minimal impact on strength.
+[4] GWP=225.12 28d=55.9 (exploit): The GWP continues to decrease with further SC substitution. Strength remains solid. I will continue this trend, increasing SC and decreasing PC. Water and ACC can be slightly reduced further as strength is not an issue, aiming for more GWP savings.
+[5] GWP=214.93 28d=56.0 (exploit): GWP continues to decrease with increasing SC content. Strength is robust. I will continue substituting PC with SC to maximize GWP reduction. Water and ACC can be slightly reduced further to fine-tune the mix and maintain strength.
+[6] GWP=204.74 28d=55.4 (exploit): Continued substitution of PC with SC is yielding significant GWP reductions. Strength remains excellent. I will continue this strategy, pushing SC content higher and reducing PC. Water and ACC levels can be further reduced slightly as strength is well above the requirement.
+[7] GWP=194.56 28d=55.7 (exploit): The previous mix was feasible but hit the Vfinal lower bound exactly. Strength and GWP are excellent. To address Vfinal being at the boundary, I will slightly increase aggregates. This will maintain strength and GWP benefits while ensuring Vfinal is not below 0.95.
+[8] GWP=184.38 28d=55.7 (exploit): Vfinal is persistently at 0.950. Given the repeated attempts, I will slightly increase WATER to increase volume, as aggregate adjustments are not pushing Vfinal over. This will have a minimal impact on strength and GWP compared to the current optimal levels.

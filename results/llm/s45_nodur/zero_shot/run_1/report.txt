@@ -1,0 +1,60 @@
+Experiment: zero_shot   zero_shot | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 58
+  rcalls                : 0.0029
+  api_calls             : 58
+  prompt_tokens         : 1373596
+  completion_tokens     : 12986
+  llm_time_s            : 47.31
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4568
+  QER                   : 3.109
+  MCE                   : 0.6872
+  best_gwp              : 192.23
+  ga_gwp                : 131.95
+  gwp_gap               : 60.28
+  convergence_iter      : 24
+  str_margin_at_best    : 8.44
+  feasibility_rate      : 0.5172
+  scenario              : s45_nodur
+  method                : zero_shot
+  run                   : 1
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=372.55 28d=46.0 (exploit): Strength is too low, and Vfinal is too low. Reduced WATER to lower w/b ratio and increase strength. Increased FAGG and CAGG to meet the Vfinal target. Increased PC significantly to boost strength, as this is the primary driver. AEA and WR are kept to maintain air and workability. SC/FA are kept at 0 to prioritize strength.
+[2] GWP=372.62 28d=49.5 (exploit): The current mix is feasible but has a high GWP and a very tight strength margin. To reduce GWP, I will substitute some PC with SC, as SC has a much lower GWP. To maintain strength, I will slightly increase PC and decrease WATER, while keeping aggregate volumes constant to maintain Vfinal. ACC is added to compensate for potential workability loss due to reduced WATER.
+[3] GWP=341.27 28d=53.1 (exploit): GWP has barely changed. I need to increase the substitution of PC with SC significantly to achieve a meaningful GWP reduction. I will increase SC and decrease PC, while reducing WATER further to maintain strength. ACC is increased to offset the reduction in WATER and maintain workability and Vfinal. Aggregate volumes remain unchanged.
+[4] GWP=309.91 28d=52.4 (exploit): GWP has decreased significantly, and strength is well above the minimum. I will continue to increase SC substitution for PC, which has a lower GWP, and further reduce WATER to maintain strength and lower the w/b ratio. ACC is increased to compensate for reduced WATER and maintain workability. Aggregate volumes remain constant.
+[5] GWP=278.55 28d=53.3 (exploit): GWP has decreased further, and strength remains well above the target. I will continue to substitute PC with SC to reduce GWP. WATER is reduced to maintain strength and a low w/b ratio. ACC is increased to compensate for reduced WATER and maintain workability. Aggregate volumes are kept constant.
+[6] GWP=251.07 28d=54.6 (exploit): The ACC_pct constraint is violated. I need to reduce ACC. To maintain Vfinal and workability with reduced ACC, I will slightly increase WATER and decrease CAGG. PC and SC are adjusted to maintain strength while compensating for the changes. FA remains at 0. The goal is to bring ACC within bounds while maintaining strength and Vfinal.
+[7] GWP=247.15 28d=54.6 (exploit): ACC_pct is slightly over the limit. To fix this, I will reduce ACC. To maintain Vfinal and compensate for reduced ACC, I will increase CAGG slightly. WATER is already at its minimum, so it remains unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[8] GWP=243.23 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[9] GWP=239.31 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[10] GWP=235.39 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[11] GWP=231.47 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[12] GWP=227.55 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[13] GWP=223.63 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[14] GWP=219.71 28d=54.0 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[15] GWP=215.79 28d=54.0 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[16] GWP=211.87 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[17] GWP=207.95 28d=53.9 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[18] GWP=204.03 28d=53.8 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[19] GWP=200.11 28d=53.6 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[20] GWP=196.19 28d=53.6 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[21] GWP=192.27 28d=53.4 (exploit): ACC_pct is slightly over the limit. To correct this, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will increase CAGG slightly. WATER is at its minimum and will remain unchanged. PC and SC are adjusted to maintain strength. This aims to bring ACC within bounds while preserving other constraints.
+[22] GWP=192.27 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC to meet the SC% bound and increase PC to compensate for strength loss. To bring ACC_pct within limits, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will slightly increase CAGG. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[23] GWP=192.27 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC to meet the SC% bound and increase PC to compensate for strength loss. To bring ACC_pct within limits, I will reduce ACC. To maintain Vfinal and workability with reduced ACC, I will slightly increase CAGG. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[24] GWP=192.23 28d=53.4 (exploit): SC% is violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. WATER is at its minimum, so it remains unchanged. ACC is kept at its current value to maintain workability and Vfinal, and CAGG is adjusted accordingly. This aims to fix the SC% violation while maintaining other constraints.
+[25] GWP=192.23 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. I will reduce ACC to meet ACC_pct bound and increase CAGG to maintain Vfinal and workability. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[26] GWP=192.23 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. I will reduce ACC to meet ACC_pct bound and increase CAGG to maintain Vfinal and workability. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[27] GWP=192.23 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. I will reduce ACC to meet ACC_pct bound and increase CAGG to maintain Vfinal and workability. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[28] GWP=192.23 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. I will reduce ACC to meet ACC_pct bound and increase CAGG to maintain Vfinal and workability. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[29] GWP=192.23 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. I will reduce ACC to meet ACC_pct bound and increase CAGG to maintain Vfinal and workability. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.
+[30] GWP=192.23 28d=53.4 (exploit): SC% and ACC_pct are violated. I will reduce SC and increase PC to compensate for strength loss and stay within the SC% limit. I will reduce ACC to meet ACC_pct bound and increase CAGG to maintain Vfinal and workability. WATER is at its minimum. This aims to fix the bound violations while maintaining strength and Vfinal.

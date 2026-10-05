@@ -1,0 +1,60 @@
+Experiment: rag_text   rag_text | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 71
+  rcalls                : 0.00355
+  api_calls             : 71
+  prompt_tokens         : 2538126
+  completion_tokens     : 15511
+  llm_time_s            : 65.41
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4301
+  QER                   : 2.0768
+  MCE                   : 0.4102
+  best_gwp              : 208.33
+  ga_gwp                : 145.68
+  gwp_gap               : 62.65
+  convergence_iter      : 25
+  str_margin_at_best    : 3.62
+  feasibility_rate      : 0.4225
+  scenario              : s55_nodur
+  method                : rag_text
+  run                   : 3
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=355.78 28d=55.4 (exploit): Strength is still below the 55 MPa floor (54.8 MPa). Reduce WATER by 1 kg/m³ to improve w/b. To finally achieve the strength target, increase PC by 10 kg/m³. This small increase should push the strength slightly over the required minimum.
+[2] GWP=344.02 28d=56.6 (exploit): The mix is now feasible, but GWP is high (355.78 kg CO₂-eq/m³). The strength margin is small (+0.41 MPa). To reduce GWP, we need to significantly reduce PC. First, decrease WATER by 6 kg/m³ to improve w/b. Then, swap 15 kg/m³ PC for SC, which has a large GWP saving. This should maintain strength and improve GWP.
+[3] GWP=332.27 28d=57.3 (exploit): The mix is feasible for strength (57.1 MPa) but Vfinal is too low (0.948). Add 5 kg of aggregate (split FAGG/CAGG) to bring Vfinal just above 0.95. This adjustment should not significantly impact GWP or strength.
+[4] GWP=320.56 28d=57.9 (exploit): The mix is feasible for strength (57.8 MPa) but Vfinal is too low (0.945). Add 15 kg of aggregate (split FAGG/CAGG) to bring Vfinal just above 0.95. This adjustment should not significantly impact GWP or strength.
+[5] GWP=308.85 28d=58.8 (exploit): The mix is feasible for strength (58.8 MPa) but Vfinal is too low (0.945). Add 15 kg of aggregate (split FAGG/CAGG) to bring Vfinal just above 0.95. This adjustment should not significantly impact GWP or strength.
+[6] GWP=297.13 28d=60.2 (exploit): Strength is good (59.8 MPa). Vfinal is too low (0.945), so add 15 kg of aggregate (split FAGG/CAGG). The w/b ratio (0.2347) is slightly below the minimum allowed (0.2353). Increase WATER by 2 kg/m³ to meet the w/b constraint.
+[7] GWP=285.40 28d=61.5 (exploit): Strength is excellent (61.1 MPa). Vfinal is too low (0.947), so add 9 kg of aggregate (split FAGG/CAGG). The w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet the w/b constraint and improve workability.
+[8] GWP=273.64 28d=63.6 (exploit): Strength is very high (63.0 MPa) and Vfinal is good (0.950). However, the w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[9] GWP=261.88 28d=63.8 (exploit): Strength is very high (63.8 MPa) and Vfinal is good (0.951). However, the w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[10] GWP=250.12 28d=62.9 (exploit): Strength is very high (62.9 MPa) and Vfinal is good (0.951). However, the w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[11] GWP=238.36 28d=62.8 (exploit): Strength is very high (62.8 MPa) and Vfinal is good (0.952). However, the w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[12] GWP=226.60 28d=61.7 (exploit): Strength is very high (61.0 MPa) and Vfinal is good (0.952). However, the w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[13] GWP=214.84 28d=60.5 (exploit): Strength is very high (59.7 MPa) and Vfinal is good (0.953). However, the w/b ratio (0.2249) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[14] GWP=217.75 28d=58.9 (exploit): Strength is good (58.9 MPa) and Vfinal is good (0.962). However, the w/b ratio (0.2333) is slightly below the minimum allowed (0.2353). Increase WATER by 2 kg/m³ to meet this constraint and ensure adequate workability.
+[15] GWP=214.61 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7286) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 11 kg/m³ and increase PC by 11 kg/m³.
+[16] GWP=219.32 28d=59.0 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7381) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 21 kg/m³ and increase PC by 21 kg/m³.
+[17] GWP=212.26 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7238) is slightly above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 6 kg/m³ and increase PC by 6 kg/m³.
+[18] GWP=222.45 28d=58.9 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7452) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 28 kg/m³ and increase PC by 28 kg/m³.
+[19] GWP=210.69 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[20] GWP=224.80 28d=59.1 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7500) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 33 kg/m³ and increase PC by 33 kg/m³.
+[21] GWP=224.80 28d=59.1 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7500) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 33 kg/m³ and increase PC by 33 kg/m³.
+[22] GWP=213.04 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.958). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353). Increase WATER by 6 kg/m³ to meet this constraint and ensure adequate workability.
+[23] GWP=220.88 28d=58.9 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7429) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 25 kg/m³ and increase PC by 25 kg/m³.
+[24] GWP=220.88 28d=58.9 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7429) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 25 kg/m³ and increase PC by 25 kg/m³.
+[25] GWP=208.33 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.962). However, the w/b ratio (0.2350) is slightly below the minimum allowed (0.2353). Increase WATER by 1 kg/m³ to meet this constraint and ensure adequate workability.
+[26] GWP=224.80 28d=59.4 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.957). However, the w/b ratio (0.2230) is below the minimum allowed (0.2353), and SC% (0.7530) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 36 kg/m³ and increase PC by 36 kg/m³.
+[27] GWP=213.83 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.957). However, the w/b ratio (0.2214) is below the minimum allowed (0.2353). Increase WATER by 7 kg/m³ to meet this constraint and ensure adequate workability.
+[28] GWP=221.41 28d=58.9 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2204) is below the minimum allowed (0.2353), and SC% (0.7417) is above its limit (0.7174). Increase WATER by 7 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 24 kg/m³ and increase PC by 24 kg/m³.
+[29] GWP=210.38 28d=58.6 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.959). However, the w/b ratio (0.2238) is below the minimum allowed (0.2353), and SC% (0.7190) is slightly above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 1.6 kg/m³ and increase PC by 1.6 kg/m³.
+[30] GWP=224.54 28d=59.2 (exploit): Strength is good (58.6 MPa) and Vfinal is good (0.958). However, the w/b ratio (0.2220) is below the minimum allowed (0.2353), and SC% (0.7518) is above its limit (0.7174). Increase WATER by 6 kg/m³ to meet the w/b constraint. To stay within the SC% limit, reduce SC by 34 kg/m³ and increase PC by 34 kg/m³.

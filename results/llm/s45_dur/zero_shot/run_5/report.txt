@@ -1,0 +1,39 @@
+Experiment: zero_shot   zero_shot | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 9
+  n_feasible            : 9
+  surrogate_evals       : 48
+  rcalls                : 0.0024
+  api_calls             : 48
+  prompt_tokens         : 809747
+  completion_tokens     : 9475
+  llm_time_s            : 36.26
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 1.0516
+  QER                   : 1.2963
+  MCE                   : 0.387
+  best_gwp              : 274.09
+  ga_gwp                : 133.6
+  gwp_gap               : 140.49
+  convergence_iter      : 9
+  str_margin_at_best    : 18.27
+  feasibility_rate      : 0.1875
+  scenario              : s45_dur
+  method                : zero_shot
+  run                   : 5
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=336.31 28d=62.2 (exploit): Increased SC significantly to improve chloride resistance, aiming for SCM% > 50%. Reduced WATER to lower w/b ratio and improve strength and chloride resistance. Increased aggregate (FAGG and CAGG) volume to meet Vfinal constraint, maintaining a higher FAGG proportion for lower GWP. PC remains high to ensure strength. AEA, WR_HR, WR, ACC are adjusted slightly to maintain balance.
+[2] GWP=323.88 28d=63.3 (exploit): The current mix is feasible, but GWP has not decreased. To reduce GWP further while maintaining chloride resistance, I will increase SC and decrease PC, as SC has a significantly lower GWP. I will also slightly increase FA and reduce aggregate to maintain volume balance and strength, while carefully monitoring the w/b ratio.
+[3] GWP=311.44 28d=63.1 (exploit): The GWP has been reduced successfully. To continue decreasing GWP, I will further substitute PC with SC, as SC has a lower GWP and the chloride resistance is still well above the minimum. I will also slightly increase FA and reduce aggregate to maintain volume balance and strength, while keeping the w/b ratio low.
+[4] GWP=299.00 28d=63.1 (exploit): GWP continues to decrease by substituting PC with SC. Chloride resistance is excellent. I will continue this trend, increasing SC and decreasing PC. I'll also slightly increase FA and decrease CAGG to maintain volume and strength, ensuring the SCM% remains high and w/b ratio is low.
+[5] GWP=286.57 28d=61.0 (exploit): GWP has decreased significantly. To push GWP lower, I will continue replacing PC with SC. I will also increase FA and slightly decrease CAGG to maintain volume and strength. The chloride resistance is very high, and w/b ratio is low, allowing for this substitution.
+[6] GWP=274.13 28d=62.2 (exploit): GWP continues to decrease as PC is replaced by SC. Chloride resistance is very high. I will continue this strategy, increasing SC and decreasing PC. I will also slightly increase FA and adjust aggregate amounts to maintain volume and strength. The strength margin is still healthy.
+[7] GWP=274.12 28d=62.0 (exploit): Violations include high w/b, b/a, SCM%, and low PC%. To fix these, I will increase PC and decrease SC to meet PC% and reduce SCM%. I will also slightly increase CAGG and decrease FAGG to adjust b/a. WATER is slightly increased to meet w/b ratio, and aggregate adjusted to maintain volume and strength.
+[8] GWP=274.10 28d=63.3 (exploit): Violations include b/a, SCM%, and low PC%. To address this, I will increase PC and decrease SC to meet the PC% and reduce SCM%. I will also increase CAGG and decrease FAGG to help satisfy the b/a constraint. WATER is kept constant to maintain w/b, and aggregate amounts adjusted to maintain volume and strength.
+[9] GWP=274.09 28d=63.3 (exploit): Violations are b/a, SCM%, and low PC%. To fix these, I will increase PC and decrease SC to meet the PC% and reduce SCM%. I will also increase CAGG and decrease FAGG to address the b/a constraint. WATER is maintained to keep w/b ratio, and aggregate amounts adjusted to maintain volume and strength.

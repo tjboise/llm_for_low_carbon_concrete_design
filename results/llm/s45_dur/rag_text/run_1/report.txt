@@ -1,0 +1,43 @@
+Experiment: rag_text   rag_text | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 13
+  n_feasible            : 13
+  surrogate_evals       : 52
+  rcalls                : 0.0026
+  api_calls             : 53
+  prompt_tokens         : 560550
+  completion_tokens     : 12781
+  llm_time_s            : 49.64
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2603
+  QER                   : 0.9554
+  MCE                   : 0.3492
+  best_gwp              : 168.38
+  ga_gwp                : 133.6
+  gwp_gap               : 34.78
+  convergence_iter      : 9
+  str_margin_at_best    : 8.8
+  feasibility_rate      : 0.25
+  scenario              : s45_dur
+  method                : rag_text
+  run                   : 1
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=218.06 28d=50.0 (exploit): The mix is now feasible in strength but still fails on chloride probability and Vfinal. I've increased SC and decreased WATER to improve the SCM% and chloride resistance, aiming to exceed 0.7 probability. To address the low Vfinal, I've added a moderate amount of CAGG. PC and other components remain the same to maintain strength and current GWP. AEA and WR_HR are kept low.
+[2] GWP=206.30 28d=50.0 (exploit): The current mix is feasible but has not improved GWP. The strength margin is good (5 MPa). I will reduce PC by 15 kg/m³ and increase SC by 15 kg/m³ to significantly lower GWP while maintaining strength and chloride resistance. This is a 'BIGGER move' as requested. I will also slightly increase WR_HR to potentially allow for a minor water reduction if needed in future steps, though water is kept the same for now. Aggregate and ACC remain unchanged.
+[3] GWP=194.54 28d=52.5 (exploit): The mix is feasible and GWP has been reduced. Strength is slightly below the previous iteration but still well above the 45 MPa floor. Chloride probability is also slightly lower but still acceptable. To further reduce GWP, I will again swap PC for SC. I will reduce PC by another 15 kg/m³ and increase SC by 15 kg/m³. Water and aggregates remain unchanged for now, and WR_HR is increased slightly to maintain flexibility.
+[4] GWP=182.78 28d=52.2 (exploit): The mix remains feasible and GWP continues to decrease. Strength is still comfortably above the floor, and chloride resistance is adequate. I will continue the strategy of substituting PC with SC. PC will be reduced by another 15 kg/m³, and SC will be increased by 15 kg/m³. WR_HR is increased slightly again to support potential future water reductions or maintain performance. Aggregates and ACC remain constant.
+[5] GWP=171.02 28d=53.0 (exploit): The mix remains feasible with good strength and chloride resistance. GWP has been reduced consistently. I will continue the PC to SC substitution strategy, reducing PC by 15 kg/m³ and increasing SC by 15 kg/m³. I will also increase WR_HR slightly again to maintain flexibility for future adjustments, and keep other components the same.
+[6] GWP=172.15 28d=52.8 (exploit): The mix remains feasible with strong strength and good chloride resistance. GWP has been reduced significantly. I will continue the PC to SC substitution. PC will be reduced by 15 kg/m³, and SC increased by 15 kg/m³. WR_HR is increased slightly again to maintain flexibility. Aggregates and ACC remain constant, as the strength margin is still good.
+[7] GWP=172.15 28d=53.9 (exploit): The GWP increased in the last iteration, which is undesirable. I need to reverse this trend. The PC is at its lower bound. Therefore, I will try to reduce WATER slightly while maintaining the high SC content to improve GWP. A small reduction in WATER should not negatively impact strength significantly given the current margin and high SCM content. WR_HR will be maintained to support this water reduction.
+[8] GWP=181.31 28d=54.3 (exploit): The mix is feasible in strength, GWP, and chloride probability, but it violates the SC% bound. To fix this, I must reduce SC. I will decrease SC by 10 kg/m³ and compensate by increasing PC by 10 kg/m³. This will lower SC% and bring it back within bounds. The GWP will increase slightly, but feasibility is the priority.
+[9] GWP=168.38 28d=53.8 (exploit): The GWP has increased, and the mix is over-engineered. To reduce GWP and address over-engineering, I will reduce PC and SC by 10 kg/m³ each, and increase aggregates by 100 kg/m³ to maintain volume balance and potentially reduce binder demand. This is a 'BIGGER move' to push GWP down. Water remains constant for now, and ACC is kept to support strength.
+[10] GWP=169.70 28d=53.8 (exploit): The GWP has decreased significantly, and the mix is feasible. The PC is at its lower bound. To continue reducing GWP, I will slightly increase SC and decrease WATER further, aiming for a slightly lower w/b ratio. This should maintain strength while further reducing GWP. WR_HR is maintained to support the water reduction.
+[11] GWP=169.70 28d=53.9 (exploit): The GWP has increased again, and the PC is at its minimum. To reduce GWP, I will prioritize further reducing WATER, as it has zero GWP cost and can potentially compensate for strength. I will decrease WATER by 5 kg/m³, keeping other components the same for now, to see if this can drive down GWP. WR_HR is maintained to support the water reduction.
+[12] GWP=181.50 28d=55.4 (exploit): The mix is feasible in strength, GWP, and chloride probability, but it violates the SC% bound. To fix this, I must reduce SC. I will decrease SC by 10 kg/m³ and compensate by increasing PC by 10 kg/m³. This will lower SC% and bring it back within bounds. The GWP will increase slightly, but feasibility is the priority. Water is also slightly increased to maintain workability.
+[13] GWP=181.50 28d=56.0 (exploit): The GWP has increased again, and the mix is over-engineered. PC is at its minimum. To reduce GWP and address over-engineering, I will decrease WATER significantly. This will improve the w/b ratio and should boost strength, allowing for potential binder reduction in later steps if needed. WR_HR is maintained to support this water reduction. SC and aggregates are kept constant for now.

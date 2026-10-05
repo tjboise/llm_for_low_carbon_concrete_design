@@ -1,0 +1,26 @@
+Experiment: rag_tabular   rag_tabular | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 0
+  n_feasible            : 0
+  surrogate_evals       : 35
+  rcalls                : 0.00175
+  api_calls             : 35
+  prompt_tokens         : 418191
+  completion_tokens     : 8071
+  llm_time_s            : 32.05
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : nan
+  QER                   : nan
+  MCE                   : nan
+  best_gwp              : nan
+  ga_gwp                : 145.68
+  scenario              : s55_nodur
+  method                : rag_tabular
+  run                   : 2
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:

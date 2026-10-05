@@ -1,0 +1,60 @@
+Experiment: no_knowledge   no_knowledge | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 88
+  rcalls                : 0.0044
+  api_calls             : 88
+  prompt_tokens         : 2909331
+  completion_tokens     : 18109
+  llm_time_s            : 76.34
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.0587
+  QER                   : 0.976
+  MCE                   : 0.2907
+  best_gwp              : 139.7
+  ga_gwp                : 131.95
+  gwp_gap               : 7.75
+  convergence_iter      : 21
+  str_margin_at_best    : 2.21
+  feasibility_rate      : 0.3409
+  scenario              : s45_nodur
+  method                : no_knowledge
+  run                   : 2
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=225.59 28d=49.4 (exploit): Vfinal is now at the lower bound of 0.95, so no further aggregate adjustment is needed for volume balance. The strength is adequate. Now, to reduce GWP, I'll swap 12 kg of PC for SC, which is a standard GWP reduction strategy when strength is sufficient.
+[2] GWP=207.32 28d=47.0 (exploit): The current mix is feasible but GWP has not improved. Strength is well above the minimum. I will apply SITUATION A by reducing total binder. I will decrease PC by 15 kg/m³ and SC by 10 kg/m³, and simultaneously increase CAGG by 25 kg/m³ to maintain volume balance and strength. This is a larger adjustment to drive GWP down.
+[3] GWP=197.95 28d=46.7 (exploit): Vfinal has reached the 0.95 minimum. Strength is still barely adequate. To make a more significant GWP reduction, I will try substituting 12 kg of PC with SC again, as this is a proven strategy for reducing GWP while trying to maintain strength. This swap should result in a GWP decrease.
+[4] GWP=188.58 28d=49.7 (exploit): Vfinal is now at 0.95. Strength is just above the threshold. To achieve a significant GWP reduction and move closer to the optimum, I will try swapping 12 kg of PC for SC again. This is a standard method to lower GWP when strength is barely met. I will also add 1 kg of WR_HR to aid workability and potentially improve strength.
+[5] GWP=173.96 28d=47.4 (exploit): GWP has decreased nicely, and the strength margin is now healthy (+4.69 MPa). I can afford to reduce the binder content further. I will decrease PC by 12 kg/m³ and SC by 8 kg/m³, and increase CAGG by 20 kg/m³ to maintain volume balance. This is a direct application of SITUATION A to further lower GWP.
+[6] GWP=161.96 28d=46.0 (exploit): GWP has decreased significantly, reaching 173.96 kg/m³. The strength margin is now 2.39 MPa, which is still acceptable for further GWP reduction. I will reduce PC by 10 kg/m³ and SC by 6 kg/m³, and increase CAGG by 16 kg/m³ to maintain volume balance. This continues the strategy of reducing binder content.
+[7] GWP=161.96 28d=46.0 (exploit): Vfinal is at the minimum of 0.95. Strength is just above the threshold. To slightly increase volume and ensure feasibility without impacting GWP significantly, I will add 1 kg of CAGG. This is a minimal adjustment to meet the Vfinal constraint.
+[8] GWP=155.80 28d=48.0 (exploit): GWP has stalled, and the strength margin is still tight (+1.00 MPa). To make a significant GWP reduction while managing strength, I will attempt a larger reduction in PC, decreasing it by 12 kg/m³. Simultaneously, I will increase SC by 7 kg/m³ and CAGG by 19 kg/m³ to maintain volume balance. This is a more aggressive binder reduction.
+[9] GWP=153.20 28d=46.0 (exploit): GWP has decreased and the strength margin is good (+3.03 MPa). The PC is now at its minimum allowed value. To further reduce GWP, I will decrease SC by 10 kg/m³ and increase CAGG by 10 kg/m³. This moves away from the higher-GWP SC towards the lowest-GWP CAGG, aiming for further GWP reduction.
+[10] GWP=153.20 28d=48.5 (exploit): GWP has decreased, but the strength margin is extremely tight (+1.01 MPa). To avoid infeasibility, I must first increase strength before attempting further GWP reduction. I will reduce WATER by 3 kg/m³ to create more strength headroom. This is a necessary safety measure.
+[11] GWP=149.30 28d=46.1 (exploit): GWP has stalled, but the strength margin has improved to +3.50 MPa. PC is at its minimum. To make a significant GWP reduction, I will decrease SC by 15 kg/m³ and increase CAGG by 15 kg/m³. This shifts mass from a higher-GWP material (SC) to the lowest-GWP material (CAGG), aiming for a notable GWP decrease.
+[12] GWP=149.30 28d=46.2 (exploit): GWP has decreased, but the strength margin is very tight (+1.06 MPa). PC is at its minimum. To maintain feasibility, I will reduce WATER by 3 kg/m³ to improve strength before attempting further GWP reduction. This is a critical step to avoid strength failure.
+[13] GWP=146.17 28d=48.0 (exploit): GWP has stalled, and the strength margin is still tight (+1.21 MPa). PC is at its minimum. To make a more significant GWP reduction while maintaining strength, I will decrease SC by 12 kg/m³ and increase CAGG by 12 kg/m³. This is a substantial shift from SC to CAGG, aiming for a noticeable GWP decrease.
+[14] GWP=143.57 28d=46.1 (exploit): GWP has decreased, and the strength margin is good (+2.95 MPa). PC is at its minimum. To further reduce GWP, I will decrease SC by 10 kg/m³ and increase CAGG by 10 kg/m³. This continues the strategy of moving from SC to CAGG to lower GWP.
+[15] GWP=143.57 28d=46.3 (exploit): GWP has decreased, but the strength margin is very tight (+1.14 MPa). PC is at its minimum. To maintain feasibility, I will reduce WATER by 3 kg/m³ to improve strength. This is a necessary step before attempting further GWP reduction.
+[16] GWP=140.45 28d=46.1 (exploit): GWP has stalled, and the strength margin is still tight (+1.29 MPa). PC is at its minimum. To make a significant GWP reduction and create more strength headroom, I will decrease SC by 12 kg/m³ and increase CAGG by 12 kg/m³. This continues the shift from SC to CAGG. I will also slightly reduce WATER by 1 kg/m³ to try and maintain strength.
+[17] GWP=141.78 28d=47.0 (exploit): Vfinal is below the 0.95 minimum. To fix this, I will increase CAGG by 5 kg/m³. This will bring Vfinal into the feasible range. The strength is adequate, and the GWP impact of CAGG is minimal. The b/a ratio is still low, so I will also slightly increase SC and decrease CAGG to address that.
+[18] GWP=140.48 28d=47.3 (exploit): GWP increased, which is undesirable. The strength margin is still acceptable. To reduce GWP and maintain feasibility, I will try reducing SC by 5 kg/m³ and increasing CAGG by 5 kg/m³. This moves away from SC towards the lower-GWP CAGG. I will also reduce WATER by 1 kg/m³ to try and maintain strength.
+[19] GWP=140.48 28d=47.3 (exploit): The b/a ratio is still too low (0.1043). To correct this, I will increase SC by 5 kg/m³ and decrease CAGG by 5 kg/m³. This will increase the binder content relative to aggregate, bringing the b/a ratio into the feasible range. Strength, Vfinal, and GWP are acceptable for this adjustment.
+[20] GWP=140.48 28d=47.3 (exploit): The b/a ratio is still too low (0.1043). To correct this, I will increase SC by 5 kg/m³ and decrease CAGG by 5 kg/m³. This will increase the binder content relative to aggregate, bringing the b/a ratio into the feasible range. Strength, Vfinal, and GWP are acceptable for this adjustment.
+[21] GWP=139.70 28d=47.2 (exploit): The b/a ratio is still too low (0.1026). To correct this, I will increase SC by 5 kg/m³ and decrease CAGG by 5 kg/m³. This will increase the binder content relative to aggregate, bringing the b/a ratio into the feasible range. Strength, Vfinal, and GWP are acceptable for this adjustment.
+[22] GWP=140.48 28d=47.3 (exploit): The b/a ratio is still too low (0.1043). To correct this, I will increase SC by 5 kg/m³ and decrease CAGG by 5 kg/m³. This will increase the binder content relative to aggregate, bringing the b/a ratio into the feasible range. Strength, Vfinal, and GWP are acceptable for this adjustment.
+[23] GWP=142.32 28d=49.2 (exploit): Vfinal is at the minimum. The b/a ratio is now acceptable. To ensure Vfinal is met, I will add 1 kg of CAGG. This slight increase in aggregate will bring Vfinal above 0.95 without significantly impacting GWP or strength.
+[24] GWP=140.00 28d=48.6 (exploit): Vfinal is at the minimum. The b/a ratio is now likely within bounds. To ensure Vfinal is met, I will add 1 kg of CAGG. This adjustment will bring Vfinal above the 0.95 threshold without significantly impacting GWP or strength.
+[25] GWP=140.52 28d=48.8 (exploit): Vfinal is at the minimum. The b/a ratio should now be in range. To ensure Vfinal is met, I will add 1 kg of CAGG. This slight increase in aggregate will bring Vfinal above 0.95 without significantly impacting GWP or strength.
+[26] GWP=141.06 28d=50.2 (exploit): The b/a ratio is still slightly too low. To correct this, I will increase SC by 5 kg/m³ and decrease CAGG by 5 kg/m³. This will increase the binder content relative to aggregate, bringing the b/a ratio into the feasible range. Strength and Vfinal are acceptable for this adjustment.
+[27] GWP=140.30 28d=49.0 (exploit): The b/a ratio is still just slightly too low. To correct this, I will increase SC by 1 kg/m³ and decrease CAGG by 1 kg/m³. This minimal adjustment should bring the b/a ratio into the feasible range. Strength and Vfinal are acceptable for this adjustment.
+[28] GWP=140.31 28d=48.9 (exploit): The b/a ratio is still slightly too low. To correct this, I will increase SC by 1 kg/m³ and decrease CAGG by 1 kg/m³. This minimal adjustment should bring the b/a ratio into the feasible range. Strength and Vfinal are acceptable for this adjustment.
+[29] GWP=140.31 28d=48.9 (exploit): The b/a ratio is still slightly too low. To correct this, I will increase SC by 1 kg/m³ and decrease CAGG by 1 kg/m³. This minimal adjustment should bring the b/a ratio into the feasible range. Strength and Vfinal are acceptable for this adjustment.
+[30] GWP=140.31 28d=48.9 (exploit): The b/a ratio is still slightly too low. To correct this, I will increase SC by 1 kg/m³ and decrease CAGG by 1 kg/m³. This minimal adjustment should bring the b/a ratio into the feasible range. Strength and Vfinal are acceptable for this adjustment.

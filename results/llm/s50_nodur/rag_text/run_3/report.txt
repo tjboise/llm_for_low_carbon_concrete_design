@@ -1,0 +1,60 @@
+Experiment: rag_text   rag_text | s50_nodur
+strength >= 50 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 66
+  rcalls                : 0.0033
+  api_calls             : 66
+  prompt_tokens         : 2581779
+  completion_tokens     : 14701
+  llm_time_s            : 67.33
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.1873
+  QER                   : 1.8276
+  MCE                   : 0.5756
+  best_gwp              : 159.35
+  ga_gwp                : 134.21
+  gwp_gap               : 25.14
+  convergence_iter      : 26
+  str_margin_at_best    : 1.02
+  feasibility_rate      : 0.4545
+  scenario              : s50_nodur
+  method                : rag_text
+  run                   : 3
+  strength_min          : 50
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=279.97 28d=61.7 (exploit): Starting optimisation. Proposing an initial mix with PC at 178 kg/m³ to ensure 50 MPa strength is achievable. SC is maximised to substitute PC for GWP reduction, while keeping water-to-binder ratio reasonable. Aggregates are set to median values, and admixtures are minimal to start.
+[2] GWP=260.29 28d=59.8 (exploit): The current mix has a strength margin of +11.73 MPa, indicating it's over-engineered. To reduce GWP, I will decrease the total binder content. I'll reduce PC by 15 kg/m³ and SC by 15 kg/m³, aiming for Path 1 (binder reduction via substitution) and to improve GWP significantly. This is a larger step to break out of the current plateau.
+[3] GWP=244.54 28d=58.7 (exploit): GWP has decreased, but the strength margin is now +9.82 MPa. I will continue reducing the binder content to lower GWP further. I'll reduce PC by another 12 kg/m³ and SC by 12 kg/m³. This strategy focuses on Path 1 (binder substitution) while maintaining a sufficient strength reserve.
+[4] GWP=231.42 28d=57.7 (exploit): GWP continues to decrease, and the strength margin is still acceptable (+8.66 MPa). I will continue the strategy of reducing binder content. I will reduce PC by 10 kg/m³ and SC by 10 kg/m³. This maintains progress towards lower GWP by substituting PC with SC, adhering to Path 1.
+[5] GWP=218.30 28d=55.1 (exploit): GWP is steadily decreasing, and the strength margin is still adequate (+7.73 MPa). I will continue reducing the binder content by substituting PC with SC. I'll reduce PC by another 10 kg/m³ and SC by 10 kg/m³ to further push GWP lower while staying within Path 1 strategy.
+[6] GWP=207.81 28d=56.0 (exploit): GWP continues to decrease, but the strength margin is now only +5.13 MPa. To maintain progress and avoid approaching the strength floor too closely, I will try a slightly smaller reduction in binder. I'll reduce PC by 8 kg/m³ and SC by 8 kg/m³. This keeps the focus on Path 1 while being more conservative with strength.
+[7] GWP=197.31 28d=56.0 (exploit): GWP is decreasing, but the strength margin is now +6.03 MPa. To continue reducing GWP while keeping strength safe, I will reduce the binder content further. I will reduce PC by 8 kg/m³ and SC by 8 kg/m³. This maintains the Path 1 strategy of binder substitution.
+[8] GWP=186.82 28d=53.2 (exploit): GWP is continuing to decrease, but the strength margin has narrowed to +6.00 MPa. To maintain progress towards lower GWP, I will reduce binder content further. I will decrease PC by 8 kg/m³ and SC by 8 kg/m³, continuing the Path 1 strategy of binder substitution.
+[9] GWP=178.94 28d=52.1 (exploit): GWP is decreasing, but the strength margin has narrowed to +3.19 MPa. This is getting close to the safety limit. To further reduce GWP, I will try a smaller binder reduction: PC by 6 kg/m³ and SC by 6 kg/m³. This continues the Path 1 strategy but is more conservative to maintain strength.
+[10] GWP=173.95 28d=52.3 (exploit): The previous mix resulted in SC% violation (0.7200 vs max 0.7174). To fix this, I will slightly reduce SC and compensate by increasing PC. This will bring SC% back within bounds while aiming to minimize GWP increase and maintain strength above 50 MPa.
+[11] GWP=175.78 28d=52.8 (exploit): Strength remains at 49.6 MPa, still below the 50 MPa target. Water reduction is reaching its practical limit. The next step according to the strategy is to increase PC. I will increase PC by 8 kg/m³ to boost strength, accepting a slight GWP increase, and keep other values the same.
+[12] GWP=172.63 28d=51.3 (exploit): GWP increased, and strength margin is +2.81 MPa. The previous attempt to increase PC for strength raised GWP. I will revert PC to the previous iteration's value (98 kg/m³), reduce WATER by 3 kg/m³ to improve strength and GWP, and maintain ACC at 5 kg/m³. This addresses the GWP increase and attempts to maintain strength safety.
+[13] GWP=172.65 28d=52.9 (exploit): The previous mix was feasible but had a Vfinal value that was too low (0.948). To fix this, I will increase aggregate volume by adding 5 kg of CAGG. This directly addresses the volume balance issue while keeping other parameters, including strength and GWP, unchanged.
+[14] GWP=169.34 28d=51.8 (exploit): The previous mix achieved sufficient strength but had a Vfinal value too low (0.947). To correct this, I will increase the aggregate content by adding 8 kg of CAGG. This aims to bring Vfinal into the feasible range without significantly impacting strength or GWP.
+[15] GWP=169.37 28d=51.9 (exploit): The Vfinal is now 0.950, which is technically at the lower bound of the acceptable range. While it meets the constraint, the prompt suggests adding material volume if it's too low. To be safe and to ensure the volume is comfortably within the range, I will add a small amount of CAGG (2 kg). This ensures Vfinal is not on the edge and also accounts for potential minor calculation discrepancies.
+[16] GWP=169.40 28d=52.5 (exploit): The mix meets strength and GWP requirements, and Vfinal is now at the lower bound of 0.950. To ensure it's comfortably within the range and to account for potential calculation variations, I will add a small amount of CAGG (+2 kg). This small adjustment ensures Vfinal is not on the edge of the constraint.
+[17] GWP=165.45 28d=50.7 (exploit): The mix meets strength and GWP targets, and Vfinal is now at the lower bound of 0.950. To ensure Vfinal is comfortably within the range, I will add a small amount of CAGG (+2 kg). This slight adjustment ensures Vfinal is not on the edge and accounts for minor calculation variations.
+[18] GWP=165.47 28d=52.1 (exploit): The mix has sufficient strength and GWP, but Vfinal is slightly low at 0.949. To address this, I will add 4 kg of CAGG. This will increase the total volume and bring Vfinal into the acceptable range, without affecting strength or GWP.
+[19] GWP=167.56 28d=52.6 (exploit): The mix meets strength and GWP requirements, and Vfinal is now at the lower bound of 0.950. To ensure Vfinal is comfortably within the range and to account for potential minor calculation variations, I will add a small amount of CAGG (+2 kg). This adjustment ensures Vfinal is not on the edge of the constraint.
+[20] GWP=165.52 28d=53.2 (exploit): The mix meets strength and GWP requirements, and Vfinal is now at the lower bound of 0.950. To ensure Vfinal is comfortably within the range, I will add a small amount of CAGG (+2 kg). This adjustment ensures Vfinal is not on the edge and accounts for potential minor calculation variations.
+[21] GWP=165.54 28d=52.4 (exploit): The mix meets strength and GWP targets, but Vfinal is slightly low at 0.949. To correct this, I will add 4 kg of CAGG to increase the total volume and bring Vfinal within the feasible range, without significantly affecting strength or GWP.
+[22] GWP=162.37 28d=51.3 (exploit): The mix meets strength and GWP requirements, but Vfinal is too low at 0.948. To correct this, I will add 5 kg of CAGG to increase the total volume and bring Vfinal within the feasible range, without affecting strength or GWP.
+[23] GWP=162.40 28d=51.4 (exploit): The mix meets strength and GWP requirements, and Vfinal is now at the lower bound of 0.950. To ensure Vfinal is comfortably within the range, I will add a small amount of CAGG (+2 kg). This adjustment ensures Vfinal is not on the edge and accounts for potential minor calculation variations.
+[24] GWP=162.40 28d=51.4 (exploit): The mix meets strength and GWP requirements, and Vfinal is at the lower bound of 0.950. To ensure Vfinal is comfortably within the range, I will add a small amount of CAGG (+1 kg). This adjustment ensures Vfinal is not on the edge and accounts for potential minor calculation variations.
+[25] GWP=162.43 28d=52.1 (exploit): The mix meets strength and GWP requirements, but Vfinal is too low at 0.947. To correct this, I will add 8 kg of CAGG to increase the total volume and bring Vfinal within the feasible range, without affecting strength or GWP.
+[26] GWP=159.35 28d=51.0 (exploit): The mix meets strength and GWP requirements, and Vfinal is now at the lower bound of 0.950. To ensure Vfinal is comfortably within the range, I will add a small amount of CAGG (+2 kg). This adjustment ensures Vfinal is not on the edge and accounts for potential minor calculation variations.
+[27] GWP=159.36 28d=51.1 (exploit): The mix meets strength and GWP requirements, but Vfinal is slightly low at 0.949. To correct this, I will add 4 kg of CAGG to increase the total volume and bring Vfinal within the feasible range, without affecting strength or GWP.
+[28] GWP=159.39 28d=51.4 (exploit): The mix meets strength and GWP requirements, but Vfinal is slightly low at 0.947. To correct this, I will add 8 kg of CAGG to increase the total volume and bring Vfinal within the feasible range, without affecting strength or GWP.
+[29] GWP=159.42 28d=51.5 (exploit): The mix meets strength and GWP requirements, but Vfinal is slightly low at 0.947. To correct this, I will add 8 kg of CAGG to increase the total volume and bring Vfinal within the feasible range, without affecting strength or GWP.
+[30] GWP=159.46 28d=51.8 (exploit): The mix meets strength and GWP requirements, and Vfinal is now at the lower bound of 0.950. To ensure Vfinal is comfortably within the range, I will add a small amount of CAGG (+2 kg). This adjustment ensures Vfinal is not on the edge and accounts for potential minor calculation variations.

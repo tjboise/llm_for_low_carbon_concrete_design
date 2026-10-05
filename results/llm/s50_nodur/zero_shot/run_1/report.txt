@@ -1,0 +1,33 @@
+Experiment: zero_shot   zero_shot | s50_nodur
+strength >= 50 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 3
+  n_feasible            : 3
+  surrogate_evals       : 42
+  rcalls                : 0.0021
+  api_calls             : 42
+  prompt_tokens         : 501948
+  completion_tokens     : 8963
+  llm_time_s            : 36.74
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.6681
+  QER                   : 0.3733
+  MCE                   : 0.0765
+  best_gwp              : 223.88
+  ga_gwp                : 134.21
+  gwp_gap               : 89.67
+  convergence_iter      : 3
+  str_margin_at_best    : 2.07
+  feasibility_rate      : 0.0714
+  scenario              : s50_nodur
+  method                : zero_shot
+  run                   : 1
+  strength_min          : 50
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=239.56 28d=50.7 (exploit): Strength is still below the 50 MPa target, though very close. To achieve the required strength, WATER is slightly reduced. ACC is increased to aid workability and potentially strength. PC is increased marginally to push the strength over the 50 MPa threshold. The volume balance is maintained. These minor adjustments focus on meeting the last unmet constraint.
+[2] GWP=231.72 28d=51.7 (exploit): The current mix is feasible, but GWP has not improved. To reduce GWP, I will slightly decrease PC and increase SC, as SC has a lower GWP than PC. To compensate for the potential strength reduction from lowering PC, I will also slightly reduce WATER. These changes aim to decrease GWP while maintaining feasibility and the strength margin.
+[3] GWP=223.88 28d=52.1 (exploit): GWP has decreased, and strength is sufficient. To further reduce GWP, I will increase SC and decrease PC. To maintain strength and workability, I will slightly reduce WATER and increase ACC. The goal is to continue the downward trend in GWP while ensuring all constraints remain satisfied.

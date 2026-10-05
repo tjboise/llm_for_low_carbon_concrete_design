@@ -104,15 +104,7 @@ A direct 28-day model from raw features gives R² 0.80 (MAE 4.1), i.e. no worse 
 - Test AUC 0.88 and accuracy 0.77 on only 30 mixes (noisy). **5-fold CV on all rows: AUC 0.77, accuracy 0.71 at threshold 0.5.**
   Quote the CV figures. Threshold choice (CV, 78 failing mixes of 154): 0.5 → acc 0.71, 22 false passes; 0.6 → acc 0.72, 17; **0.7 → acc 0.76, precision 0.83, recall 0.64, 10 false passes** (chosen: highest accuracy and fewest failing mixes let through). Treat this model as a soft screen; compliance still needs a lab test.
 
-## 4. Status and open items
+## 4. Status
 
-- Done: data pipeline, constraint file, both surrogates, this documentation.
-- **Not yet done:** `optimizer_core.py`, `app.py` and `run_experiment.py` still use the old units, old
-  constraints and the old surrogate (`concrete_catboost_*.pkl`). Their prompts hold wrong admixture ranges and WR/WR_HR descriptions.
-  They must be migrated to `data/constraints.json`, the models in `models/`, and the chloride constraint.
-- `results/` and `pictures/` come from the old, incorrect data. All experiments must be rerun and all figures redrawn.
-  Planned layout: group runs by method in sub-folders instead of one flat folder of hundreds of runs.
-- Experiments for the paper still to run: single-objective optimizer with and without knowledge, RAG (text / tabular),
-  few-shot, zero-shot, versus GA; plus a with/without durability-constraint comparison and a sensitivity analysis.
-- Open design question: the chained 28-day stage depends on a weak 7-day prediction (R² 0.70). A direct 28-day model
-  from raw features may do better.
+Data pipeline, constraints, surrogates, optimizer, GA reference, 150 LLM runs, model comparison, sensitivity analysis and
+figures are done; see `EXPERIMENTS.md`. Open: update the manuscript text and tables, and add durability controls to the web demo UI.

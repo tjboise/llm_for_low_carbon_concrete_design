@@ -1,0 +1,39 @@
+Experiment: baseline   baseline | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 9
+  n_feasible            : 9
+  surrogate_evals       : 64
+  rcalls                : 0.0032
+  api_calls             : 65
+  prompt_tokens         : 630696
+  completion_tokens     : 15423
+  llm_time_s            : 59.18
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.151
+  QER                   : 0.0
+  MCE                   : 0.1315
+  best_gwp              : 164.45
+  ga_gwp                : 142.87
+  gwp_gap               : 21.58
+  convergence_iter      : 1
+  str_margin_at_best    : 0.22
+  feasibility_rate      : 0.1406
+  scenario              : s55_dur
+  method                : baseline
+  run                   : 5
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=164.45 28d=55.2 (exploit): Strength (54.8 MPa) and chloride probability (0.69) are still just below targets. ACC_pct (0.0662) violates its upper bound. To address strength and chloride resistance, I'm reducing WATER by 2 kg/m³ to 100 kg/m³ and increasing SC by 10 kg/m³ to 215 kg/m³, while decreasing PC by 10 kg/m³ to 48 kg/m³. To correct the ACC_pct violation, I'm reducing ACC by 3 kg/m³ to 17 kg/m³. WR_HR is increased by 0.5 kg/m³ to 3.5 kg/m³ to maintain workability with the reduced water.
+[2] GWP=167.62 28d=56.5 (exploit): The mix is feasible in terms of strength and chloride resistance, but Vfinal (0.949) is slightly below the 0.95 minimum. I will increase the volume by adding 2 kg of CAGG to 1021 kg/m³. No other changes are necessary as all other constraints are met.
+[3] GWP=170.79 28d=57.2 (exploit): The previous iteration incorrectly increased GWP. I need to reduce GWP. The strength margin is good. I will reduce WATER by 7 kg/m³ to 86 kg/m³ to improve strength and chloride resistance, and slightly reduce GWP. Then, I will swap 12 kg/m³ of PC for SC, reducing PC to 85.3 kg/m³ (its minimum allowed) and increasing SC to 239.0 kg/m³. This is a significant GWP reduction strategy. ACC remains at 17.0 kg/m³ to maintain strength.
+[4] GWP=177.88 28d=58.0 (exploit): The mix is feasible for strength, chloride probability, and Vfinal. However, the SC% (0.7206) violates its upper bound of 0.7174. To fix this, I will decrease SC by 5 kg/m³ to 246.0 kg/m³ and increase PC by 5 kg/m³ to 102.3 kg/m³. This adjustment will bring SC% within limits while slightly increasing GWP and maintaining strength. WATER and ACC remain unchanged.
+[5] GWP=175.53 28d=57.8 (exploit): The SC% (0.7222) is still violating the 0.7174 limit. I will decrease SC by 4 kg/m³ to 249.0 kg/m³ and increase PC by 4 kg/m³ to 99.3 kg/m³. This adjustment brings SC% within the allowed range while maintaining strength and other feasibility criteria. WR_HR is kept at 3.8. WATER and ACC are unchanged.
+[6] GWP=175.06 28d=58.0 (exploit): The SC% (0.7178) is still marginally above the 0.7174 limit. I will decrease SC by 0.4 kg/m³ to 249.6 kg/m³ and increase PC by 0.4 kg/m³ to 98.7 kg/m³. This small adjustment will bring SC% within the allowed range, maintaining strength and other feasibility criteria. WR_HR is kept at 4.0. WATER and ACC remain unchanged.
+[7] GWP=175.06 28d=58.1 (exploit): The SC% (0.7219) remains above the 0.7174 limit. I will decrease SC by 3 kg/m³ to 249.6 kg/m³ and increase PC by 3 kg/m³ to 98.7 kg/m³. This adjustment will bring SC% within the allowed range, maintaining strength and other feasibility criteria. WR_HR is kept at 4.2. WATER and ACC remain unchanged.
+[8] GWP=175.06 28d=58.4 (exploit): The SC% (0.7219) remains above the 0.7174 limit. I will decrease SC by 3 kg/m³ to 249.6 kg/m³ and increase PC by 3 kg/m³ to 98.7 kg/m³. This adjustment will bring SC% within the allowed range, maintaining strength and other feasibility criteria. WR_HR is kept at 4.5. WATER and ACC remain unchanged.
+[9] GWP=183.54 28d=58.9 (exploit): The SC% constraint is violated again. To resolve this, I will decrease SC by 10 kg/m³ to 247.6 kg/m³ and increase PC by 10 kg/m³ to 107.3 kg/m³. This significant adjustment should bring SC% below the limit. I will also slightly increase WR_HR to 5.0 to help with workability. WATER remains at its lower bound, and ACC is kept at 17.0 kg/m³.

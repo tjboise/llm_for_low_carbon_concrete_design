@@ -1,0 +1,40 @@
+Experiment: rag_text   rag_text | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 10
+  n_feasible            : 10
+  surrogate_evals       : 65
+  rcalls                : 0.00325
+  api_calls             : 65
+  prompt_tokens         : 2108927
+  completion_tokens     : 19169
+  llm_time_s            : 69.15
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.0537
+  QER                   : 1.4078
+  MCE                   : 0.4055
+  best_gwp              : 139.03
+  ga_gwp                : 131.95
+  gwp_gap               : 7.08
+  convergence_iter      : 10
+  str_margin_at_best    : 3.81
+  feasibility_rate      : 0.1538
+  scenario              : s45_nodur
+  method                : rag_text
+  run                   : 1
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=230.54 28d=46.4 (exploit): Strength is just below the 45 MPa floor (44.8 MPa). Reducing WATER by 1 kg/m³ to 102.4 kg/m³. Adding ACC by 2 kg/m³ to 10 kg/m³. Increasing PC by 5 kg/m³ to 193 kg/m³ to meet the strength target. SC is adjusted proportionally to maintain the w/b ratio and binder blend strategy.
+[2] GWP=219.10 28d=47.6 (exploit): The current mix is feasible but has no GWP improvement and a tight strength margin. To reduce GWP, I will swap 12 kg/m³ of PC for SC. To maintain strength and prevent w/b issues, I will reduce WATER by 4 kg/m³. This maintains the low GWP binder strategy while attempting to lower overall GWP.
+[3] GWP=207.65 28d=47.0 (exploit): The GWP has been successfully reduced, and strength is adequate with a margin. To continue reducing GWP, I will swap another 12 kg/m³ of PC for SC. I'll also reduce WATER by 4 kg/m³ again to maintain a low w/b ratio and potentially improve strength slightly, keeping ACC constant.
+[4] GWP=196.21 28d=46.6 (exploit): GWP has decreased significantly, and strength is still adequate. To continue driving down GWP, I will again swap 12 kg/m³ of PC for SC. I will also reduce WATER by 4 kg/m³ to maintain a low w/b ratio. ACC remains constant to support strength.
+[5] GWP=184.76 28d=48.7 (exploit): GWP is decreasing well, but the strength margin is tightening. WATER is at its lower bound. I will swap 12 kg/m³ of PC for SC. To compensate for the reduced binder content and potential strength drop, I will increase ACC by 2 kg/m³ and slightly increase WR_HR to ensure workability while maintaining low w/b.
+[6] GWP=173.32 28d=51.6 (exploit): GWP has continued to decrease successfully, and strength is now well above the minimum. WATER is at its lower bound. To further reduce GWP, I will swap 12 kg/m³ of PC for SC. I will also increase ACC by 2 kg/m³ and slightly increase WR_HR again to maintain workability and strength as PC content decreases.
+[7] GWP=161.87 28d=51.1 (exploit): ACC_pct (0.0654) is above the allowed limit (0.0607). The current ACC is 15.0 kg/m³. To bring ACC_pct within bounds, I need to reduce ACC by approximately 1.1 kg/m³ (15.0 - (0.0607 * (121.0 + 108.429 + 0.0))) = 15.0 - 13.79 = 1.21 kg/m³. This reduces ACC to 13.79 kg/m³. Strength is high, so this reduction should be acceptable. Other parameters remain the same.
+[8] GWP=150.43 28d=50.4 (exploit): ACC_pct (0.0608) is infinitesimally above the allowed limit (0.0607). The current ACC is 13.47 kg/m³. To bring ACC_pct within bounds, I need to reduce ACC by approximately 0.01 kg/m³ (13.47 - (0.0607 * (109.0 + 112.714 + 0.0))) = 13.47 - 13.46 = 0.01 kg/m³. This reduces ACC to 13.46 kg/m³. Strength is still high, so this minor reduction should be acceptable. Other parameters remain the same.
+[9] GWP=139.30 28d=48.8 (exploit): ACC_pct (0.0608) is slightly above the allowed limit (0.0607). The current ACC is 13.02 kg/m³. To bring ACC_pct within bounds, I need to reduce ACC by approximately 0.01 kg/m³ (13.02 - (0.0607 * (97.0 + 116.999 + 0.0))) = 13.02 - 13.01 = 0.01 kg/m³. This reduces ACC to 13.01 kg/m³. Strength is still adequate, so this minor reduction should be acceptable. Other parameters remain the same.
+[10] GWP=139.03 28d=48.8 (exploit): ACC_pct (0.0608) is slightly above the allowed limit (0.0607). The current ACC is 12.96 kg/m³. To bring ACC_pct within bounds, I need to reduce ACC by approximately 0.01 kg/m³ (12.96 - (0.0607 * (97.297 + 116.000 + 0.0))) = 12.96 - 12.95 = 0.01 kg/m³. This reduces ACC to 12.95 kg/m³. Strength is still adequate, so this minor reduction should be acceptable. Other parameters remain the same.

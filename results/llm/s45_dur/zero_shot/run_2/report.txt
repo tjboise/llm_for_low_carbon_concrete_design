@@ -1,0 +1,41 @@
+Experiment: zero_shot   zero_shot | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 11
+  n_feasible            : 11
+  surrogate_evals       : 73
+  rcalls                : 0.00365
+  api_calls             : 73
+  prompt_tokens         : 1567166
+  completion_tokens     : 14777
+  llm_time_s            : 60.21
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.7267
+  QER                   : 1.8545
+  MCE                   : 0.4398
+  best_gwp              : 230.69
+  ga_gwp                : 133.6
+  gwp_gap               : 97.09
+  convergence_iter      : 7
+  str_margin_at_best    : 8.09
+  feasibility_rate      : 0.1507
+  scenario              : s45_dur
+  method                : zero_shot
+  run                   : 2
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=366.07 28d=55.8 (exploit): To fix the w/b violation, increase WATER and/or decrease binder. Since SC is at 60% SCM, we will increase WATER and decrease PC. This should also help lower GWP and keep strength adequate while improving the w/b ratio.
+[2] GWP=334.69 28d=59.1 (exploit): The current mix is feasible and GWP is close to the minimum. To further reduce GWP, we need to decrease PC, as SC is at its maximum. To maintain strength and w/b ratio, we will decrease PC and slightly increase WATER and ACC. Aggregates are adjusted to maintain volume and b/a ratio.
+[3] GWP=287.58 28d=57.5 (exploit): The mix is feasible. To fix Vfinal violation, reduce aggregate by 3 kg. This should minimally impact other parameters. GWP and strength remain high. We will slightly decrease PC and increase water/ACC to aim for further GWP reduction.
+[4] GWP=261.40 28d=54.7 (exploit): The mix is feasible. To fix the Vfinal violation, reduce aggregate (FAGG/CAGG) by 8 kg. This will have minimal impact on other parameters. GWP and strength remain high. Aim for further GWP reduction by decreasing PC and increasing water/ACC.
+[5] GWP=233.31 28d=54.7 (exploit): The mix is feasible. To fix Vfinal, reduce aggregate by 1 kg. The SC% violation is now resolved. To further reduce GWP, we decrease PC and increase water/ACC, while adjusting aggregates to maintain volume and b/a ratio.
+[6] GWP=239.84 28d=54.9 (exploit): Chloride probability is low and SC% is violated. We must reduce SC and increase PC to meet the SC% constraint and improve chloride resistance by lowering SC. To compensate for reduced binder and maintain strength, increase PC. Reduce aggregates to fix Vfinal. Lower water to maintain w/b and reduce GWP.
+[7] GWP=230.69 28d=53.1 (exploit): The SC% constraint is violated. Reduce SC and increase PC to compensate for strength and meet the constraint. Reduce aggregates slightly to maintain Vfinal. Decrease water to help lower GWP and maintain w/b.
+[8] GWP=230.69 28d=53.1 (exploit): Chloride probability is slightly low. Increase SC and decrease water to improve it. Increase PC slightly to maintain strength and b/a. Reduce aggregates to maintain Vfinal. ACC is slightly increased to support strength.
+[9] GWP=230.69 28d=52.8 (exploit): Chloride probability is slightly low. Increase SC and decrease water to improve it. Increase PC slightly to maintain strength and b/a. Reduce aggregates to maintain Vfinal. ACC is slightly increased to support strength.
+[10] GWP=230.69 28d=53.0 (exploit): Chloride probability is slightly low. Increase SC and decrease water to improve it. Increase PC slightly to maintain strength and b/a. Reduce aggregates to maintain Vfinal. ACC is slightly increased to support strength.
+[11] GWP=232.00 28d=53.9 (exploit): Chloride probability is slightly low. Increase SC and decrease water to improve it. Increase PC slightly to maintain strength and b/a. Reduce aggregates to maintain Vfinal. ACC is slightly increased to support strength.

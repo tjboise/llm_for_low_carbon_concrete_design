@@ -1,0 +1,60 @@
+Experiment: zero_shot   zero_shot | s55_nodur
+strength >= 55 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 105
+  rcalls                : 0.00525
+  api_calls             : 105
+  prompt_tokens         : 3602425
+  completion_tokens     : 24912
+  llm_time_s            : 104.75
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.443
+  QER                   : 1.7824
+  MCE                   : 0.8375
+  best_gwp              : 210.21
+  ga_gwp                : 145.68
+  gwp_gap               : 64.53
+  convergence_iter      : 13
+  str_margin_at_best    : 2.77
+  feasibility_rate      : 0.2857
+  scenario              : s55_nodur
+  method                : zero_shot
+  run                   : 4
+  strength_min          : 55
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=397.36 28d=56.8 (exploit): The previous mix was infeasible due to Vfinal (0.9496) being slightly too low. Strength (56.70 MPa) is acceptable. To fix Vfinal, a minimal amount of aggregate (+1 kg FAGG/CAGG) is added. To reduce GWP, PC is decreased by 5 kg and replaced with an equivalent mass of SC. This aims to maintain strength while lowering GWP. AEA is slightly increased to improve workability and potentially air entrainment for durability.
+[2] GWP=385.62 28d=55.8 (exploit): The previous mix was infeasible due to low Vfinal (0.948). Strength (56.0 MPa) is acceptable. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 5 kg. PC and SC remain unchanged from the last attempt, as the priority is to rectify the volume constraint before further GWP optimization. Water content is also kept the same to maintain strength.
+[3] GWP=373.88 28d=57.8 (exploit): The previous mix was infeasible due to low Vfinal (0.948). Strength (57.8 MPa) is good. To correct Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 7 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[4] GWP=362.14 28d=57.9 (exploit): The previous mix was infeasible due to low Vfinal (0.948). Strength (58.0 MPa) is excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 7 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[5] GWP=350.40 28d=58.0 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (58.0 MPa) remains excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[6] GWP=338.65 28d=59.1 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (59.1 MPa) is very high. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[7] GWP=326.90 28d=60.8 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (60.8 MPa) is exceptionally high. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[8] GWP=315.15 28d=61.4 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (61.4 MPa) is very high. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[9] GWP=256.42 28d=60.8 (exploit): The previous mix was infeasible due to low Vfinal (0.948). Strength (60.8 MPa) is excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 5 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[10] GWP=244.67 28d=59.6 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (59.6 MPa) is excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[11] GWP=232.93 28d=58.3 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (58.3 MPa) is excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[12] GWP=221.18 28d=57.9 (exploit): The previous mix was infeasible due to low Vfinal (0.949). Strength (57.9 MPa) is excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. PC, SC, and water are kept unchanged from the last iteration to prioritize fixing the volume constraint before further GWP optimization.
+[13] GWP=210.21 28d=57.8 (exploit): The previous mix was infeasible due to low Vfinal (0.949), SCM% (0.7667), and PC% (0.2333). Strength (57.7 MPa) is excellent. To fix Vfinal, aggregate mass (FAGG/CAGG) is increased by approximately 4 kg. To address SCM% and PC%, PC is increased by 1 kg and SC is decreased by 1 kg. Water is kept unchanged to maintain strength.
+[14] GWP=210.21 28d=57.8 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.4 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[15] GWP=210.21 28d=57.8 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.4 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[16] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[17] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[18] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[19] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[20] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[21] GWP=219.37 28d=58.5 (exploit): The previous mix was infeasible due to SCM% and PC% violations. Strength is excellent. To fix these constraints, PC is increased by 10 kg, and SC is decreased by 10 kg. Water is increased by 3 kg to maintain the w/b ratio and compensate for the increased binder. This adjustment should bring SCM% and PC% within bounds while minimally impacting GWP.
+[22] GWP=213.10 28d=58.5 (exploit): The previous mix was infeasible due to SCM% (0.7670) and PC% (0.2330). Strength (58.5 MPa) is excellent. To fix SCM% and PC%, PC is increased by 2 kg, and SC is decreased by 2 kg. Water remains unchanged to maintain strength and w/b ratio.
+[23] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[24] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[25] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[26] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[27] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[28] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[29] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.
+[30] GWP=210.21 28d=58.1 (exploit): The previous mix was infeasible due to SCM% (0.7756) and PC% (0.2244). Strength (58.7 MPa) is excellent. To fix SCM% and PC%, PC is increased by 5 kg, and SC is decreased by 5 kg. Water remains unchanged to maintain strength and w/b ratio.

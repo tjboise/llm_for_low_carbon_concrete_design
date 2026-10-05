@@ -1,0 +1,37 @@
+Experiment: baseline   baseline | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 7
+  n_feasible            : 7
+  surrogate_evals       : 42
+  rcalls                : 0.0021
+  api_calls             : 43
+  prompt_tokens         : 336830
+  completion_tokens     : 9674
+  llm_time_s            : 38.96
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2721
+  QER                   : 0.4157
+  MCE                   : 0.1399
+  best_gwp              : 169.95
+  ga_gwp                : 133.6
+  gwp_gap               : 36.35
+  convergence_iter      : 3
+  str_margin_at_best    : 3.6
+  feasibility_rate      : 0.1667
+  scenario              : s45_dur
+  method                : baseline
+  run                   : 4
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=187.41 28d=46.2 (exploit): Starting optimisation with a robust mix. PC is set to 120 kg/m³ to ensure sufficient strength. SC is used as a primary substitute (150 kg/m³) for GWP reduction and chloride resistance. FA (50 kg/m³) is added for further GWP reduction. Aggregates are balanced. Water content is kept moderate (130 kg/m³) to maintain workability and strength. WR_HR and AEA are used sparingly. This mix is expected to meet strength and durability requirements while offering a good GWP baseline.
+[2] GWP=178.00 28d=46.8 (exploit): The current mix is feasible but GWP has not improved. The strength margin is small (+1.16 MPa), so reducing PC directly would risk dropping below the 45 MPa floor. To safely reduce GWP, I will first reduce the WATER content by 5 kg/m³. This will slightly increase the w/b ratio, improve strength, and create headroom. Then, I'll swap 12 kg/m³ of PC for SC, a preferred binder for GWP reduction and durability.
+[3] GWP=169.95 28d=48.6 (exploit): The previous iteration successfully reduced GWP by 9.41 kg/m³ while slightly increasing strength, indicating a good direction. The strength margin is still tight (+1.83 MPa). To continue reducing GWP safely, I will again reduce WATER by 5 kg/m³ to improve strength and create headroom. Then, I will swap another 12 kg/m³ of PC for SC, prioritizing this GWP-reducing substitution.
+[4] GWP=173.12 28d=50.5 (exploit): The previous iteration reduced GWP by 8.05 kg/m³ and increased the strength margin to +3.60 MPa. PC is now at its lower bound. To continue reducing GWP, I will swap another 12 kg/m³ of PC for SC. Since PC is at its lower bound, this swap will be a direct replacement. I will also reduce WATER by 5 kg/m³ to maintain or slightly increase strength and preserve durability, while keeping WR_HR constant.
+[5] GWP=174.71 28d=51.2 (exploit): GWP unexpectedly increased, likely due to the previous water reduction not fully offsetting the PC-to-SC swap's impact on the overall binder quantity. The strength margin is now comfortable (+5.52 MPa). To correct the GWP increase, I will revert the WATER to 120 kg/m³ and perform a larger PC->SC swap (18 kg/m³). This prioritizes the more efficient GWP reduction strategy of increasing SC content.
+[6] GWP=179.46 28d=52.9 (exploit): GWP has increased for two consecutive iterations, moving away from the best result. The strength margin is now comfortable (+6.23 MPa). PC is at its lower bound. To reduce GWP, I will increase the SC content further by swapping 18 kg/m³ of PC for SC. I will also slightly reduce WATER by 5 kg/m³ to try and improve strength and maintain durability, as the current SC substitution rate is quite high.
+[7] GWP=185.79 28d=55.3 (exploit): GWP has increased for three consecutive iterations, significantly moving away from the best result. The strength margin is now very comfortable (+7.92 MPa). PC is at its lower bound. The strategy of increasing SC while reducing WATER has failed to decrease GWP. To attempt to reduce GWP again, I will revert WATER to 120 kg/m³ and increase the PC to SC swap to 24 kg/m³. If GWP continues to rise, I will consider introducing ACC to boost strength, allowing for further PC reduction or a shift to Path 2.

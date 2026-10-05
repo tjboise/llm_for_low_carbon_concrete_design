@@ -1,0 +1,60 @@
+Experiment: rag_text   rag_text | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 67
+  rcalls                : 0.00335
+  api_calls             : 67
+  prompt_tokens         : 2308108
+  completion_tokens     : 15150
+  llm_time_s            : 61.08
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4879
+  QER                   : 1.0681
+  MCE                   : 0.458
+  best_gwp              : 196.33
+  ga_gwp                : 131.95
+  gwp_gap               : 64.38
+  convergence_iter      : 13
+  str_margin_at_best    : 14.0
+  feasibility_rate      : 0.4478
+  scenario              : s45_nodur
+  method                : rag_text
+  run                   : 2
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=267.89 28d=45.8 (exploit): The ACC_pct constraint (0.0625) is violated. I will reduce ACC by 2 kg/m³ to 18 kg/m³. To compensate for the slight reduction in strength from lowering ACC, I will slightly increase PC by 5 kg/m³. This adjustment should bring ACC_pct within bounds while maintaining the strength above 45 MPa and keeping GWP relatively stable.
+[2] GWP=266.61 28d=47.8 (exploit): The ACC_pct is still violated at 0.0708. I will reduce ACC by 4 kg/m³ to 19 kg/m³. To compensate for the slight strength reduction and keep the strength above 45 MPa, I will increase PC by 10 kg/m³. This adjustment should bring ACC_pct within bounds while maintaining feasibility.
+[3] GWP=260.09 28d=52.0 (exploit): The ACC_pct constraint is violated again at 0.0657. I will reduce ACC by 3 kg/m³ to 19 kg/m³. To compensate for this reduction and maintain strength above 45 MPa, I will increase PC by 5 kg/m³. This adjustment should bring ACC_pct within limits while ensuring the strength requirement is met.
+[4] GWP=253.57 28d=54.6 (exploit): The ACC_pct constraint is violated again at 0.0647. I will reduce ACC by 3 kg/m³ to 19 kg/m³. To compensate for this reduction and maintain strength above 45 MPa, I will increase PC by 5 kg/m³. This adjustment should bring ACC_pct within limits while ensuring the strength requirement is met.
+[5] GWP=247.05 28d=57.2 (exploit): The ACC_pct constraint is violated at 0.0638. I will reduce ACC by 3 kg/m³ to 19 kg/m³. To compensate for this reduction and maintain strength above 45 MPa, I will increase PC by 5 kg/m³. This adjustment should bring ACC_pct within limits while ensuring the strength requirement is met.
+[6] GWP=240.55 28d=57.9 (exploit): Vfinal is too low (0.949). I will increase aggregates by adding 5 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is violated at 0.0629. I will reduce ACC by 3 kg/m³ to 19 kg/m³. To compensate for this reduction and maintain strength, I will increase PC by 5 kg/m³. These adjustments aim to fix the volume and ACC constraints while keeping strength high.
+[7] GWP=234.06 28d=58.8 (exploit): Vfinal is still slightly low at 0.950. I will increase aggregates by adding 2 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is now within limits. The strength is high, so I will keep other components stable for now.
+[8] GWP=227.56 28d=58.9 (exploit): Vfinal is too low (0.949). I will increase aggregates by adding 5 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is violated at 0.0611. I will reduce ACC by 2 kg/m³ to 20 kg/m³. To compensate for this reduction and maintain strength, I will increase PC by 5 kg/m³. These adjustments aim to fix the volume and ACC constraints while keeping strength high.
+[9] GWP=221.06 28d=59.5 (exploit): Vfinal is still slightly low at 0.950. I will increase aggregates by adding 2 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is now within limits. The strength is high, so I will keep other components stable for now.
+[10] GWP=214.56 28d=59.7 (exploit): Vfinal is too low (0.949). I will increase aggregates by adding 5 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is violated at 0.0622. I will reduce ACC by 3 kg/m³ to 20 kg/m³. To compensate for this reduction and maintain strength, I will increase PC by 5 kg/m³. These adjustments aim to fix the volume and ACC constraints while keeping strength high.
+[11] GWP=208.08 28d=59.6 (exploit): Vfinal is still slightly low at 0.950. I will increase aggregates by adding 2 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is now within limits. The strength is high, so I will keep other components stable for now.
+[12] GWP=202.85 28d=59.5 (exploit): Vfinal is too low (0.949). I will increase aggregates by adding 3 kg/m³ (split between FAGG and CAGG) to bring Vfinal closer to 0.95. The ACC_pct is violated at 0.0622. I will reduce ACC by 3 kg/m³ to 20 kg/m³. To compensate for this reduction and maintain strength, I will increase PC by 5 kg/m³. These adjustments aim to fix the volume and ACC constraints while keeping strength high.
+[13] GWP=196.33 28d=59.0 (exploit): The ACC_pct constraint is violated at 0.0613. I will reduce ACC by 3 kg/m³ to 20 kg/m³. To compensate for this reduction and maintain strength, I will increase PC by 5 kg/m³. These adjustments aim to fix the ACC constraint while keeping strength high and GWP low.
+[14] GWP=200.27 28d=59.1 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary to meet the constraint. The water and ACC remain unchanged, and aggregates are slightly increased to maintain volume. Strength is well above the floor.
+[15] GWP=196.35 28d=59.0 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[16] GWP=200.28 28d=59.1 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 4 kg/m³ to 22 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[17] GWP=196.37 28d=59.0 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[18] GWP=200.29 28d=59.0 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 4 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[19] GWP=196.38 28d=58.5 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[20] GWP=200.30 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 3 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[21] GWP=196.39 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[22] GWP=200.32 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 3 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[23] GWP=196.39 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[24] GWP=200.32 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 3 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[25] GWP=196.40 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[26] GWP=200.33 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 3 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[27] GWP=196.42 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[28] GWP=200.35 28d=58.3 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 3 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
+[29] GWP=196.43 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 10 kg/m³ to 265 kg/m³ and increase PC by 10 kg/m³ to 115 kg/m³ to bring SC% within bounds. This swap will slightly increase GWP but is necessary. Water and ACC remain unchanged. Aggregates are slightly increased to maintain volume.
+[30] GWP=200.37 28d=58.4 (exploit): The SC% constraint is violated. I will reduce SC by 20 kg/m³ to 260 kg/m³ and increase PC by 20 kg/m³ to 120 kg/m³ to bring SC% within bounds. The ACC_pct is also violated. I will reduce ACC by 3 kg/m³ to 21 kg/m³. This swap will slightly increase GWP but is necessary. Water and aggregates are adjusted to maintain volume and w/b ratio.
