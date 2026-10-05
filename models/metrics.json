@@ -1,54 +1,54 @@
 {
   "split": {
-    "n_train_mixes": 554,
-    "n_test_mixes": 139,
+    "n_train_mixes": 548,
+    "n_test_mixes": 138,
     "seed": 42
   },
   "strength": {
     "stagewise": {
       "7day": {
-        "n_test": 139,
-        "r2": 0.7002,
-        "mae": 4.075
+        "n_test": 138,
+        "r2": 0.7685,
+        "mae": 3.607
       },
       "28day": {
-        "n_test": 139,
-        "r2": 0.8921,
-        "mae": 2.962
+        "n_test": 138,
+        "r2": 0.9153,
+        "mae": 2.579
       },
       "56day": {
-        "n_test": 56,
-        "r2": 0.8673,
-        "mae": 3.505
+        "n_test": 49,
+        "r2": 0.9198,
+        "mae": 3.259
       }
     },
     "chained": {
       "7day": {
-        "n_test": 139,
-        "r2": 0.7002,
-        "mae": 4.075
+        "n_test": 138,
+        "r2": 0.7685,
+        "mae": 3.607
       },
       "28day": {
-        "n_test": 139,
-        "r2": 0.7296,
-        "mae": 4.613
+        "n_test": 138,
+        "r2": 0.778,
+        "mae": 4.235
       },
       "56day": {
-        "n_test": 56,
-        "r2": 0.7315,
-        "mae": 5.352
+        "n_test": 49,
+        "r2": 0.7726,
+        "mae": 5.173
       }
     }
   },
   "chloride": {
-    "n": 156,
+    "n": 154,
     "n_train": 124,
-    "n_test": 32,
+    "n_test": 30,
     "pass_rate": 0.494,
-    "cv_auc_train": 0.7072,
-    "test_auc": 0.9336,
-    "test_acc": 0.8438,
-    "cv_auc_all": 0.7598,
-    "cv_acc_all": 0.7179
+    "cv_auc_train": 0.7021,
+    "test_auc": 0.8778,
+    "test_acc": 0.7667,
+    "cv_auc_all": 0.7713,
+    "cv_acc_all": 0.7078
   }
 }

@@ -30,9 +30,9 @@ Steps, in order:
    - oz/yd³ × 0.03708 (= 0.028349523 / 0.764555, mass ounces) for AEA, WR_HR, WR, ACC.
    - Earlier versions of this project applied 0.5933 to admixtures as well, which overstated them about 16×. That
      was wrong. Every result produced before this fix is invalid.
-3. **Volume balance filter.** `Vfinal = Σ(mass_i / density_i) + air`, `air = 0.07` if `AEA/PC ≥ 0.000244`
+3. **Strength consistency, then volume balance filter.** Mixes with 7d > 28d or 28d > 56d strength are removed first (7 mixes; same rule as the paper). `Vfinal = Σ(mass_i / density_i) + air`, `air = 0.07` if `AEA/PC ≥ 0.000244`
    (kg/kg, ≈0.39 oz/100 lb cement) else `0.03` (Pfeiffer et al. 2024, Eq. 19–20). Keep `0.95 ≤ Vfinal ≤ 1.05`.
-   756 → **693 mixes**. Densities (kg/m³): PC 3150, FA 2200, SC 2900, SF 2200, FAGG 2630, CAGG 2710,
+   756 → drop 7 non-monotonic → **686 mixes**. Densities (kg/m³): PC 3150, FA 2200, SC 2900, SF 2200, FAGG 2630, CAGG 2710,
    WATER 1000, AEA 1010, WR_HR 1080, WR 1140, ACC 1340.
    An older curated set of 667 rows, used in the multi-target FLAME project, could not be reproduced by any simple
    rule. It is retired; this pipeline is the single source.
@@ -41,7 +41,7 @@ Steps, in order:
    and AEA/WR_HR/WR/ACC as fractions of binder (`*_pct`).
 5. **Chloride matching.** Each RCPT test is matched to a strength mix by all 11 ingredient quantities (tolerance 0.5,
    imperial units). Tests on special mixes are dropped: second cement (PC2 > 0), latex, lightweight aggregate, fibre.
-   1314 → 502 tests → 475 after the Vfinal filter (251 mixes).
+   1314 → 502 tests → 459 after the cleaning and Vfinal filters (248 mixes).
 6. **Chloride class** is recomputed from coulombs using the **Port Authority classes**, not ASTM bins:
 
    | Charge passed (C) | Class |
@@ -53,8 +53,7 @@ Steps, in order:
 
    `pass_rcpt = 1` if coulomb < **1200** (Low or better).
 
-Known caveats: SF > 0 in 45 mixes, but SF is not a design variable and the surrogates ignore it. A few mixes have
-28-day strength above 56-day strength and are kept.
+Known caveats: SF > 0 in 45 mixes, but SF is not a design variable and the surrogates ignore it. Dropped non-monotonic mixes are counted in the 756 → 686 step.
 
 ## 2. Design constraints (`data/constraints.json`)
 
@@ -62,7 +61,7 @@ A generated mix is feasible only if **all** of the following hold (checked after
 
 | Constraint | Definition |
 |---|---|
-| Ingredient bounds | min/max of each of the 10 variables in the 693-mix dataset: PC, FA, SC, FAGG, CAGG, WATER, AEA, WR_HR, WR, ACC (key `raw`). |
+| Ingredient bounds | min/max of each of the 10 variables in the 686-mix dataset: PC, FA, SC, FAGG, CAGG, WATER, AEA, WR_HR, WR, ACC (key `raw`). |
 | Ratio bounds | min/max of w/b, b/a, SCM%, CAGG%, FAGG%, PC%, FA%, SC%, and the four admixture `*_pct` (key `derived`). |
 | Volume balance | `0.95 ≤ Vfinal ≤ 1.05` (key `physics.Vfinal`). Also Vagg and TOTAL_BINDER dataset ranges. |
 | Strength | predicted 28-day strength ≥ the experiment's strength floor. |
@@ -91,19 +90,19 @@ Hold-out results (`models/metrics.json`):
 
 | Stage | n_test | R² stage-wise (true input) | R² chained (predicted input) | MAE chained (MPa) |
 |---|---|---|---|---|
-| 7 d | 139 | 0.70 | 0.70 | 4.1 |
-| 28 d | 139 | 0.89 | **0.73** | 4.6 |
-| 56 d | 56 | 0.87 | 0.73 | 5.4 |
+| 7 d | 138 | 0.77 | 0.77 | 3.6 |
+| 28 d | 138 | 0.92 | **0.78** | 4.2 |
+| 56 d | 49 | 0.92 | 0.77 | 5.2 |
 
-The headline metric chosen for the paper is the stage-wise 28-day R² = 0.89 (true 7-day strength as input); the paper must state that
-premise. At deployment the optimizer uses chained inference (predicted 7-day input), where 28-day R² is 0.73, so keep both numbers.
-A direct 28-day model from raw features gives R² 0.755 (MAE 4.4), i.e. no better.
+The headline metric chosen for the paper is the stage-wise 28-day R² = 0.92 (true 7-day strength as input); the paper must state that
+premise. At deployment the optimizer uses chained inference (predicted 7-day input), where 28-day R² is 0.78, so keep both numbers.
+A direct 28-day model from raw features gives R² 0.80 (MAE 4.1), i.e. no worse than the chain at inference.
 
 ### Chloride: CatBoost classifier (`models/chloride_clf.pkl`)
-- Target: 28-day RCPT < 1200 C (binary), 156 mixes with a 28-day test, 49% pass.
-- Pickle keys: `model`, `feature_names`, `unit`, `limit`, `age_days`. The final model is refit on all 156 mixes.
-- Test AUC 0.93 and accuracy 0.84 on only 32 mixes (noisy). **5-fold CV on all rows: AUC 0.76, accuracy 0.72 at threshold 0.5.**
-  Quote the CV figures. Threshold choice (CV, 79 failing mixes of 156): 0.5 → acc 0.72, 22 false passes; 0.6 → acc 0.74, 16; **0.7 → acc 0.74, precision 0.79, recall 0.64, 13 false passes** (chosen: same accuracy as 0.6, fewest failing mixes let through). Treat this model as a soft screen; compliance still needs a lab test.
+- Target: 28-day RCPT < 1200 C (binary), 154 mixes with a 28-day test, 49% pass.
+- Pickle keys: `model`, `feature_names`, `unit`, `limit`, `age_days`. The final model is refit on all 154 mixes.
+- Test AUC 0.88 and accuracy 0.77 on only 30 mixes (noisy). **5-fold CV on all rows: AUC 0.77, accuracy 0.71 at threshold 0.5.**
+  Quote the CV figures. Threshold choice (CV, 78 failing mixes of 154): 0.5 → acc 0.71, 22 false passes; 0.6 → acc 0.72, 17; **0.7 → acc 0.76, precision 0.83, recall 0.64, 10 false passes** (chosen: highest accuracy and fewest failing mixes let through). Treat this model as a soft screen; compliance still needs a lab test.
 
 ## 4. Status and open items
 

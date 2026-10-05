@@ -12,7 +12,8 @@ Steps
   1. WR / WR_HR labels: the strength file and the chloride file disagree (they are swapped).
      The chloride-file labelling is used (WR_HR = high-range, large dosage; WR = normal).
   2. Unit conversion to kg/m^3:  lb/yd^3 x 0.5933,  oz/yd^3 x 0.03708.
-  3. Vfinal (Pfeiffer et al. 2024) and filter  Vfinal in [0.95, 1.05].
+  3. Drop mixes whose strength decreases with age (7d > 28d or 28d > 56d).
+     Then Vfinal (Pfeiffer et al. 2024) and filter  Vfinal in [0.95, 1.05].
   4. GWP and derived ratios.
   5. Chloride tests are matched to mixes (all 11 ingredient quantities, tol 0.5), special mixes
      (second cement, latex, lightweight, fibre) are dropped, and the chloride class is
@@ -116,6 +117,11 @@ def main():
     for v in ADMIX_VARS:
         mix[v] = mix[v] * OZ_YD3_TO_KG_M3
 
+    # strength must not decrease with age (7d <= 28d <= 56d), else the record is inconsistent
+    bad = (mix["7day"] > mix["28day"]) | (mix["28day"] > mix["56day"])
+    print(f"Dropped {int(bad.sum())} mixes with non-monotonic strength")
+    mix = mix[~bad]
+
     mix["Vfinal"] = vfinal(mix)                    # step 3
     mix = mix[mix["Vfinal"].between(VFINAL_MIN, VFINAL_MAX)]
     print(f"After Vfinal in [{VFINAL_MIN}, {VFINAL_MAX}]: {len(mix)}")
@@ -137,10 +143,11 @@ def main():
     long = chl.merge(mix[feat], on="mix_id")
 
     readme = pd.DataFrame({"item": [
-        "units", "WR / WR_HR", "Vfinal", "chloride matching", "RCPT class", "pass_rcpt",
+        "units", "WR / WR_HR", "strength cleaning", "Vfinal", "chloride matching", "RCPT class", "pass_rcpt",
         "mix_level", "chloride_tests"], "description": [
         "kg/m3 (lb/yd3 x 0.5933 for binders, aggregates, water; oz/yd3 x 0.03708 for admixtures)",
         "labels follow the chloride file; they are swapped in the original strength file",
+        "non-monotonic strength (7d>28d or 28d>56d) removed before the Vfinal filter",
         f"Pfeiffer 2024; kept in [{VFINAL_MIN}, {VFINAL_MAX}]",
         "all 11 ingredient quantities within 0.5 (imperial units); second-cement, latex, "
         "lightweight and fibre mixes dropped",
