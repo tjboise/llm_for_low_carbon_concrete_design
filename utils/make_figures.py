@@ -104,8 +104,10 @@ def trajectory(scn="s50_nodur", method="baseline"):
         ax.scatter(it[restart], g[restart], s=130, marker="D", color=orange, edgecolor="white", zorder=4,
                    label="Restart")
     ax.plot(it, best_so_far, color=green, lw=3, zorder=2, label="Best GWP so far")
-    ax.annotate(f"Best: {g[b_i]:.1f} kg\n(iter {it[b_i]})", (it[b_i], g[b_i]), xytext=(it[b_i] + 1, g[b_i] + 8),
-                color=green, fontsize=18, arrowprops=dict(arrowstyle="-", color=green))
+    xmax = max(31, it.max() + 1)
+    ax.annotate(f"Best: {g[b_i]:.1f} kg\n(iter {it[b_i]})", (it[b_i], g[b_i]),
+                xytext=(xmax - 0.5, g[b_i] + 9), ha="right", va="bottom", color=green, fontsize=18,
+                arrowprops=dict(arrowstyle="-", color=green))
     ax.set_xlabel("Iteration")
     ax.set_ylabel(f"GWP ({GWP_UNIT})")
     ax.set_xlim(0, max(31, it.max() + 1))
