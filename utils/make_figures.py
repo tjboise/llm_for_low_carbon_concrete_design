@@ -133,6 +133,36 @@ def trajectory(scn="s50_nodur", method="baseline"):
     print(f"Figure 3 from {scn}/{method}/{best_run}: OGR={best_ogr:.3f}, best GWP={g[b_i]:.2f}, GA={ref['gwp']:.2f}")
 
 
+def gwp_contribution(scn="s50_nodur", method="baseline"):
+    """Figure 4: GWP contribution of each material per iteration, for the run shown in Figure 3."""
+    ref = json.load(open(os.path.join(RES, "ga", scn, "reference.json")))["reference"]
+    base = os.path.join(RES, "llm", scn, method)
+    best_run, best_ogr = None, np.inf
+    for run in sorted(os.listdir(base)):
+        m = json.load(open(os.path.join(base, run, "metrics.json")))
+        if m.get("OGR") == m.get("OGR") and m["OGR"] < best_ogr:
+            best_run, best_ogr = run, m["OGR"]
+    t = pd.read_csv(os.path.join(base, best_run, "trajectory.csv"))
+    f = {"PC": 1.048, "SC": 0.264, "FA": 0.328}
+    parts = {k: t[k] * v for k, v in f.items()}
+    parts["Aggregates"] = t["FAGG"] * 0.0026 + t["CAGG"] * 0.0037
+    colors = {"PC": "#e86a6a", "SC": "#6f66c3", "FA": "#3fb08a", "Aggregates": "#c4c4c4"}
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bottom = np.zeros(len(t))
+    for k in ["PC", "SC", "FA", "Aggregates"]:
+        ax.bar(t["iteration"], parts[k], 0.7, bottom=bottom, color=colors[k], label=k)
+        bottom += parts[k].values
+    ax.axhline(ref["gwp"], color="#e05555", ls="--", lw=1.6, label="GA reference")
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel(f"GWP ({GWP_UNIT})")
+    ax.set_xlim(0, max(31, t["iteration"].max() + 1))
+    ax.legend(frameon=True, ncol=3, loc="upper right")
+    ax.set_ylim(0, bottom.max() * 1.3)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig4_gwp_contribution.png"), bbox_inches="tight")
+    plt.close(fig)
+
+
 def durability(df):
     fig, ax = plt.subplots(figsize=(10, 6.5))
     xs = np.arange(3)
@@ -206,6 +236,7 @@ def sensitivity():
 def main():
     df = load_runs()
     trajectory("s50_nodur")
+    gwp_contribution("s50_nodur")
     bars(df, ["no_knowledge", "baseline"], "Effect of domain knowledge", "fig_knowledge.png", None)
     bars(df, ["zero_shot", "baseline"], "Zero-shot vs few-shot", "fig_fewshot.png", None)
     bars(df, ["baseline", "rag_tabular", "rag_text"], "No RAG vs RAG", "fig_rag.png", None)
