@@ -163,6 +163,57 @@ def gwp_contribution(scn="s50_nodur", method="baseline"):
     plt.close(fig)
 
 
+def ablation_pair(df, methods, labels, prefix, scn="s50_nodur"):
+    """Figures 5-7 style. (a) R_calls (left, blue line) and GWP gap (right, red dashed line);
+    (b) OGR (left, blue-grey bars) and QER (right, green bars). Mean +- std over the runs of one scenario."""
+    sub = df[df["scenario"] == scn]
+    stats = {}
+    for m in methods:
+        d = sub[sub["method"] == m]
+        stats[m] = {k: (d[k].dropna().mean(), d[k].dropna().std(ddof=1), d[k].notna().sum())
+                    for k in ["rcalls", "gwp_gap", "OGR", "QER"]}
+    x = np.arange(len(methods))
+    err = dict(capsize=6, elinewidth=2, capthick=2)
+
+    fig, ax1 = plt.subplots(figsize=(9, 6.5))
+    ax2 = ax1.twinx()
+    ax1.errorbar(x, [stats[m]["rcalls"][0] for m in methods], [stats[m]["rcalls"][1] for m in methods],
+                 color="blue", marker="o", mfc="none", lw=2.5, ms=9, **err)
+    ax2.errorbar(x, [stats[m]["gwp_gap"][0] for m in methods], [stats[m]["gwp_gap"][1] for m in methods],
+                 color="red", marker="x", ls="--", lw=2.5, ms=10, **err)
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(labels)
+    ax1.set_xlim(-0.4, len(methods) - 0.6)
+    ax1.set_ylabel("$R_{calls}$", color="blue")
+    ax2.set_ylabel("$\\Delta$GWP (kg CO$_2$-eq/m$^3$)", color="red")
+    ax1.tick_params(axis="y", colors="blue")
+    ax2.tick_params(axis="y", colors="red")
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, f"{prefix}a.png"), bbox_inches="tight")
+    plt.close(fig)
+
+    fig, ax1 = plt.subplots(figsize=(9, 6.5))
+    ax2 = ax1.twinx()
+    w = 0.36
+    ax1.bar(x - w / 2, [stats[m]["OGR"][0] for m in methods], w, yerr=[stats[m]["OGR"][1] for m in methods],
+            color="#87ceeb", edgecolor="black", error_kw=dict(ecolor="black", **err))
+    ax2.bar(x + w / 2, [stats[m]["QER"][0] for m in methods], w, yerr=[stats[m]["QER"][1] for m in methods],
+            color="#90ee90", edgecolor="black", error_kw=dict(ecolor="black", **err))
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(labels)
+    ax1.set_xlim(-0.6, len(methods) - 0.4)
+    ax1.set_ylabel("OGR", color="blue")
+    ax2.set_ylabel("QER (kg CO$_2$-eq/m$^3$ per call)", color="green")
+    ax1.tick_params(axis="y", colors="blue")
+    ax2.tick_params(axis="y", colors="green")
+    ax1.set_ylim(bottom=0)
+    ax2.set_ylim(bottom=0)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, f"{prefix}b.png"), bbox_inches="tight")
+    plt.close(fig)
+    print(prefix, scn, {m: {k: (round(v[0], 4), round(v[1], 4), v[2]) for k, v in stats[m].items()} for m in methods})
+
+
 def durability(df):
     fig, ax = plt.subplots(figsize=(10, 6.5))
     xs = np.arange(3)
@@ -237,6 +288,7 @@ def main():
     df = load_runs()
     trajectory("s50_nodur")
     gwp_contribution("s50_nodur")
+    ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], "fig5")
     bars(df, ["no_knowledge", "baseline"], "Effect of domain knowledge", "fig_knowledge.png", None)
     bars(df, ["zero_shot", "baseline"], "Zero-shot vs few-shot", "fig_fewshot.png", None)
     bars(df, ["baseline", "rag_tabular", "rag_text"], "No RAG vs RAG", "fig_rag.png", None)
