@@ -6,7 +6,7 @@ new constraints; older runs were deleted. Data, constraints and surrogates: see 
 ## Protocol
 - Scenarios: 28-day strength floor 45 / 50 / 55 MPa, each without and with the chloride constraint (6 scenarios).
 - Methods: `baseline` (knowledge + rules + static few-shot; this is "With knowledge", "Few-shot" and "No-RAG" in the paper),
-  `no_knowledge`, `zero_shot`, `rag_tabular`, `rag_text` (dynamic k=5 retrieval replaces the static few-shot).
+  `no_knowledge` (no material-effects table AND no directional hints: the feedback, repair, restart and first-turn messages state facts and violations only; situation rules and few-shot stay), `zero_shot`, `rag_tabular`, `rag_text` (dynamic k=5 retrieval replaces the static few-shot).
 - 5 independent runs per (scenario, method) = 150 LLM runs. Model `gemini-2.5-flash-lite`, temperature 0.9
   (1.3 after a stagnation restart), max 1024 output tokens, google-genai SDK. 30 feasible iterations per run; a run
   stops early after 30 consecutive infeasible proposals, so some runs have fewer feasible iterations.
@@ -38,8 +38,10 @@ python utils/model_comparison.py && python utils/sensitivity.py && python utils/
    found a feasible mix; the count is printed on the bars.
 2. Most infeasible proposals violate ratio bounds (SC% above its dataset maximum, w/b below its minimum, ACC_pct), then Vfinal
    (hugging the 0.95 lower bound), strength and chloride.
-3. Ordering in this rerun: baseline best on average, zero-shot worst, no-knowledge slightly worse than baseline, RAG did not
-   improve over the static few-shot baseline. This differs from the earlier (invalid-unit) results.
+3. Ordering in this rerun: zero-shot worst. No-knowledge (rerun without directional hints) is worse than the baseline at 45 and 50 MPa
+   (OGR 0.18 vs 0.13, 0.22 vs 0.15) but better at 55 MPa; pooled without chloride constraint the OGR is equal (0.19 vs 0.19, p = 0.25).
+   With the chloride constraint the baseline is better (0.18 vs 0.22, p = 0.04). QER is much higher with knowledge (1.55 vs 0.09 at 50 MPa).
+   RAG did not improve over the static few-shot baseline. The first no-knowledge runs (hints kept) were deleted and rerun.
 4. GA solutions sit on constraint edges (PC at its minimum, Vfinal about 0.9501) and are fragile under surrogate error
    (see `fig_sensitivity.png`); LLM solutions keep more strength margin.
 5. Model comparison (`results/model_comparison`): the chain beats independent models only when the true previous-stage

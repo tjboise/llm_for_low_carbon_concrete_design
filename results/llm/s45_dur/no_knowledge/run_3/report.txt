@@ -1,25 +1,25 @@
 Experiment: no_knowledge   no_knowledge | s45_dur
 strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
 ------------------------------------------------------------
-  total_iters           : 30
-  n_feasible            : 30
-  surrogate_evals       : 44
-  rcalls                : 0.0022
-  api_calls             : 46
-  prompt_tokens         : 409344
-  completion_tokens     : 9613
-  llm_time_s            : 40.34
+  total_iters           : 13
+  n_feasible            : 13
+  surrogate_evals       : 100
+  rcalls                : 0.005
+  api_calls             : 100
+  prompt_tokens         : 3267225
+  completion_tokens     : 22870
+  llm_time_s            : 102.07
   parse_fails           : 0
-  restarts              : 2
-  OGR                   : 0.2136
-  QER                   : 0.4416
-  MCE                   : 0.8252
-  best_gwp              : 162.14
+  restarts              : 0
+  OGR                   : 0.3534
+  QER                   : 0.0969
+  MCE                   : 0.6151
+  best_gwp              : 180.81
   ga_gwp                : 133.6
-  gwp_gap               : 28.54
-  convergence_iter      : 27
-  str_margin_at_best    : 8.53
-  feasibility_rate      : 0.6818
+  gwp_gap               : 47.21
+  convergence_iter      : 2
+  str_margin_at_best    : 7.61
+  feasibility_rate      : 0.13
   scenario              : s45_dur
   method                : no_knowledge
   run                   : 3
@@ -28,33 +28,16 @@ strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
   model                 : gemini-2.5-flash-lite
 ------------------------------------------------------------
 Reasoning log:
-[1] GWP=181.57 28d=49.5 (exploit): Starting optimisation with a mix that is likely to meet strength and other constraints. It uses a PC content of 117 kg/m³ and a significant amount of SC to reduce GWP compared to a pure PC mix. Aggregate content is balanced for volume and chloride resistance. Admixtures are set to minimal effective values. This mix prioritizes feasibility while offering potential for GWP reduction through SC substitution.
-[2] GWP=169.81 28d=51.0 (exploit): The current mix is feasible with a good strength margin (4.55 MPa). GWP is 181.57 kg CO2-eq/m³. To significantly reduce GWP as requested, I'm increasing the supplementary cementitious material (SC) by swapping 15 kg/m³ of PC for SC. This change aims to reduce GWP while maintaining strength above the 45 MPa floor. The volume balance and chloride probability are expected to remain within limits.
-[3] GWP=168.84 28d=51.3 (exploit): The current mix is feasible, and GWP has decreased to 169.81 kg CO2-eq/m³ with a strength margin of 5.97 MPa. To continue reducing GWP, I'm swapping another 15 kg/m³ of PC for SC. This follows the strategy of increasing SC content for lower GWP. The strength is expected to remain adequate, and other constraints are likely to be satisfied.
-[4] GWP=172.74 28d=50.7 (exploit): The mix is feasible with a GWP of 168.84 kg CO2-eq/m³ and a strength margin of 6.30 MPa. The previous iteration hit the lower bound for PC. To further reduce GWP, I will increase SC by 15 kg/m³ and decrease CAGG by a corresponding amount to maintain volume balance, as CAGG has a very low GWP. This should further lower the overall GWP while keeping strength and other constraints satisfied.
-[5] GWP=172.74 28d=52.6 (exploit): The GWP increased, which is the wrong direction. The previous strategy of swapping CAGG for SC was unsuccessful. The PC is already at its minimum bound. To reduce GWP, I will try reducing the water content by 10 kg/m³ while keeping other components the same. This should lower GWP without significantly impacting strength, and may improve chloride resistance. I will then re-evaluate further SC substitution.
-[6] GWP=173.72 28d=52.0 (exploit): The GWP has stalled at 172.74 kg CO2-eq/m³ despite reducing water content. The strength margin is now 7.61 MPa, indicating room for adjustment. PC is at its minimum. To significantly reduce GWP, I will swap 15 kg/m³ of SC with FA, as FA has a lower GWP per kg than SC. I will also slightly increase CAGG to compensate for potential volume changes and maintain feasibility.
-[7] GWP=173.72 28d=56.0 (exploit): GWP has increased again, indicating the current strategy of adding FA is not effective for GWP reduction. The best GWP so far is 168.84 kg/m³. PC is at its limit. I will try reducing the water content further by 10 kg/m³ to decrease GWP. This should also improve chloride resistance. If GWP doesn't improve, I will reconsider swapping some SC for FA, but with a smaller increment.
-[8] GWP=171.56 28d=54.2 (RESTART#1): The previous mix was infeasible due to high Vfinal and low chloride probability. To fix Vfinal, I reduced CAGG by 127 kg. To improve chloride probability and strength, I increased SC, decreased FA, lowered WATER, and raised WR_HR to compensate for reduced water, while staying within bounds. PC was slightly increased to maintain strength.
-[9] GWP=172.89 28d=55.0 (exploit): The last mix was feasible and reduced GWP, but is slightly higher than the best-so-far. To further decrease GWP, I'm increasing the proportion of SC and CAGG relative to PC and FAGG, as they have lower GWP. I'm also reducing water content to improve efficiency and strength without increasing GWP, and slightly increasing ACC to compensate for any potential strength loss and improve chloride resistance.
-[10] GWP=174.40 28d=55.5 (exploit): The SC% constraint was violated. To fix this, I will reduce the SC content and increase PC slightly, as PC has a higher GWP but is needed to maintain strength. I will also slightly increase FAGG and CAGG to balance the volume and maintain strength, while a minor reduction in water helps improve efficiency. ACC is increased to help with chloride resistance and strength.
-[11] GWP=170.28 28d=54.5 (exploit): GWP has increased again, and the mix is over-engineered. I will reduce total binder content by decreasing PC and SC. To maintain strength, I will slightly increase FAGG and CAGG, and reduce water. Increasing ACC will help preserve strength and chloride resistance with lower binder content. This aims to reduce GWP and move closer to the best-so-far.
-[12] GWP=170.81 28d=54.4 (exploit): GWP has decreased significantly, moving closer to the best-so-far. The current mix is still slightly over the best GWP. To further reduce GWP, I will slightly increase SC and CAGG at the expense of PC and FAGG, as this is a more GWP-efficient swap. Water content will be marginally reduced to improve efficiency, and ACC slightly increased to support strength and chloride resistance.
-[13] GWP=171.60 28d=55.1 (exploit): GWP increased slightly. To reduce it, I'll swap more PC for SC, as SC is more GWP-efficient. I will also decrease water content further to improve efficiency. ACC is increased to maintain strength and chloride resistance, given the binder adjustments. This should push GWP lower and closer to the best-so-far.
-[14] GWP=172.14 28d=55.3 (exploit): GWP has increased again. To reduce it, I will swap more PC for SC, which is more GWP-efficient. Water content will be slightly reduced to improve efficiency. ACC is increased to maintain strength and chloride resistance with the altered binder composition. This strategy aims to lower GWP and get closer to the best-so-far.
-[15] GWP=172.93 28d=55.3 (exploit): GWP has increased again. To reduce it, I will swap more PC for SC as SC is more GWP-efficient. I will also slightly decrease water content to enhance efficiency. ACC is increased to maintain strength and chloride resistance with the binder adjustments. This strategy aims to reduce GWP and approach the best-so-far.
-[16] GWP=176.67 28d=57.4 (exploit): The mix is infeasible due to low chloride pass probability. To improve this, I will increase SC content (higher SCM%) and decrease water. I've increased SC and significantly reduced WATER. To compensate for the strength loss from reducing water and maintain a low GWP, I've slightly increased PC and adjusted aggregates for volume balance. AEA is reduced as less air is needed with lower water.
-[17] GWP=167.33 28d=57.9 (exploit): The GWP increased in the last iteration. The current mix has significant strength margin. I will reduce total binder by decreasing PC and SC, while slightly increasing aggregates to maintain volume. Water is also reduced to further lower GWP and improve durability. AEA and WR_HR are adjusted accordingly.
-[18] GWP=166.04 28d=57.1 (exploit): The current mix is feasible and has achieved a good GWP. The strength is well above the minimum. To further reduce GWP, I will slightly decrease PC and SC while increasing aggregates, aiming for a lower total binder content. Water is also reduced to improve durability and lower GWP. AEA and WR_HR are adjusted slightly.
-[19] GWP=165.53 28d=56.5 (exploit): The current mix is feasible and has a low GWP. Strength is still well above the requirement. To further reduce GWP, I will slightly decrease SC, and increase aggregates. Water is also reduced marginally. AEA and WR_HR are adjusted slightly down to match the reduced binder and water content.
-[20] GWP=165.03 28d=55.8 (exploit): The current mix is feasible and has a low GWP, with strength still comfortably above the requirement. To further reduce GWP, I will slightly decrease SC and increase aggregates. Water is reduced marginally. AEA and WR_HR are adjusted down to reflect the lower binder and water content. The PC remains at its lower bound.
-[21] GWP=169.92 28d=56.5 (exploit): The mix is infeasible due to low chloride pass probability. To fix this, I need to increase SC content and decrease water. I've significantly increased SC and reduced water to improve chloride resistance. PC is kept at its minimum. Aggregates are adjusted to maintain volume balance and compensate for binder changes. AEA and WR_HR are adjusted to suit the new binder and water content.
-[22] GWP=164.69 28d=56.0 (exploit): The GWP increased in the last iteration, and the strength margin is still good. To reduce GWP, I will decrease SC and increase aggregates. Water is also reduced to improve durability and lower GWP. AEA and WR_HR are adjusted downwards to match the reduced binder and water.
-[23] GWP=164.19 28d=55.3 (exploit): The GWP has decreased. Strength is still above target. To further reduce GWP, I will slightly decrease SC and increase aggregates. Water is reduced marginally to enhance durability and lower GWP. AEA and WR_HR are adjusted downwards to match the reduced binder and water content.
-[24] GWP=167.37 28d=56.7 (exploit): The mix is infeasible due to low chloride probability and Vfinal being too low. I will increase SC and decrease water to improve chloride resistance. To address the low Vfinal, I will add aggregate. PC is kept at its minimum. These changes aim to satisfy constraints while minimizing GWP impact.
-[25] GWP=163.42 28d=53.4 (exploit): The GWP increased in the last iteration. The strength margin is good. To reduce GWP, I will decrease SC and increase aggregates. Water is reduced to improve durability and lower GWP. AEA and WR_HR are adjusted downwards to match the reduced binder and water content. PC remains at its lower bound.
-[26] GWP=166.07 28d=54.7 (exploit): The mix is infeasible due to low chloride probability and Vfinal being too low. I will increase SC and decrease water to improve chloride resistance. To address the low Vfinal, I will add aggregate. PC is kept at its minimum. These changes aim to satisfy constraints while minimizing GWP impact.
-[27] GWP=162.14 28d=53.5 (exploit): The GWP increased in the last iteration. The strength margin is still adequate. To reduce GWP, I will decrease SC and increase aggregates. Water is reduced to improve durability and lower GWP. AEA and WR_HR are adjusted downwards to match the reduced binder and water content. PC remains at its lower bound.
-[28] GWP=164.77 28d=53.4 (exploit): The mix is infeasible due to low chloride probability. I will increase SC and decrease water to improve chloride resistance. PC is kept at its minimum. Aggregates are adjusted to maintain volume balance and compensate for binder changes. AEA and WR_HR are adjusted to suit the new binder and water content.
-[29] GWP=164.80 28d=54.4 (exploit): The mix is infeasible due to low chloride probability and Vfinal being too low. I will increase SC and decrease water to improve chloride resistance. To address the low Vfinal, I will add aggregate. PC is kept at its minimum. These changes aim to satisfy constraints while minimizing GWP impact.
-[30] GWP=164.80 28d=54.4 (exploit): The mix is infeasible due to low chloride probability and Vfinal being too low. I will increase SC and decrease water to improve chloride resistance. To address the low Vfinal, I will add aggregate. PC is kept at its minimum. These changes aim to satisfy constraints while minimizing GWP impact.
+[1] GWP=190.50 28d=49.1 (exploit): Starting with a balanced reference mix (PC=106.79, FA=106.79, SC=142.386, FAGG=753.461, CAGG=1082.729, WATER=123.995, AEA=0.556, WR_HR=1.706, WR=0.0, ACC=0.0) which yields 47.7 MPa and 190.5 kg CO₂/m³. This mix is chosen as a feasible starting point satisfying strength and reasonable GWP. Further optimization will aim to reduce GWP by adjusting binder content and SCM ratios while ensuring all constraints are met.
+[2] GWP=180.81 28d=52.6 (exploit): The current mix is feasible with a strength margin of 4.06 MPa. Situation A applies (Strength well above floor). I will reduce PC by 15 kg/m³ and increase CAGG by 70 kg/m³ to lower GWP and maintain volume balance, while keeping SCM content relatively high for chloride resistance.
+[3] GWP=180.94 28d=52.1 (exploit): The Vfinal constraint (1.051 > 1.05) is still violated, though only slightly. I will further reduce CAGG by 5 kg/m³ to bring Vfinal within the acceptable range. The strength remains sufficient, and GWP is minimally impacted.
+[4] GWP=184.16 28d=51.5 (exploit): The Vfinal constraint (1.054 > 1.05) is violated. To correct this, I will reduce CAGG by 15 kg/m³. This has minimal impact on GWP and strength, while addressing the volume balance issue.
+[5] GWP=184.16 28d=51.5 (exploit): The Vfinal constraint (1.051 > 1.05) is still violated. I will reduce CAGG by 5 kg/m³ to bring Vfinal within the acceptable range. This change is minor and will have negligible impact on GWP and strength.
+[6] GWP=184.16 28d=52.5 (exploit): GWP is not decreasing and is now higher than the best recorded. PC is at its minimum. I will try increasing WR_HR and decreasing WATER to maintain strength and potentially allow for further SCM increase (FA) while reducing overall GWP. This is a variant of Situation A, pushing towards higher WR_HR for potential GWP gains.
+[7] GWP=184.80 28d=53.3 (exploit): GWP has stalled and is higher than the best. Strength is good. PC is at minimum. I will increase WR_HR further and reduce WATER to see if this allows for more FA and lower SC, aiming for a GWP reduction. I'll increase WR_HR to 4.5 and reduce WATER by another 5 kg/m³. I will also swap 10 kg/m³ of SC to FA to further reduce GWP.
+[8] GWP=185.12 28d=56.5 (exploit): GWP has increased again, and the strength margin is good. PC is at its minimum. I will try to increase WR_HR and decrease WATER further to see if it helps achieve a GWP reduction. This time, I'll push WR_HR to 5.0 and reduce WATER by another 5 kg/m³. I will also swap 5 kg/m³ of SC to FA to further reduce GWP.
+[9] GWP=185.05 28d=57.1 (exploit): GWP continues to increase. Strength is now very high. PC is at its minimum. I will try to introduce ACC to see if it can boost strength allowing further reduction in binder or aggregate. I will add 5 kg/m³ of ACC and reduce CAGG by 20 kg/m³ to compensate for the volume increase from ACC and potentially lower GWP.
+[10] GWP=185.04 28d=57.2 (exploit): The FA% constraint (0.3837 > 0.3750) is violated. I need to reduce FA and compensate with other ingredients. I will reduce FA by 5 kg/m³ and increase SC by 5 kg/m³ to maintain binder content and keep GWP relatively stable, while resolving the ratio violation.
+[11] GWP=185.14 28d=56.6 (exploit): The FA% constraint (0.3753 > 0.3750) is still violated, albeit by a very small margin. I will reduce FA by 0.5 kg/m³ and increase SC by 0.5 kg/m³ to ensure FA% is within the limit. This minimal adjustment is necessary to satisfy the constraint.
+[12] GWP=185.16 28d=56.3 (exploit): The FA% constraint (0.3750 at the limit) is still met. I will slightly adjust FA down and SC up to ensure it remains within the limit and address the oscillation warning. Reduce FA by 0.005 kg/m³ and increase SC by 0.005 kg/m³. This is a minimal adjustment to satisfy the constraint.
+[13] GWP=185.13 28d=57.6 (exploit): The FA% constraint (0.3750 at the limit) is still met. I will slightly adjust FA down and SC up to ensure it remains within the limit and address the oscillation warning. Reduce FA by 0.005 kg/m³ and increase SC by 0.005 kg/m³. This is a minimal adjustment to satisfy the constraint.

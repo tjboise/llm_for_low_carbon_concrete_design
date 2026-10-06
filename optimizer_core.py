@@ -86,6 +86,7 @@ class ExperimentConfig:
     use_few_shot: bool = True
     use_knowledge_table: bool = True
     use_situation_rules: bool = True
+    use_directional_hints: bool = True   # prescriptive advice in feedback, retry, restart and first-turn messages
     rag_mode: str = "static"           # "static" | "dynamic" | "none"
     rag_k: int = 5
     rag_format: str = "tabular"        # "tabular" | "text"
@@ -611,15 +612,46 @@ def build_system_prompt(spec: Spec, cfg: ExperimentConfig, few_shot: list) -> st
         situation_block=situation, few_shot_block=few_shot_block)
 
 
+FIRST_TURN_PLAIN = """\
+Start optimisation. Propose an initial mix satisfying ALL constraints:
+  - 28-day strength >= {strength_min} MPa
+{first_dur}  - Vfinal in [0.95, 1.05] and all variable / ratio bounds satisfied
+  - GWP as low as possible
+
+Output ONLY the JSON object.\
+"""
+
+
 def build_first_turn(spec: Spec, cfg: ExperimentConfig) -> str:
+    if not cfg.use_directional_hints:
+        first_dur = (f"  - chloride pass probability >= {spec.min_pass_prob}\n" if cfg.use_durability else "")
+        return FIRST_TURN_PLAIN.format(strength_min=cfg.strength_min, first_dur=first_dur)
     pool = _pool(spec, cfg)
     safe_pc = float(pool["PC"].quantile(0.25)) if len(pool) else spec.raw_b["PC"]["max"]
     first_dur = (f"  - chloride pass probability >= {spec.min_pass_prob}\n" if cfg.use_durability else "")
     return FIRST_TURN.format(strength_min=cfg.strength_min, safe_pc=safe_pc, first_dur=first_dur)
 
 
+def _violations(spec: Spec, cfg: ExperimentConfig, mix: dict, preds: dict, feas: dict) -> list:
+    """Facts only: which constraints are violated and by how much (no remedy)."""
+    out = []
+    if feas["str_v"]:
+        out.append(f"  Strength {preds['28day']:.1f} MPa is below the {cfg.strength_min} MPa floor.")
+    if feas["dur_v"]:
+        out.append(f"  Chloride pass probability {preds['chloride_prob']:.2f} < {spec.min_pass_prob}.")
+    if feas["phys_v"]:
+        out.append(f"  Vfinal={feas['phys_v']['Vfinal']['val']:.3f} is outside [0.95, 1.05].")
+    for v, info in feas["der_v"].items():
+        out.append(f"  {v}={info['val']:.4f} violates [{info['min']:.4f},{info['max']:.4f}].")
+    for v, info in feas["raw_v"].items():
+        out.append(f"  {v}={info['val']:.3f} is outside [{info['min']:.3f},{info['max']:.3f}].")
+    return out
+
+
 def _advice(spec: Spec, cfg: ExperimentConfig, mix: dict, preds: dict, feas: dict) -> list:
-    """Directional advice for each violated constraint."""
+    """Directional advice for each violated constraint (facts only when hints are off)."""
+    if not cfg.use_directional_hints:
+        return _violations(spec, cfg, mix, preds, feas)
     out = []
     if feas["str_v"]:
         out.append(f"  Strength {preds['28day']:.1f} MPa is below the {cfg.strength_min} MPa floor. "
@@ -674,7 +706,9 @@ def build_feedback(spec: Spec, cfg: ExperimentConfig, it: int, mix: dict, preds:
     prev_28 = prev["pred_28day"] if prev else p28
     prev_iter = prev["iteration"] if prev else it
     gwp_change = round(gwp - prev_gwp, 2)
-    if gwp_change < -0.5:
+    if not cfg.use_directional_hints:
+        gwp_trend = ""
+    elif gwp_change < -0.5:
         gwp_trend = f"DECREASED {abs(gwp_change):.2f} kg/m³ -- good"
     elif gwp_change > 0.5:
         gwp_trend = f"INCREASED {gwp_change:.2f} kg/m³ -- WRONG DIRECTION"
@@ -719,7 +753,7 @@ def build_feedback(spec: Spec, cfg: ExperimentConfig, it: int, mix: dict, preds:
             rag_block = "\n".join(lines) + "\n\n"
 
     fb = _advice(spec, cfg, mix, preds, feas)
-    if feas["feasible"]:
+    if feas["feasible"] and cfg.use_directional_hints:
         if gwp_change > 0.5:
             fb.append("  GWP went UP — wrong direction. Swap PC->SC or reduce WATER.")
         elif abs(gwp_change) <= 0.5:
@@ -782,7 +816,7 @@ def detect_stagnation(trajectory: list, cfg: ExperimentConfig) -> bool:
     return all(recent[i - 1]["gwp"] - recent[i]["gwp"] < thr for i in range(1, len(recent)))
 
 
-def build_restart_msg(spec: Spec, trajectory: list, ga_ref: dict, restart_num: int) -> str:
+def build_restart_msg(spec: Spec, trajectory: list, ga_ref: dict, restart_num: int, hints: bool = True) -> str:
     feasible = [r for r in trajectory if r["feasible"]]
     top5 = sorted(feasible, key=lambda r: r["gwp"])[:5]
     top5_str = "".join(
@@ -791,6 +825,18 @@ def build_restart_msg(spec: Spec, trajectory: list, ga_ref: dict, restart_num: i
         for i, r in enumerate(top5, 1))
     center = {v: round(float(np.mean([r[v] for r in feasible[-10:]])), 1) for v in ["PC", "SC", "FA", "WATER"]}
     s = spec.stats
+    if not hints:
+        return f"""
+=== RESTART #{restart_num} — STAGNATION ===
+Search center (avg last 10): {center}
+The last proposals show no improvement.
+
+Top-5 best so far:
+{top5_str}
+Propose a mix that differs substantially from these.
+
+Output ONLY the JSON object.
+"""
     return f"""
 === RESTART #{restart_num} — STAGNATION ===
 Search center (avg last 10): {center}
@@ -935,7 +981,7 @@ def run_llm(spec: Spec, cfg: ExperimentConfig, ga_ref: dict, few_shot: list,
             mode = f"RESTART#{restart_count}"
             cur_temp = cfg.restart_temp
             chat = chat_factory(cur_temp, sys_prompt)
-            user_msg = build_restart_msg(spec, trajectory, ga_ref, restart_count)
+            user_msg = build_restart_msg(spec, trajectory, ga_ref, restart_count, cfg.use_directional_hints)
         elif it == 0 and cur_mix is None:
             user_msg = build_first_turn(spec, cfg)
         else:

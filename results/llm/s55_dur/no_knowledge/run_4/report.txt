@@ -1,21 +1,25 @@
 Experiment: no_knowledge   no_knowledge | s55_dur
 strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
 ------------------------------------------------------------
-  total_iters           : 0
-  n_feasible            : 0
-  surrogate_evals       : 35
-  rcalls                : 0.00175
-  api_calls             : 35
-  prompt_tokens         : 415923
-  completion_tokens     : 9554
-  llm_time_s            : 33.66
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 90
+  rcalls                : 0.0045
+  api_calls             : 90
+  prompt_tokens         : 2805991
+  completion_tokens     : 20690
+  llm_time_s            : 93.24
   parse_fails           : 0
   restarts              : 0
-  OGR                   : nan
-  QER                   : nan
-  MCE                   : nan
-  best_gwp              : nan
+  OGR                   : 0.3296
+  QER                   : 0.3206
+  MCE                   : 0.5487
+  best_gwp              : 189.96
   ga_gwp                : 142.87
+  gwp_gap               : 47.09
+  convergence_iter      : 4
+  str_margin_at_best    : 1.23
+  feasibility_rate      : 0.3333
   scenario              : s55_dur
   method                : no_knowledge
   run                   : 4
@@ -24,3 +28,33 @@ strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
   model                 : gemini-2.5-flash-lite
 ------------------------------------------------------------
 Reasoning log:
+[1] GWP=218.81 28d=57.0 (exploit): Strength remains below the 55 MPa floor. I'll increase PC by 10 kg/m³ and WR_HR by 0.5 kg/m³. This directly boosts strength from PC and allows for potential water reduction without compromising workability, thus further increasing strength. ACC is kept to provide a buffer. GWP will increase, but strength is the priority.
+[2] GWP=205.70 28d=56.5 (exploit): The mix is now feasible, but GWP is relatively high. The strength margin is good (almost 2 MPa above the floor). To reduce GWP, I will decrease PC by 15 kg/m³ and increase SC by 10 kg/m³. This swap reduces GWP due to SC's lower carbon footprint and can help maintain strength, especially with the current WR_HR and ACC levels. I will also slightly reduce FAGG and CAGG to maintain volume balance. This targets Situation A by reducing binder content and moving towards a lower GWP profile.
+[3] GWP=197.83 28d=56.1 (exploit): GWP has been successfully reduced, and the mix remains feasible with a decent strength margin. To further reduce GWP, I will decrease PC by another 10 kg/m³ and increase SC by 10 kg/m³. This swap continues the strategy of replacing higher-GWP PC with lower-GWP SC. Minor adjustments to aggregates will be made to maintain volume balance. The strength margin is still sufficient to absorb this change.
+[4] GWP=189.96 28d=56.2 (exploit): GWP continues to decrease while maintaining feasibility. The strength margin is now tighter (+1.12 MPa). To further reduce GWP, I will decrease PC by 10 kg/m³ and increase SC by 10 kg/m³. This is a continuation of the PC-to-SC swap. I will also slightly increase ACC by 2 kg/m³ to provide a small strength buffer and allow for a slight reduction in aggregates to maintain volume balance. This is a cautious step to maintain strength while pushing GWP lower.
+[5] GWP=193.88 28d=55.9 (exploit): The SC% constraint (SCM%) has been violated. To fix this, I need to reduce the SC content and increase PC. I will decrease SC by 15 kg/m³ and increase PC by 15 kg/m³. This should bring SC% within bounds while maintaining strength. Aggregates will be adjusted to maintain volume balance. This is a direct response to the violated ratio constraint.
+[6] GWP=196.49 28d=55.5 (exploit): Strength is slightly below the 55 MPa floor. To fix this, I will increase PC by 10 kg/m³ and slightly increase WR_HR by 0.2 kg/m³. This directly boosts strength and ensures workability. The ACC is maintained to provide additional strength support. This will increase GWP slightly but is necessary to meet the strength requirement.
+[7] GWP=205.58 28d=56.3 (exploit): Strength is still slightly below the 55 MPa floor. I will increase PC by 10 kg/m³ to directly boost strength. ACC is maintained to provide further strength support. WR_HR is also increased slightly to ensure workability. The GWP will increase due to higher PC, but meeting the strength requirement is the immediate priority. Aggregates are adjusted for volume balance.
+[8] GWP=193.73 28d=55.5 (exploit): GWP has increased significantly, and the strength margin is adequate. The current mix has a high PC content. To reduce GWP, I will decrease PC by 15 kg/m³ and increase SC by 15 kg/m³. This PC-to-SC swap should lower GWP. I will maintain ACC and WR_HR at their current levels to ensure strength and workability, and adjust aggregates for volume balance. This aims to bring GWP down while staying feasible.
+[9] GWP=197.62 28d=55.0 (exploit): The SC% constraint has been violated. To fix this, I need to reduce SC and increase PC. I will decrease SC by 15 kg/m³ and increase PC by 15 kg/m³. This prioritizes fixing the SC% violation. The ACC and WR_HR are maintained to support strength. Aggregates are adjusted for volume balance. This is a direct response to the violated ratio constraint.
+[10] GWP=209.28 28d=57.2 (exploit): GWP has increased, and the strength margin is critically low (+0.03 MPa). The current SC% is high (0.7013). To reduce GWP and increase the strength margin, I must increase PC and decrease SC. I will decrease SC by 15 kg/m³ and increase PC by 15 kg/m³. This is a significant adjustment to ensure strength and keep SC% within bounds. ACC is maintained to provide strength support, and WR_HR is slightly increased to ensure workability. Aggregates are adjusted for volume balance. This mix prioritizes strength and constraint adherence over GWP reduction at this stage.
+[11] GWP=197.43 28d=56.2 (exploit): GWP has increased significantly, and the strength margin is now good. The previous aggressive PC increase was necessary to correct constraints. Now, with feasibility re-established, I will attempt to reduce GWP by decreasing PC by 15 kg/m³ and increasing SC by 15 kg/m³. This PC-to-SC swap aims to lower GWP. I will maintain ACC and WR_HR to support strength and workability, and adjust aggregates for volume balance. This strategy targets GWP reduction while leveraging the existing strength.
+[12] GWP=197.40 28d=56.4 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 10 kg/m³ and increase PC by 10 kg/m³. This addresses the SC% violation directly. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to bring Vfinal back into the acceptable range. This is a direct response to the violated ratio constraint.
+[13] GWP=197.33 28d=56.4 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 10 kg/m³ and increase PC by 10 kg/m³. This addresses the SC% violation. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to bring Vfinal back into the acceptable range. This is a direct response to the violated ratio constraint.
+[14] GWP=193.29 28d=58.8 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 15 kg/m³ and increase PC by 15 kg/m³. This addresses the SC% violation. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to bring Vfinal back into the acceptable range. This is a direct response to the violated ratio constraint.
+[15] GWP=197.14 28d=59.0 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 15 kg/m³ and increase PC by 15 kg/m³. This addresses the SC% violation. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to maintain Vfinal within the acceptable range. This is a direct response to the violated ratio constraint.
+[16] GWP=197.08 28d=59.1 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 10 kg/m³ and increase PC by 10 kg/m³. This addresses the SC% violation. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to maintain Vfinal within the acceptable range. This is a direct response to the violated ratio constraint.
+[17] GWP=197.02 28d=59.3 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 10 kg/m³ and increase PC by 10 kg/m³. This addresses the SC% violation. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to maintain Vfinal within the acceptable range. This is a direct response to the violated ratio constraint.
+[18] GWP=197.05 28d=58.8 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 15 kg/m³. This will increase the total volume. The strength and GWP are acceptable, and other constraints are met.
+[19] GWP=197.06 28d=56.0 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 10 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[20] GWP=197.11 28d=57.1 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[21] GWP=197.11 28d=57.8 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[22] GWP=197.17 28d=57.1 (exploit): The SC% constraint has been violated. To fix this, I will decrease SC by 15 kg/m³ and increase PC by 15 kg/m³. This addresses the SC% violation. ACC and WR_HR are maintained to support strength and workability. Aggregates are adjusted to maintain Vfinal within the acceptable range. This is a direct response to the violated ratio constraint.
+[23] GWP=197.14 28d=58.0 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[24] GWP=197.13 28d=57.2 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[25] GWP=197.13 28d=57.0 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[26] GWP=197.13 28d=57.0 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[27] GWP=197.13 28d=57.0 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[28] GWP=197.13 28d=56.4 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[29] GWP=197.13 28d=56.3 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.
+[30] GWP=197.13 28d=56.3 (exploit): Vfinal is still below the 0.95 minimum. To address this, I will increase the fine and coarse aggregates (FAGG and CAGG) by a combined 5 kg/m³. This will increase the total volume. The strength, GWP, and other constraints are acceptable.

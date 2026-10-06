@@ -45,7 +45,8 @@ STAG_FACTOR = 1.3     # stagnation is only declared once GWP < 1.3 x the GA refe
 
 METHODS = {
     "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="static"),
-    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True, rag_mode="static"),
+    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True, rag_mode="static",
+                         use_directional_hints=False),
     "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False, rag_mode="none"),
     "rag_tabular":  dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
                          rag_mode="dynamic", rag_format="tabular"),
