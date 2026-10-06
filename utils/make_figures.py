@@ -29,8 +29,8 @@ OUT = os.path.join(ROOT, "pictures")
 os.makedirs(OUT, exist_ok=True)
 
 plt.rcParams.update({"font.size": 14, "axes.titlesize": 15, "axes.labelsize": 14, "xtick.labelsize": 13,
-                     "ytick.labelsize": 13, "legend.fontsize": 12, "figure.dpi": 150, "axes.spines.top": False,
-                     "axes.spines.right": False})
+                     "ytick.labelsize": 13, "legend.fontsize": 12, "figure.dpi": 150, "axes.spines.top": True,
+                     "axes.spines.right": True})
 COL = {"baseline": "#2a6f97", "no_knowledge": "#e07a5f", "zero_shot": "#9a8c98", "rag_tabular": "#81b29a",
        "rag_text": "#3d405b", "GA": "#222222"}
 LABEL = {"baseline": "Baseline", "no_knowledge": "No knowledge", "zero_shot": "Zero-shot",
