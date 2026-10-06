@@ -3,7 +3,7 @@ make_figures.py
 ===============
 All paper figures from results/ with one consistent style (large fonts, SI units).
 
-  fig_trajectory.png      GWP and 28-day strength vs feasible iteration (one scenario, median over runs) + GA reference
+  fig3a_gwp_iterations.png, fig3b_strength_iterations.png   iteration history of the best run (lowest OGR), old Figure 3 style
   fig_knowledge.png       baseline vs no-knowledge        (OGR, GWP gap, QER, Rcalls)
   fig_fewshot.png         zero-shot vs few-shot (baseline)
   fig_rag.png             no-RAG (baseline) vs RAG tabular vs RAG text
@@ -78,27 +78,56 @@ def bars(df, methods, title, fname, scenarios_sets):
     plt.close(fig)
 
 
-def trajectory(scn="s50_nodur"):
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+def trajectory(scn="s50_nodur", method="baseline"):
+    """Figure 3 (a, b): iteration history of the run closest to the GA reference (lowest OGR)."""
     ref = json.load(open(os.path.join(RES, "ga", scn, "reference.json")))["reference"]
-    base = os.path.join(RES, "llm", scn, "baseline")
+    base = os.path.join(RES, "llm", scn, method)
+    best_run, best_ogr = None, np.inf
     for run in sorted(os.listdir(base)):
-        t = pd.read_csv(os.path.join(base, run, "trajectory.csv"))
-        axes[0].plot(t["iteration"], t["gwp"].cummin(), color=COL["baseline"], alpha=0.35, lw=1.5)
-        axes[1].plot(t["iteration"], t["pred_28day"], color=COL["baseline"], alpha=0.35, lw=1.5)
-    axes[0].axhline(ref["gwp"], color=COL["GA"], ls="--", label="GA reference")
-    axes[0].plot([], [], color=COL["baseline"], label="LLM baseline (5 runs)")
+        m = json.load(open(os.path.join(base, run, "metrics.json")))
+        if m.get("OGR") == m.get("OGR") and m["OGR"] < best_ogr:
+            best_run, best_ogr = run, m["OGR"]
+    t = pd.read_csv(os.path.join(base, best_run, "trajectory.csv"))
     smin = int(scn.split("_")[0][1:])
-    axes[1].axhline(smin, color=COL["GA"], ls="--", label="Strength floor")
-    axes[0].set_xlabel("Feasible iteration")
-    axes[0].set_ylabel(f"Best-so-far GWP ({GWP_UNIT})")
-    axes[1].set_xlabel("Feasible iteration")
-    axes[1].set_ylabel("Predicted 28-day strength (MPa)")
-    axes[0].legend(frameon=False)
-    axes[1].legend(frameon=False)
+    it, g = t["iteration"].values, t["gwp"].values
+    restart = t["mode"].astype(str).str.startswith("RESTART").values
+    best_so_far = np.minimum.accumulate(g)
+    b_i = int(np.argmin(g))
+    purple, green, orange, red, blue = "#5b3fb5", "#1a9c78", "#ff8c00", "#e05555", "#2f80e0"
+
+    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    ax.axhline(ref["gwp"], color=red, ls="--", lw=1.4, label=f"GA reference ({ref['gwp']:.1f} kg)")
+    ax.plot(it, g, color=purple, alpha=0.35, lw=1.2, zorder=1)
+    ax.scatter(it[~restart], g[~restart], s=70, color=purple, edgecolor="white", zorder=3, label="LLM solution")
+    if restart.any():
+        ax.scatter(it[restart], g[restart], s=130, marker="D", color=orange, edgecolor="white", zorder=4,
+                   label="Restart")
+    ax.plot(it, best_so_far, color=green, lw=3, zorder=2, label="Best GWP so far")
+    ax.annotate(f"Best: {g[b_i]:.1f} kg\n(iter {it[b_i]})", (it[b_i], g[b_i]), xytext=(it[b_i] + 1, g[b_i] + 8),
+                color=green, fontsize=11, arrowprops=dict(arrowstyle="-", color=green))
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel(f"GWP ({GWP_UNIT})")
+    ax.set_xlim(0, max(31, it.max() + 1))
+    ax.legend(frameon=True, loc="upper right")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "fig_trajectory.png"), bbox_inches="tight")
+    fig.savefig(os.path.join(OUT, "fig3a_gwp_iterations.png"), bbox_inches="tight")
     plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    s = t["pred_28day"].values
+    ax.axhline(smin, color=red, ls="--", lw=1.4, label="Target strength")
+    ax.axhspan(smin - 5, smin, color=red, alpha=0.06)
+    ax.plot(it, s, color=blue, alpha=0.4, lw=1.5, zorder=1)
+    ax.scatter(it, s, s=70, color=blue, edgecolor="white", zorder=3, label="Predicted 28-day strength")
+    ax.set_ylim(smin - 5, max(s.max(), smin) + 4)
+    ax.set_xlim(0, max(31, it.max() + 1))
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel("Predicted 28-day strength (MPa)")
+    ax.legend(frameon=True, loc="upper right")
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig3b_strength_iterations.png"), bbox_inches="tight")
+    plt.close(fig)
+    print(f"Figure 3 from {scn}/{method}/{best_run}: OGR={best_ogr:.3f}, best GWP={g[b_i]:.2f}, GA={ref['gwp']:.2f}")
 
 
 def durability(df):
