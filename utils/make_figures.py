@@ -28,9 +28,10 @@ RES = os.path.join(ROOT, "results")
 OUT = os.path.join(ROOT, "pictures")
 os.makedirs(OUT, exist_ok=True)
 
-plt.rcParams.update({"font.size": 14, "axes.titlesize": 15, "axes.labelsize": 14, "xtick.labelsize": 13,
-                     "ytick.labelsize": 13, "legend.fontsize": 12, "figure.dpi": 150, "axes.spines.top": True,
-                     "axes.spines.right": True})
+plt.rcParams.update({"font.size": 20, "axes.titlesize": 22, "axes.labelsize": 22, "xtick.labelsize": 20,
+                     "ytick.labelsize": 20, "legend.fontsize": 18, "figure.dpi": 150,
+                     "axes.spines.top": True, "axes.spines.right": True, "axes.linewidth": 1.4,
+                     "xtick.major.width": 1.4, "ytick.major.width": 1.4})
 COL = {"baseline": "#2a6f97", "no_knowledge": "#e07a5f", "zero_shot": "#9a8c98", "rag_tabular": "#81b29a",
        "rag_text": "#3d405b", "GA": "#222222"}
 LABEL = {"baseline": "Baseline", "no_knowledge": "No knowledge", "zero_shot": "Zero-shot",
@@ -44,9 +45,9 @@ def load_runs():
 
 def bars(df, methods, title, fname, scenarios_sets):
     """Grouped bars: x = strength floor, one panel per metric, one figure row per durability setting."""
-    metrics = [("OGR", "OGR"), ("gwp_gap", f"GWP gap ({GWP_UNIT})"), ("QER", f"QER ({GWP_UNIT} per call)"),
+    metrics = [("OGR", "OGR"), ("gwp_gap", "GWP gap (kg/m$^3$)"), ("QER", "QER (kg/m$^3$ per call)"),
                ("rcalls", "$R_{calls}$")]
-    fig, axes = plt.subplots(2, 4, figsize=(20, 8.5))
+    fig, axes = plt.subplots(2, 4, figsize=(20, 10.5))
     for r, dur in enumerate([False, True]):
         sub = df[df["durability"] == dur]
         for c, (m, ylabel) in enumerate(metrics):
@@ -64,15 +65,15 @@ def bars(df, methods, title, fname, scenarios_sets):
                 if m == "OGR":
                     for xi, mi, n in zip(x, means, ns):
                         if not np.isnan(mi):
-                            ax.text(xi, mi, f"{n}", ha="center", va="bottom", fontsize=9)
+                            ax.text(xi, mi, f"{n}", ha="center", va="bottom", fontsize=16)
             ax.set_xticks(range(3))
             ax.set_xticklabels(["45", "50", "55"])
-            ax.set_xlabel("28-day strength floor (MPa)")
+            ax.set_xlabel("Strength floor (MPa)")
             ax.set_ylabel(ylabel)
             if c == 0:
                 ax.set_title(("With" if dur else "Without") + " chloride constraint", loc="left")
     axes[0, 0].legend(frameon=False)
-    fig.suptitle(title + "   (numbers above OGR bars = runs with a feasible solution, of 5)", y=1.0)
+    fig.suptitle(title, y=1.0, fontsize=24)
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, fname), bbox_inches="tight")
     plt.close(fig)
@@ -95,7 +96,7 @@ def trajectory(scn="s50_nodur", method="baseline"):
     b_i = int(np.argmin(g))
     purple, green, orange, red, blue = "#5b3fb5", "#1a9c78", "#ff8c00", "#e05555", "#2f80e0"
 
-    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    fig, ax = plt.subplots(figsize=(8, 6))
     ax.axhline(ref["gwp"], color=red, ls="--", lw=1.4, label=f"GA reference ({ref['gwp']:.1f} kg)")
     ax.plot(it, g, color=purple, alpha=0.35, lw=1.2, zorder=1)
     ax.scatter(it[~restart], g[~restart], s=70, color=purple, edgecolor="white", zorder=3, label="LLM solution")
@@ -104,7 +105,7 @@ def trajectory(scn="s50_nodur", method="baseline"):
                    label="Restart")
     ax.plot(it, best_so_far, color=green, lw=3, zorder=2, label="Best GWP so far")
     ax.annotate(f"Best: {g[b_i]:.1f} kg\n(iter {it[b_i]})", (it[b_i], g[b_i]), xytext=(it[b_i] + 1, g[b_i] + 8),
-                color=green, fontsize=11, arrowprops=dict(arrowstyle="-", color=green))
+                color=green, fontsize=18, arrowprops=dict(arrowstyle="-", color=green))
     ax.set_xlabel("Iteration")
     ax.set_ylabel(f"GWP ({GWP_UNIT})")
     ax.set_xlim(0, max(31, it.max() + 1))
@@ -113,7 +114,7 @@ def trajectory(scn="s50_nodur", method="baseline"):
     fig.savefig(os.path.join(OUT, "fig3a_gwp_iterations.png"), bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    fig, ax = plt.subplots(figsize=(8, 6))
     s = t["pred_28day"].values
     ax.axhline(smin, color=red, ls="--", lw=1.4, label="Target strength")
     ax.axhspan(smin - 5, smin, color=red, alpha=0.06)
@@ -131,7 +132,7 @@ def trajectory(scn="s50_nodur", method="baseline"):
 
 
 def durability(df):
-    fig, ax = plt.subplots(figsize=(9, 5.5))
+    fig, ax = plt.subplots(figsize=(10, 6.5))
     xs = np.arange(3)
     for k, (dur, hatch) in enumerate([(False, ""), (True, "//")]):
         ga, llm, llm_sd = [], [], []
@@ -146,7 +147,7 @@ def durability(df):
                label=f"LLM {'with' if dur else 'without'}")
     ax.set_xticks(xs)
     ax.set_xticklabels(["45", "50", "55"])
-    ax.set_xlabel("28-day strength floor (MPa)")
+    ax.set_xlabel("Strength floor (MPa)")
     ax.set_ylabel(f"Best GWP ({GWP_UNIT})")
     ax.legend(frameon=False, ncol=2)
     fig.tight_layout()
@@ -159,7 +160,7 @@ def models():
     if not os.path.exists(f):
         return
     d = pd.read_csv(f)
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6.5), sharey=True)
     setups = [("independent", "Independent"), ("chain_true_input", "Chain, true previous stage"),
               ("chain_pred_input", "Chain, predicted previous stage")]
     mods = ["RandomForest", "XGBoost", "CatBoost", "MLP"]
@@ -172,7 +173,7 @@ def models():
         ax.set_title(age.replace("day", "-day"), loc="left")
         ax.set_ylim(-0.2, 1.0)
     axes[0].set_ylabel("R$^2$ (mean $\\pm$ std, 10 splits)")
-    axes[0].legend(frameon=False, fontsize=11)
+    axes[0].legend(frameon=False, fontsize=16)
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig_models.png"), bbox_inches="tight")
     plt.close(fig)
@@ -184,7 +185,7 @@ def sensitivity():
         return
     d = pd.read_csv(f)
     order = ["GA", "baseline", "no_knowledge", "zero_shot", "rag_tabular", "rag_text"]
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6.5), sharey=True)
     for ax, (col, ttl) in zip(axes, [("p_strength_ok_pred_error", "Strength prediction error ($\\sigma$ = 5.7 MPa)"),
                                      ("p_strength_ok_cv2", "Ingredient variability, CV 2%"),
                                      ("p_strength_ok_cv5", "Ingredient variability, CV 5%")]):
@@ -193,7 +194,7 @@ def sensitivity():
                color=[COL.get(m, "#999") for m in order])
         ax.set_xticks(range(len(order)))
         ax.set_xticklabels(["GA", "Base", "No-K", "Zero", "RAG-T", "RAG-X"])
-        ax.set_title(ttl, loc="left", fontsize=13)
+        ax.set_title(ttl, loc="left", fontsize=17)
     axes[0].set_ylabel("P(strength $\\geq$ floor)")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig_sensitivity.png"), bbox_inches="tight")
