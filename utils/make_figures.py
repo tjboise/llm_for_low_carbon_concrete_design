@@ -104,13 +104,13 @@ def trajectory(scn="s50_nodur", method="baseline"):
         ax.scatter(it[restart], g[restart], s=130, marker="D", color=orange, edgecolor="white", zorder=4,
                    label="Restart")
     ax.plot(it, best_so_far, color=green, lw=3, zorder=2, label="Best GWP so far")
-    xmax = max(31, it.max() + 1)
+    xmax = 25
     ax.annotate(f"Best: {g[b_i]:.1f} kg\n(iter {it[b_i]})", (it[b_i], g[b_i]),
-                xytext=(xmax - 0.5, g[b_i] + 9), ha="right", va="bottom", color=green, fontsize=18,
+                xytext=(xmax - 0.5, g[b_i] + 27), ha="right", va="bottom", color=green, fontsize=18,
                 arrowprops=dict(arrowstyle="-", color=green))
     ax.set_xlabel("Iteration")
     ax.set_ylabel(f"GWP ({GWP_UNIT})")
-    ax.set_xlim(0, max(31, it.max() + 1))
+    ax.set_xlim(0, 25)
     ax.legend(frameon=True, loc="upper right")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig3a_gwp_iterations.png"), bbox_inches="tight")
@@ -123,7 +123,7 @@ def trajectory(scn="s50_nodur", method="baseline"):
     ax.plot(it, s, color=blue, alpha=0.4, lw=1.5, zorder=1)
     ax.scatter(it, s, s=70, color=blue, edgecolor="white", zorder=3, label="Predicted 28-day strength")
     ax.set_ylim(smin - 5, max(s.max(), smin) + 4)
-    ax.set_xlim(0, max(31, it.max() + 1))
+    ax.set_xlim(0, 25)
     ax.set_xlabel("Iteration")
     ax.set_ylabel("Predicted 28-day strength (MPa)")
     ax.legend(frameon=True, loc="upper right")
@@ -155,7 +155,7 @@ def gwp_contribution(scn="s50_nodur", method="baseline"):
     ax.axhline(ref["gwp"], color="#e05555", ls="--", lw=1.6, label="GA reference")
     ax.set_xlabel("Iteration")
     ax.set_ylabel(f"GWP ({GWP_UNIT})")
-    ax.set_xlim(0, max(31, t["iteration"].max() + 1))
+    ax.set_xlim(0, 25)
     ax.legend(frameon=True, ncol=3, loc="upper right")
     ax.set_ylim(0, bottom.max() * 1.3)
     fig.tight_layout()
