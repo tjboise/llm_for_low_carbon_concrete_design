@@ -215,15 +215,14 @@ def ablation_pair(df, methods, labels, prefix, scn="s50_nodur", out=None):
     print(prefix, scn, {m: {k: (round(v[0], 4), round(v[1], 4), v[2]) for k, v in stats[m].items()} for m in methods})
 
 
-def exploratory_fig5():
-    """NOT for publication: Figure 5 with run 2 of (50 MPa, baseline) replaced by run 6."""
+def exploratory_fig5(runs=(3, 4, 5, 6, 7), prefix="fig5_runs3to7_"):
+    """NOT for publication: Figure 5 with the baseline (50 MPa) runs restricted to `runs`."""
     df = pd.read_csv(os.path.join(RES, "summary", "all_runs.csv"))
-    drop = (df["scenario"] == "s50_nodur") & (df["method"] == "baseline") & (df["run"] == 2)
-    df = df[~drop & ((df["run"] <= 5) | ((df["scenario"] == "s50_nodur") & (df["method"] == "baseline")))]
+    is_cell = (df["scenario"] == "s50_nodur") & (df["method"] == "baseline")
+    df = df[(~is_cell & (df["run"] <= 5)) | (is_cell & df["run"].isin(runs))]
     d = os.path.join(OUT, "exploratory")
     os.makedirs(d, exist_ok=True)
-    ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"],
-                  "fig5_run2_replaced_by_run6_", out=d)
+    ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], prefix, out=d)
 
 
 def durability(df):
