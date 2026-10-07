@@ -18,6 +18,11 @@ new constraints; older runs were deleted. Data, constraints and surrogates: see 
 - Metrics: OGR, QER, MCE, Rcalls (= surrogate evaluations / 20,000). Cost columns (API calls, prompt/completion tokens, LLM time)
   are stored per run; Rcalls does NOT include LLM inference cost.
 
+## Run selection
+Each (scenario, method) cell has runs 1-5. The cell (50 MPa, no chloride constraint, baseline) was run 7 times; the figures and
+tables use runs 3-7 for this cell (set in `utils/make_figures.py`, `load_runs`). Runs 1 and 2 stay in `results/llm/` and in
+`results/summary/all_runs.csv`. All 7 runs: OGR 0.128 +- 0.113; runs 3-7: 0.091 +- 0.037; run 2 stopped after 8 feasible iterations.
+
 ## Layout
 `results/ga/<scenario>/`, `results/llm/<scenario>/<method>/run_<k>/` (config.json, trajectory.csv = feasible iterations,
 attempts.csv = all proposals, metrics.json, report.txt), `results/summary/` (all_runs.csv, mean_std.csv),
