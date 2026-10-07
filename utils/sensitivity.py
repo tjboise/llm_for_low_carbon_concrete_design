@@ -52,7 +52,7 @@ def solutions():
         for m in sorted(os.listdir(os.path.join(base, scn))):
             for run in sorted(os.listdir(os.path.join(base, scn, m))):
                 f = os.path.join(base, scn, m, run, "trajectory.csv")
-                if os.path.exists(f):
+                if os.path.exists(f) and int(run.split("_")[1]) <= 5:
                     t = pd.read_csv(f)
                     rows.append({"scenario": scn, "method": m, "run": int(run.split("_")[1]),
                                  "mix": t.loc[t["gwp"].idxmin()].to_dict()})

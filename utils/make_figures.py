@@ -40,7 +40,8 @@ GWP_UNIT = "kg CO$_2$-eq/m$^3$"
 
 
 def load_runs():
-    return pd.read_csv(os.path.join(RES, "summary", "all_runs.csv"))
+    df = pd.read_csv(os.path.join(RES, "summary", "all_runs.csv"))
+    return df[df["run"] <= 5]      # pre-specified n = 5; extra runs are exploratory
 
 
 def bars(df, methods, title, fname, scenarios_sets):
