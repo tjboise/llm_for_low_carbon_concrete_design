@@ -1,0 +1,60 @@
+Experiment: zero_shot   zero_shot | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 61
+  rcalls                : 0.00305
+  api_calls             : 61
+  prompt_tokens         : 1432525
+  completion_tokens     : 11819
+  llm_time_s            : 50.09
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4983
+  QER                   : 1.6505
+  MCE                   : 0.1844
+  best_gwp              : 214.06
+  ga_gwp                : 142.87
+  gwp_gap               : 71.19
+  convergence_iter      : 10
+  str_margin_at_best    : 11.96
+  feasibility_rate      : 0.4918
+  scenario              : s55_dur
+  method                : zero_shot
+  run                   : 7
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=314.74 28d=71.3 (exploit): The previous mix is infeasible due to a low w/b ratio. To fix this and reduce GWP, I will slightly increase WATER and decrease PC. This should bring w/b into the acceptable range and lower the overall GWP. The strength and chloride probability are currently good, so I will monitor them closely after these adjustments.
+[2] GWP=288.62 28d=69.9 (exploit): The mix is now feasible, but GWP has barely changed. To significantly reduce GWP, I will decrease PC and increase SC, aiming for a larger shift in binder composition. This will also reduce the w/b ratio, so I will slightly increase WATER to compensate and maintain feasibility. Strength is high, so this should be acceptable.
+[3] GWP=257.25 28d=68.3 (exploit): The GWP has decreased significantly, and the mix remains feasible. To continue reducing GWP, I will further decrease PC and increase SC. This will also decrease the w/b ratio, so I will slightly increase WATER to maintain feasibility. Strength is still well above the minimum requirement.
+[4] GWP=249.42 28d=67.5 (exploit): The SC% ratio has exceeded its upper bound. To fix this, I need to reduce the SC content and increase the PC content. This will also reduce the SCM% and increase the w/b ratio. I will adjust WATER slightly to keep the w/b within bounds, and monitor strength and GWP.
+[5] GWP=239.52 28d=67.8 (exploit): The SC% ratio has exceeded its upper bound again. To fix this, I need to reduce the SC content and increase the PC content. This will also reduce the SCM% and increase the w/b ratio. I will adjust WATER slightly to keep the w/b within bounds, and monitor strength and GWP.
+[6] GWP=238.94 28d=67.8 (exploit): The SC% ratio has slightly exceeded its upper bound. To fix this, I need to reduce SC and increase PC. This will decrease SCM% and increase w/b. I will adjust WATER to maintain w/b within bounds, and monitor strength and GWP.
+[7] GWP=228.46 28d=67.2 (exploit): The mix is feasible and GWP has decreased slightly. To further reduce GWP, I will decrease PC and increase SC, staying within SC bounds. This will lower the w/b ratio, so I will slightly increase WATER to maintain feasibility. Strength is still adequate, and chloride resistance is very high.
+[8] GWP=228.46 28d=67.2 (exploit): The SC% ratio has exceeded its upper bound. To fix this, I need to reduce SC and increase PC. This will decrease SCM% and increase w/b. I will adjust WATER to maintain w/b within bounds, and monitor strength and GWP.
+[9] GWP=228.46 28d=67.2 (exploit): The SC% ratio has exceeded its upper bound. To fix this, I need to reduce SC and increase PC. This will decrease SCM% and increase w/b. I will adjust WATER to maintain w/b within bounds, and monitor strength and GWP.
+[10] GWP=214.06 28d=67.0 (exploit): The GWP has plateaued. To significantly reduce GWP, I need to lower PC and increase SC, while staying within SC bounds. This will lower w/b, so I will increase WATER. I will also attempt to introduce a small amount of FA to potentially further reduce GWP and improve workability, while monitoring its impact on strength and ratios.
+[11] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will also affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[12] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[13] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[14] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[15] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[16] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[17] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[18] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[19] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[20] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[21] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[22] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[23] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[24] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[25] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[26] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[27] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[28] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[29] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.
+[30] GWP=221.26 28d=67.0 (exploit): Multiple ratio violations: SCM%, PC%, and SC%. To fix these, I need to reduce SC and increase PC. This will affect SCM% and PC% ratios. I will adjust WATER to maintain w/b, and monitor strength and GWP.

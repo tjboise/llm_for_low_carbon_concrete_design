@@ -1,0 +1,49 @@
+Experiment: no_knowledge   no_knowledge | s50_nodur
+strength >= 50 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 19
+  n_feasible            : 19
+  surrogate_evals       : 65
+  rcalls                : 0.00325
+  api_calls             : 65
+  prompt_tokens         : 1780142
+  completion_tokens     : 18401
+  llm_time_s            : 65.9
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.0624
+  QER                   : 1.5697
+  MCE                   : 0.4728
+  best_gwp              : 142.58
+  ga_gwp                : 134.21
+  gwp_gap               : 8.37
+  convergence_iter      : 19
+  str_margin_at_best    : 0.16
+  feasibility_rate      : 0.2923
+  scenario              : s50_nodur
+  method                : no_knowledge
+  run                   : 7
+  strength_min          : 50
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=244.61 28d=51.2 (exploit): Previous mix met volume constraints (Vfinal=0.990) but was still under strength (48.7 MPa). Increased PC by 15 kg/m³ to ensure 28-day strength exceeds 50 MPa. Slightly reduced WATER by 5 kg/m³ to maintain w/b ratio while boosting strength, as water content is already adequate for volume. This aims to fix the strength violation.
+[2] GWP=236.77 28d=51.0 (exploit): Current mix is feasible but has low strength margin (51.16 MPa) and high GWP (244.61). Following Situation B, I'm reducing PC by 10 kg/m³ and increasing SC by 10 kg/m³ to lower GWP. I'm also reducing WATER by 5 kg/m³ to further lower GWP and potentially improve strength/durability. This should maintain feasibility while reducing GWP.
+[3] GWP=228.93 28d=52.2 (exploit): Previous iteration reduced GWP (236.77 kg) while maintaining feasibility and a low strength margin (51.03 MPa). To further reduce GWP, I will continue swapping PC for SC (reduce PC by 10, increase SC by 10). I will also try reducing WATER by another 5 kg. To provide strength headroom for future GWP reduction, I'll add a small amount of ACC (2 kg/m³).
+[4] GWP=215.85 28d=52.3 (exploit): GWP reduced to 228.93 kg, strength margin improved to 2.18 MPa. Current binder is 340 kg. To further reduce GWP, I will reduce total binder by 20 kg (10 PC, 10 SC). I will increase CAGG by 10 kg to compensate for volume and maintain Vfinal. I will also slightly reduce water by 5 kg. This strategy aims to lower GWP by reducing binder and water.
+[5] GWP=202.76 28d=51.0 (exploit): GWP is down to 215.85 kg, with a strength margin of 2.29 MPa. Binder content is 320 kg. To further reduce GWP, I will reduce total binder by 20 kg (10 PC, 10 SC) and increase CAGG by 10 kg to maintain Vfinal. I will also reduce WATER by 5 kg. This continues the successful strategy of reducing binder and water content.
+[6] GWP=194.92 28d=51.7 (exploit): GWP reduced to 202.76 kg, but strength margin is now very slim (0.99 MPa). Following Situation B, I will swap PC for SC (reduce PC by 10, increase SC by 10) to lower GWP. I will also reduce WATER by 5 kg. To create strength headroom for further GWP reduction, I will increase ACC by 2 kg.
+[7] GWP=187.08 28d=51.6 (exploit): GWP is 194.92 kg, strength margin is 1.72 MPa. To further reduce GWP, I will swap PC for SC (reduce PC by 10, increase SC by 10). I will also reduce WATER by 5 kg. The ACC content is maintained to provide strength headroom.
+[8] GWP=179.24 28d=52.0 (exploit): GWP reduced to 187.08 kg, strength margin is 1.56 MPa. To further reduce GWP, I will swap PC for SC (reduce PC by 10, increase SC by 10). I will also reduce WATER by 5 kg. The ACC content is maintained to provide strength.
+[9] GWP=171.44 28d=51.5 (exploit): Previous mix had Vfinal=0.949, which is below the 0.95 lower bound. To correct this, I increased WATER by 10 kg/m³ to increase the total volume. I also increased CAGG by 10 kg/m³ to further contribute to Vfinal and maintain the aggregate ratio. Strength remains adequate.
+[10] GWP=163.60 28d=52.8 (exploit): GWP is 171.44 kg, strength margin is 1.49 MPa. To further reduce GWP, I will swap PC for SC (reduce PC by 10, increase SC by 10). I will also reduce WATER by 5 kg. The ACC content is maintained to provide strength.
+[11] GWP=163.41 28d=53.6 (exploit): GWP is 163.60 kg, strength margin is 2.83 MPa. To further reduce GWP, I will swap PC for SC (reduce PC by 10, increase SC by 10). I will also reduce WATER by 5 kg. The ACC content is maintained.
+[12] GWP=160.81 28d=53.0 (exploit): GWP is 163.41 kg, strength margin is 3.58 MPa. PC is at its lower bound. To reduce GWP further, I will reduce SC by 10 kg, increase CAGG by 10 kg, and reduce WATER by 5 kg. This strategy aims to reduce binder and water content while shifting towards cheaper, lower-GWP aggregates.
+[13] GWP=158.20 28d=51.1 (exploit): GWP is 160.81 kg, strength margin is 3.04 MPa. PC is at its lower bound. To reduce GWP, I will reduce SC by 10 kg and increase CAGG by 10 kg. I will also try to reduce WR_HR by 0.2 kg, as strength is good. Water is at its lower bound.
+[14] GWP=155.60 28d=50.5 (exploit): Strength remains below 50 MPa despite PC being at its lower bound and ACC increased. To address this, I am increasing WR_HR by 0.2 kg/m³. WR_HR can help improve strength by optimizing water demand. This is an attempt to push the strength over the 50 MPa threshold.
+[15] GWP=153.00 28d=50.6 (exploit): Previous mix was below strength (47.8 MPa). PC is at its lower bound. To boost strength, I'm increasing ACC by 2 kg/m³ and WR_HR by 0.2 kg/m³. This combination aims to improve strength without significantly increasing GWP.
+[16] GWP=150.39 28d=50.4 (exploit): Previous mix was below strength (47.9 MPa). PC is at its lower bound. To boost strength, I'm increasing ACC by 2 kg/m³ and WR_HR by 0.2 kg/m³. This combination aims to improve strength without significantly increasing GWP.
+[17] GWP=147.79 28d=50.3 (exploit): GWP is 150.39 kg, strength margin is 0.36 MPa. PC is at its lower bound. To reduce GWP, I will reduce SC by 10 kg and increase CAGG by 10 kg. WR_HR and ACC are maintained to provide strength. Water is at its lower bound.
+[18] GWP=145.19 28d=50.5 (exploit): GWP is 147.79 kg, strength margin is 0.33 MPa. PC is at its lower bound. To reduce GWP, I will reduce SC by 10 kg and increase CAGG by 10 kg. WR_HR and ACC are maintained to provide strength. Water is at its lower bound.
+[19] GWP=142.58 28d=50.2 (exploit): Previous mix had ACC_pct=0.0616, exceeding the limit. To fix this, I've reduced ACC by 2 kg/m³ to bring ACC_pct back within bounds. Strength was slightly above 50 MPa, so this reduction might bring it closer to the floor, but it's necessary to meet the constraint.

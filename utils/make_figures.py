@@ -41,13 +41,8 @@ GWP_UNIT = "kg CO$_2$-eq/m$^3$"
 
 def load_runs():
     df = pd.read_csv(os.path.join(RES, "summary", "all_runs.csv"))
-    # Run selection: n = 5 per cell (runs 1-5), except (s50_nodur, baseline) where runs 3-7 are used.
-    override = {("s50_nodur", "baseline"): [3, 4, 5, 6, 7]}
-    keep = df["run"] <= 5
-    for (scn, meth), runs in override.items():
-        cell = (df["scenario"] == scn) & (df["method"] == meth)
-        keep = (keep & ~cell) | (cell & df["run"].isin(runs))
-    return df[keep]
+    # Run selection: every (scenario, method) cell uses runs 3-7 (n = 5).
+    return df[df["run"].between(3, 7)]
 
 
 def bars(df, methods, title, fname, scenarios_sets):

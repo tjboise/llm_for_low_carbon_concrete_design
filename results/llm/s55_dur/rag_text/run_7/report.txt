@@ -1,0 +1,44 @@
+Experiment: rag_text   rag_text | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 14
+  n_feasible            : 14
+  surrogate_evals       : 64
+  rcalls                : 0.0032
+  api_calls             : 66
+  prompt_tokens         : 876102
+  completion_tokens     : 14946
+  llm_time_s            : 65.9
+  parse_fails           : 1
+  restarts              : 2
+  OGR                   : 0.2345
+  QER                   : 0.9863
+  MCE                   : 0.1602
+  best_gwp              : 176.37
+  ga_gwp                : 142.87
+  gwp_gap               : 33.5
+  convergence_iter      : 10
+  str_margin_at_best    : 2.06
+  feasibility_rate      : 0.2188
+  scenario              : s55_dur
+  method                : rag_text
+  run                   : 7
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=239.49 28d=61.3 (exploit): Strength (60.5 MPa) is excellent. Chloride probability (0.70) is now met. Vfinal (0.947) is still slightly short. I will increase SC to ensure chloride resistance is robust and slightly lower GWP, and add a small amount of CAGG to satisfy the Vfinal constraint.
+[2] GWP=223.81 28d=61.1 (exploit): The previous mix is feasible and meets all constraints. However, GWP has not improved, and strength has a significant margin. The dataset suggests much lower PC and binder content can achieve similar strength with lower GWP (e.g., mixes 1, 2, 3). I will reduce PC by 20 kg/m³ and increase SC by 20 kg/m³ to lower GWP while maintaining strength and chloride resistance. This is a larger move as requested.
+[3] GWP=208.13 28d=60.4 (exploit): GWP has significantly decreased, and all constraints are met. The strength margin is still good. Dataset mix [3] shows that a lower binder content (326 kg/m³ vs current 380 kg/m³) can achieve similar strength with even lower GWP. I will try reducing PC by another 20 kg/m³ and increasing SC by 20 kg/m³ to further decrease GWP, leveraging the efficiency of SC.
+[4] GWP=200.29 28d=59.7 (exploit): GWP has decreased again, and all constraints are satisfied. The strength margin is still adequate, though decreasing. Dataset mix [3] suggests that further reduction in PC and binder content is possible while maintaining strength and achieving lower GWP. I will reduce PC by another 10 kg/m³ and increase SC by 10 kg/m³ to continue the GWP reduction trend.
+[5] GWP=192.45 28d=59.4 (exploit): GWP continues to decrease, and all constraints are met. Strength margin is narrowing, but still acceptable. Dataset mix [3] offers a path to lower GWP with even less binder. I will attempt to reduce PC further by 10 kg/m³ and increase SC by 10 kg/m³ to continue pushing GWP downwards, while monitoring strength closely.
+[6] GWP=177.56 28d=58.2 (exploit): Vfinal is still slightly low. I will increase CAGG to bring Vfinal into the feasible range. The SC% violation was resolved in the previous step, and strength/GWP/chloride resistance are still acceptable.
+[7] GWP=177.56 28d=58.2 (exploit): The previous mix is infeasible due to SC% exceeding its bound. I will reduce SC by a small amount and increase PC to bring SC% within limits, while also adjusting CAGG slightly to maintain Vfinal. This aims to restore feasibility before further GWP optimization.
+[8] GWP=177.88 28d=58.2 (exploit): The previous step resulted in an infeasible mix due to SC% violation and an increase in GWP. I need to lower SC% and PC to be within bounds, and ideally reduce GWP. I will decrease SC and increase PC to correct the SC% violation, and add a small amount of FA to potentially maintain strength while lowering GWP compared to the previous step. I will also slightly adjust CAGG to maintain Vfinal.
+[9] GWP=177.68 28d=57.8 (exploit): The GWP has stalled, and the current mix is feasible. The strength margin is still adequate. I will try to reduce PC and increase SC again, as this is the most effective way to lower GWP. I'll reduce PC by 10 kg/m³ and increase SC by 10 kg/m³ to see if this breaks the plateau, while keeping FA constant for now.
+[10] GWP=176.37 28d=57.1 (exploit): GWP has stalled again, and the strength margin is narrowing. Dataset mix [3] suggests further reduction is possible. I will try to reduce PC to its lower bound and increase SC, while keeping FA constant. This is a larger move as requested, to try and break the plateau and reduce GWP. I will also add a small amount of CAGG to maintain Vfinal.
+[11] GWP=176.69 28d=57.1 (exploit): GWP has decreased, and the mix is feasible. However, the strength margin is now quite small (+2.06 MPa). Dataset mix [3] shows a lower binder content with similar strength and lower GWP. I will try to reduce SC and slightly increase FA, as this combination might maintain strength while lowering GWP further. I will maintain PC at its current lower bound and adjust CAGG slightly to maintain Vfinal.
+[12] GWP=177.01 28d=57.1 (exploit): GWP has stalled again, and the strength margin is very small (+2.06 MPa). Dataset mix [3] has a lower binder content and lower GWP. To further reduce GWP and potentially move towards mix [3], I will increase FA and SC, and decrease PC. This is a larger move as requested, aiming to push GWP down. I will also adjust CAGG to maintain Vfinal.
+[13] GWP=177.33 28d=57.1 (exploit): GWP has stalled, and the strength margin is still small (+2.06 MPa). Dataset mix [3] shows a path to lower GWP with less binder. I will try to reduce SC and increase FA to further lower GWP. I will maintain PC at its lower bound and adjust CAGG to maintain Vfinal. This is a larger move to break the plateau.
+[14] GWP=177.65 28d=57.1 (exploit): GWP has stalled again, and the strength margin is small. Dataset mix [3] shows a lower binder content and lower GWP. To further reduce GWP, I will increase FA and SC, while keeping PC at its lower bound. This is a larger move as requested. I will adjust CAGG to maintain Vfinal.

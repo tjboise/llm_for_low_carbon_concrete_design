@@ -1,0 +1,39 @@
+sigma28 (chained residual std) = 5.70 MPa
+                        p_strength_ok_pred_error  p_strength_ok_cv2  p_chloride_ok_cv2  p_strength_ok_cv5  p_chloride_ok_cv5  gwp_std_d10  gwp_std_d20
+scenario  method                                                                                                                                      
+s45_dur   GA                               0.594              0.998              0.423              0.881              0.216        6.100       11.937
+          baseline                         0.764              0.999              0.955              0.980              0.844        6.494       13.061
+          no_knowledge                     0.734              0.926              0.981              0.821              0.853        6.377       12.718
+          rag_tabular                      0.952              1.000              0.700              1.000              0.630        7.398       14.610
+          rag_text                         0.799              0.997              0.706              0.946              0.484        6.984       13.520
+          zero_shot                        0.968              1.000              1.000              1.000              1.000        9.064       18.353
+s45_nodur GA                               0.574              1.000                NaN              0.972                NaN        6.065       12.309
+          baseline                         0.813              1.000                NaN              0.994                NaN        6.796       13.703
+          no_knowledge                     0.796              0.921                NaN              0.900                NaN        6.354       12.815
+          rag_tabular                      0.851              1.000                NaN              0.997                NaN        6.525       13.213
+          rag_text                         0.839              1.000                NaN              1.000                NaN        6.511       13.112
+          zero_shot                        0.953              1.000                NaN              1.000                NaN        6.943       14.019
+s50_dur   GA                               0.545              0.571              0.064              0.307              0.036        6.046       12.244
+          baseline                         0.701              0.998              0.774              0.950              0.617        6.665       13.262
+          no_knowledge                     0.651              0.862              0.973              0.632              0.888        6.802       13.483
+          rag_tabular                      0.971              1.000              0.911              1.000              0.788        7.675       15.549
+          rag_text                         0.808              1.000              0.800              0.988              0.646        7.676       15.530
+          zero_shot                        0.695              0.970              0.892              0.936              0.877        6.979       14.048
+s50_nodur GA                               0.520              0.453                NaN              0.227                NaN        5.948       12.028
+          baseline                         0.624              0.951                NaN              0.849                NaN        6.339       12.579
+          no_knowledge                     0.691              0.887                NaN              0.755                NaN        6.595       13.206
+          rag_tabular                      0.723              0.938                NaN              0.883                NaN        6.762       13.500
+          rag_text                         0.669              0.971                NaN              0.888                NaN        6.509       12.880
+          zero_shot                        0.769              0.868                NaN              0.856                NaN       10.529       21.546
+s55_dur   GA                               0.539              0.257              0.075              0.143              0.042        6.205       12.243
+          baseline                         0.659              0.920              0.849              0.816              0.690        7.368       15.033
+          no_knowledge                     0.548              0.729              0.993              0.572              0.931        7.136       14.101
+          rag_tabular                      1.000              1.000              1.000              1.000              0.992        8.175       17.146
+          rag_text                         0.609              0.892              0.889              0.837              0.664       10.166       20.368
+          zero_shot                        0.982              1.000              1.000              1.000              1.000        8.338       16.912
+s55_nodur GA                               0.505              0.344                NaN              0.259                NaN        6.423       12.618
+          baseline                         0.639              0.957                NaN              0.868                NaN        7.333       14.519
+          no_knowledge                     0.550              0.595                NaN              0.437                NaN        7.102       14.100
+          rag_tabular                      0.629              0.637                NaN              0.610                NaN        7.549       14.854
+          rag_text                         0.587              0.767                NaN              0.732                NaN        8.627       17.086
+          zero_shot                        0.774              0.988                NaN              0.942                NaN       11.343       22.522

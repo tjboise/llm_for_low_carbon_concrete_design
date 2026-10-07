@@ -1,0 +1,38 @@
+Experiment: zero_shot   zero_shot | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 62
+  rcalls                : 0.0031
+  api_calls             : 62
+  prompt_tokens         : 1244563
+  completion_tokens     : 14058
+  llm_time_s            : 57.98
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3392
+  QER                   : 0.3863
+  MCE                   : 0.2607
+  best_gwp              : 182.02
+  ga_gwp                : 135.92
+  gwp_gap               : 46.1
+  convergence_iter      : 3
+  str_margin_at_best    : 4.6
+  feasibility_rate      : 0.129
+  scenario              : s50_dur
+  method                : zero_shot
+  run                   : 6
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=205.97 28d=50.9 (exploit): Addressing infeasibility from Attempt 1. Chloride probability is increased by raising SC content (SCM% to 55%) and slightly reducing water to improve chloride resistance. Volume balance is corrected by adding approximately 80 kg of aggregate (distributed between FAGG and CAGG) to reach the minimum Vfinal of 0.95. PC and FA are kept similar for now, while SC is increased to push SCM% higher. GWP will increase due to higher SC, but this is secondary to feasibility.
+[2] GWP=195.03 28d=53.1 (exploit): The previous mix is feasible but GWP hasn't changed. To reduce GWP, I will decrease the water content and substitute some PC with SC, as SC has a lower GWP. This strategy also helps maintain strength and improve chloride resistance. The reduction in water will also slightly decrease GWP and potentially improve strength-to-water ratio, while the increase in SC will contribute to the SCM% target and lower overall GWP. The aggregate amounts remain unchanged for now.
+[3] GWP=182.02 28d=54.6 (exploit): The previous mix was infeasible due to low Vfinal (0.946). I will fix this by adding approximately 10 kg of aggregate (distributed between FAGG and CAGG) to bring Vfinal above 0.95. The strength and chloride probability are well above their minimums, and GWP is low, so these parameters will not be significantly impacted by this minor aggregate adjustment. The PC, SC, and WATER amounts remain unchanged from the last iteration.
+[4] GWP=188.43 28d=57.1 (exploit): The mix is infeasible due to Vfinal being exactly 0.950. To correct this, I will increase the aggregate content slightly to push Vfinal above 0.95. The PC was clipped to its lower bound in the last step, so I cannot decrease it further. I will slightly increase SC and decrease WATER to try and reduce GWP and maintain strength while keeping SCM% high, as this has proven effective. The aggregate is increased to fix Vfinal.
+[5] GWP=189.76 28d=57.4 (exploit): The mix is infeasible because Vfinal is exactly 0.950, the minimum allowed. To correct this, I will increase the aggregate content by a small amount to ensure Vfinal is strictly greater than 0.95. All other constraints, including strength, chloride probability, and GWP, are well met and will remain so.
+[6] GWP=191.08 28d=57.4 (exploit): The mix is infeasible due to Vfinal being exactly 0.950 and the w/b ratio being slightly below the lower bound. I will increase aggregate slightly to push Vfinal above 0.95. To correct the w/b ratio, I will increase WATER. This will slightly increase GWP but is necessary for feasibility. PC is at its minimum, and SC will be maintained to keep SCM% high.
+[7] GWP=192.40 28d=57.7 (exploit): The mix is infeasible because the w/b ratio is still below the minimum allowed. I must increase the water content further to meet this constraint. Aggregate will be kept slightly elevated to maintain Vfinal above 0.95. PC remains at its minimum, and SC is held high. This step prioritizes correcting the w/b violation.
+[8] GWP=192.93 28d=57.6 (exploit): The mix is infeasible due to w/b being too low, SCM% being too high, and PC% being too low. To fix w/b, I must increase water. To fix SCM% and PC%, I must increase PC and/or decrease SC/FA. Since PC is at its minimum bound, I cannot increase it. This means I must decrease SC/FA. Decreasing SC/FA while increasing water will increase GWP. I will adjust these parameters to meet all constraints, prioritizing feasibility.

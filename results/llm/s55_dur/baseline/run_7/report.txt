@@ -1,0 +1,34 @@
+Experiment: baseline   baseline | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 4
+  n_feasible            : 4
+  surrogate_evals       : 54
+  rcalls                : 0.0027
+  api_calls             : 54
+  prompt_tokens         : 1071033
+  completion_tokens     : 15128
+  llm_time_s            : 59.6
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.6127
+  QER                   : 0.34
+  MCE                   : 0.1061
+  best_gwp              : 230.4
+  ga_gwp                : 142.87
+  gwp_gap               : 87.53
+  convergence_iter      : 3
+  str_margin_at_best    : 14.62
+  feasibility_rate      : 0.0741
+  scenario              : s55_dur
+  method                : baseline
+  run                   : 7
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=248.76 28d=69.5 (exploit): The mix is infeasible due to w/b ratio being too low. Chloride resistance is met, and strength is sufficient. To correct the w/b, I will increase WATER to 114 kg/m³ (w/b=0.2350, now within bounds) and decrease PC by 5 kg/m³ to 148 kg/m³. To compensate for the strength loss and maintain low GWP, I will increase SC by 5 kg/m³ to 337.235 kg/m³ (hitting the SC upper bound) and increase ACC to 25 kg/m³. This aims to satisfy all constraints and potentially reduce GWP.
+[2] GWP=233.04 28d=70.5 (exploit): The current mix is feasible with good strength and chloride resistance. GWP has plateaued. To significantly reduce GWP, I will attempt to reduce PC by 15 kg/m³ to 133 kg/m³ and increase SC by 15 kg/m³ to 347.235 kg/m³ (approaching the SC limit). To compensate for potential strength loss and maintain feasibility, I will increase ACC by 3 kg/m³ to 28 kg/m³ and increase WR_HR by 0.5 kg/m³ to 1.5 kg/m³ to aid workability. WATER is kept constant to maintain the w/b ratio. This move aims for a substantial GWP reduction using Path 1 strategy.
+[3] GWP=230.40 28d=69.6 (exploit): The mix is infeasible because the SC% (0.7298) exceeds its bound (0.7174). Chloride resistance, strength, and Vfinal are satisfactory. To fix the SC% violation, I will reduce SC by 10 kg/m³ to 322.235 kg/m³. To compensate for the reduced SC and maintain strength/chloride resistance, I will increase PC by 10 kg/m³ to 133 kg/m³. WR_HR and ACC remain at their current levels, and WATER is unchanged to maintain feasibility.
+[4] GWP=230.40 28d=69.1 (exploit): The mix is infeasible due to SC% exceeding its bound. Strength, GWP, Vfinal, and chloride probability are acceptable. To correct the SC% violation, I'll reduce SC by 10 kg/m³ to 322.235 kg/m³. To compensate for the reduced SC and maintain strength/chloride resistance, I'll increase PC by 10 kg/m³ to 133 kg/m³. WR_HR and ACC are maintained at their current levels, and WATER remains constant.

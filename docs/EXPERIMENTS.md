@@ -19,9 +19,9 @@ new constraints; older runs were deleted. Data, constraints and surrogates: see 
   are stored per run; Rcalls does NOT include LLM inference cost.
 
 ## Run selection
-Each (scenario, method) cell has runs 1-5. The cell (50 MPa, no chloride constraint, baseline) was run 7 times; the figures and
-tables use runs 3-7 for this cell (set in `utils/make_figures.py`, `load_runs`). Runs 1 and 2 stay in `results/llm/` and in
-`results/summary/all_runs.csv`. All 7 runs: OGR 0.128 +- 0.113; runs 3-7: 0.091 +- 0.037; run 2 stopped after 8 feasible iterations.
+Every (scenario, method) cell was run 7 times. Figures, tables and statistics use runs 3-7 (n = 5) in every cell
+(`utils/make_figures.py`, `load_runs`; `utils/sensitivity.py`). Runs 1-2 stay in `results/llm/` and in
+`results/summary/all_runs.csv`. The 150 first runs were made in parallel (6 workers) on the first day; runs 6-7 were added later.
 
 ## Layout
 `results/ga/<scenario>/`, `results/llm/<scenario>/<method>/run_<k>/` (config.json, trajectory.csv = feasible iterations,

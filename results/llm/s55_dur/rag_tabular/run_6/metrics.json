@@ -1,0 +1,23 @@
+{
+  "total_iters": 0,
+  "n_feasible": 0,
+  "surrogate_evals": 35,
+  "rcalls": 0.00175,
+  "api_calls": 35,
+  "prompt_tokens": 512707,
+  "completion_tokens": 8635,
+  "llm_time_s": 37.58,
+  "parse_fails": 0,
+  "restarts": 0,
+  "OGR": NaN,
+  "QER": NaN,
+  "MCE": NaN,
+  "best_gwp": NaN,
+  "ga_gwp": 142.87,
+  "scenario": "s55_dur",
+  "method": "rag_tabular",
+  "run": 6,
+  "strength_min": 55,
+  "durability": true,
+  "model": "gemini-2.5-flash-lite"
+}

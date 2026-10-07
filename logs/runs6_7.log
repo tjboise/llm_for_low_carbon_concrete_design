@@ -1,0 +1,211 @@
+210 runs, 6 workers
+skip s45_nodur/baseline/run_1
+skip s45_nodur/no_knowledge/run_3
+skip s45_nodur/no_knowledge/run_2
+skip s45_nodur/no_knowledge/run_5
+skip s45_nodur/baseline/run_5
+skip s45_nodur/baseline/run_2
+skip s45_nodur/baseline/run_4
+skip s45_nodur/no_knowledge/run_1
+skip s45_nodur/baseline/run_3
+skip s45_nodur/no_knowledge/run_4
+skip s45_nodur/zero_shot/run_1
+skip s45_nodur/zero_shot/run_2
+skip s45_nodur/zero_shot/run_4
+skip s45_nodur/zero_shot/run_3
+skip s45_nodur/zero_shot/run_5
+done s45_nodur/no_knowledge/run_6  best=154.72  OGR=0.1726  api=37
+skip s45_nodur/rag_tabular/run_1
+skip s45_nodur/rag_tabular/run_2
+skip s45_nodur/rag_tabular/run_3
+skip s45_nodur/rag_tabular/run_4
+skip s45_nodur/rag_tabular/run_5
+done s45_nodur/no_knowledge/run_7  best=142.83  OGR=0.0825  api=39
+done s45_nodur/zero_shot/run_6  best=171.16  OGR=0.2972  api=52
+skip s45_nodur/rag_text/run_1
+skip s45_nodur/rag_text/run_2
+skip s45_nodur/rag_text/run_3
+skip s45_nodur/rag_text/run_4
+skip s45_nodur/rag_text/run_5
+done s45_nodur/zero_shot/run_7  best=176.95  OGR=0.341  api=57
+done s45_nodur/baseline/run_7  best=226.62  OGR=0.7175  api=59
+skip s45_dur/baseline/run_1
+skip s45_dur/baseline/run_2
+skip s45_dur/baseline/run_3
+skip s45_dur/baseline/run_4
+skip s45_dur/baseline/run_5
+done s45_nodur/baseline/run_6  best=141.44  OGR=0.0719  api=64
+done s45_nodur/rag_tabular/run_7  best=148.48  OGR=0.1253  api=50
+skip s45_dur/no_knowledge/run_1
+skip s45_dur/no_knowledge/run_2
+skip s45_dur/no_knowledge/run_3
+skip s45_dur/no_knowledge/run_4
+skip s45_dur/no_knowledge/run_5
+done s45_dur/baseline/run_7  best=152.95  OGR=0.1448  api=41
+done s45_nodur/rag_text/run_6  best=183.86  OGR=0.3934  api=62
+skip s45_dur/zero_shot/run_1
+skip s45_dur/zero_shot/run_2
+skip s45_dur/zero_shot/run_3
+skip s45_dur/zero_shot/run_4
+skip s45_dur/zero_shot/run_5
+done s45_dur/baseline/run_6  best=148.23  OGR=0.1095  api=51
+done s45_nodur/rag_text/run_7  best=151.6  OGR=0.1489  api=66
+skip s45_dur/rag_tabular/run_1
+skip s45_dur/rag_tabular/run_2
+skip s45_dur/rag_tabular/run_3
+skip s45_dur/rag_tabular/run_4
+skip s45_dur/rag_tabular/run_5
+done s45_nodur/rag_tabular/run_6  best=138.02  OGR=0.046  api=91
+done s45_dur/zero_shot/run_7  best=nan  OGR=nan  api=35
+skip s45_dur/rag_text/run_1
+skip s45_dur/rag_text/run_2
+skip s45_dur/rag_text/run_3
+skip s45_dur/rag_text/run_4
+skip s45_dur/rag_text/run_5
+done s45_dur/zero_shot/run_6  best=nan  OGR=nan  api=36
+done s45_dur/rag_tabular/run_6  best=nan  OGR=nan  api=35
+skip s50_nodur/baseline/run_1
+skip s50_nodur/baseline/run_2
+skip s50_nodur/baseline/run_3
+skip s50_nodur/baseline/run_4
+skip s50_nodur/baseline/run_5
+skip s50_nodur/baseline/run_6
+skip s50_nodur/baseline/run_7
+skip s50_nodur/no_knowledge/run_1
+skip s50_nodur/no_knowledge/run_2
+skip s50_nodur/no_knowledge/run_3
+skip s50_nodur/no_knowledge/run_4
+skip s50_nodur/no_knowledge/run_5
+done s45_dur/rag_text/run_7  best=nan  OGR=nan  api=35
+done s45_dur/rag_tabular/run_7  best=168.99  OGR=0.2649  api=56
+skip s50_nodur/zero_shot/run_1
+skip s50_nodur/zero_shot/run_2
+skip s50_nodur/zero_shot/run_3
+skip s50_nodur/zero_shot/run_4
+skip s50_nodur/zero_shot/run_5
+done s45_dur/no_knowledge/run_6  best=138.58  OGR=0.0373  api=94
+done s45_dur/rag_text/run_6  best=179.59  OGR=0.3442  api=49
+skip s50_nodur/rag_tabular/run_1
+skip s50_nodur/rag_tabular/run_2
+skip s50_nodur/rag_tabular/run_3
+skip s50_nodur/rag_tabular/run_4
+skip s50_nodur/rag_tabular/run_5
+done s45_dur/no_knowledge/run_7  best=155.78  OGR=0.166  api=85
+done s50_nodur/no_knowledge/run_6  best=160.24  OGR=0.1939  api=46
+skip s50_nodur/rag_text/run_1
+skip s50_nodur/rag_text/run_2
+skip s50_nodur/rag_text/run_3
+skip s50_nodur/rag_text/run_4
+skip s50_nodur/rag_text/run_5
+done s50_nodur/zero_shot/run_7  best=197.23  OGR=0.4696  api=56
+done s50_nodur/zero_shot/run_6  best=192.92  OGR=0.4374  api=60
+skip s50_dur/baseline/run_1
+skip s50_dur/baseline/run_2
+skip s50_dur/baseline/run_3
+skip s50_dur/baseline/run_4
+skip s50_dur/baseline/run_5
+done s50_nodur/no_knowledge/run_7  best=142.58  OGR=0.0624  api=65
+done s50_nodur/rag_tabular/run_7  best=150.68  OGR=0.1227  api=66
+skip s50_dur/no_knowledge/run_1
+skip s50_dur/no_knowledge/run_2
+skip s50_dur/no_knowledge/run_3
+skip s50_dur/no_knowledge/run_4
+skip s50_dur/no_knowledge/run_5
+done s50_dur/baseline/run_6  best=172.85  OGR=0.2717  api=50
+done s50_nodur/rag_text/run_7  best=144.2  OGR=0.0744  api=88
+skip s50_dur/zero_shot/run_1
+skip s50_dur/zero_shot/run_2
+skip s50_dur/zero_shot/run_3
+skip s50_dur/zero_shot/run_4
+skip s50_dur/zero_shot/run_5
+done s50_nodur/rag_tabular/run_6  best=192.72  OGR=0.436  api=129
+done s50_dur/zero_shot/run_6  best=182.02  OGR=0.3392  api=62
+skip s50_dur/rag_tabular/run_1
+skip s50_dur/rag_tabular/run_2
+skip s50_dur/rag_tabular/run_3
+skip s50_dur/rag_tabular/run_4
+skip s50_dur/rag_tabular/run_5
+done s50_dur/no_knowledge/run_6  best=169.03  OGR=0.2436  api=75
+done s50_dur/zero_shot/run_7  best=204.07  OGR=0.5014  api=67
+skip s50_dur/rag_text/run_1
+skip s50_dur/rag_text/run_2
+skip s50_dur/rag_text/run_3
+skip s50_dur/rag_text/run_4
+skip s50_dur/rag_text/run_5
+done s50_dur/no_knowledge/run_7  best=167.08  OGR=0.2293  api=109
+done s50_dur/rag_tabular/run_6  best=217.02  OGR=0.5967  api=58
+skip s55_nodur/baseline/run_1
+skip s55_nodur/baseline/run_2
+skip s55_nodur/baseline/run_3
+skip s55_nodur/baseline/run_4
+skip s55_nodur/baseline/run_5
+done s50_dur/rag_text/run_7  best=nan  OGR=nan  api=35
+done s50_dur/rag_text/run_6  best=167.03  OGR=0.2289  api=57
+skip s55_nodur/no_knowledge/run_1
+skip s55_nodur/no_knowledge/run_2
+skip s55_nodur/no_knowledge/run_3
+skip s55_nodur/no_knowledge/run_4
+skip s55_nodur/no_knowledge/run_5
+done s50_dur/rag_tabular/run_7  best=202.21  OGR=0.4877  api=63
+done s55_nodur/baseline/run_7  best=172.37  OGR=0.1832  api=46
+skip s55_nodur/zero_shot/run_1
+skip s55_nodur/zero_shot/run_2
+skip s55_nodur/zero_shot/run_3
+skip s55_nodur/zero_shot/run_4
+skip s55_nodur/zero_shot/run_5
+done s55_nodur/no_knowledge/run_7  best=181.15  OGR=0.2435  api=49
+done s55_nodur/baseline/run_6  best=194.08  OGR=0.3322  api=57
+skip s55_nodur/rag_tabular/run_1
+skip s55_nodur/rag_tabular/run_2
+skip s55_nodur/rag_tabular/run_3
+skip s55_nodur/rag_tabular/run_4
+skip s55_nodur/rag_tabular/run_5
+done s55_nodur/no_knowledge/run_6  best=168.8  OGR=0.1587  api=68
+done s55_nodur/rag_tabular/run_6  best=149.75  OGR=0.0279  api=99
+skip s55_nodur/rag_text/run_1
+skip s55_nodur/rag_text/run_2
+skip s55_nodur/rag_text/run_3
+skip s55_nodur/rag_text/run_4
+skip s55_nodur/rag_text/run_5
+done s55_nodur/rag_tabular/run_7  best=nan  OGR=nan  api=35
+done s55_nodur/rag_text/run_7  best=nan  OGR=nan  api=35
+skip s55_dur/baseline/run_1
+skip s55_dur/baseline/run_2
+skip s55_dur/baseline/run_3
+skip s55_dur/baseline/run_4
+skip s55_dur/baseline/run_5
+done s55_nodur/rag_text/run_6  best=160.23  OGR=0.0999  api=90
+done s55_dur/baseline/run_6  best=nan  OGR=nan  api=35
+skip s55_dur/no_knowledge/run_1
+skip s55_dur/no_knowledge/run_2
+skip s55_dur/no_knowledge/run_3
+skip s55_dur/no_knowledge/run_4
+skip s55_dur/no_knowledge/run_5
+done s55_nodur/zero_shot/run_7  best=194.94  OGR=0.3381  api=116
+done s55_dur/baseline/run_7  best=230.4  OGR=0.6127  api=54
+skip s55_dur/zero_shot/run_1
+skip s55_dur/zero_shot/run_2
+skip s55_dur/zero_shot/run_3
+skip s55_dur/zero_shot/run_4
+skip s55_dur/zero_shot/run_5
+done s55_dur/no_knowledge/run_6  best=168.64  OGR=0.1804  api=84
+done s55_dur/no_knowledge/run_7  best=162.36  OGR=0.1364  api=83
+skip s55_dur/rag_tabular/run_1
+skip s55_dur/rag_tabular/run_2
+skip s55_dur/rag_tabular/run_3
+skip s55_dur/rag_tabular/run_4
+skip s55_dur/rag_tabular/run_5
+done s50_dur/baseline/run_7  best=153.85  OGR=0.1319  api=157
+done s55_dur/zero_shot/run_6  best=nan  OGR=nan  api=34
+skip s55_dur/rag_text/run_1
+skip s55_dur/rag_text/run_2
+skip s55_dur/rag_text/run_3
+skip s55_dur/rag_text/run_4
+skip s55_dur/rag_text/run_5
+done s55_nodur/zero_shot/run_6  best=251.44  OGR=0.726  api=180
+done s55_dur/rag_tabular/run_7  best=nan  OGR=nan  api=35
+done s55_dur/rag_tabular/run_6  best=nan  OGR=nan  api=35
+done s55_dur/zero_shot/run_7  best=214.06  OGR=0.4983  api=61
+done s55_dur/rag_text/run_6  best=nan  OGR=nan  api=35
+done s55_dur/rag_text/run_7  best=176.37  OGR=0.2345  api=66
+done s50_nodur/rag_text/run_6  best=nan  OGR=nan  api=335

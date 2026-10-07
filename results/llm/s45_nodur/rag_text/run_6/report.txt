@@ -1,0 +1,60 @@
+Experiment: rag_text   rag_text | s45_nodur
+strength >= 45 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 62
+  rcalls                : 0.0031
+  api_calls             : 62
+  prompt_tokens         : 2295010
+  completion_tokens     : 12913
+  llm_time_s            : 53.53
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3934
+  QER                   : 1.0173
+  MCE                   : 0.2528
+  best_gwp              : 183.86
+  ga_gwp                : 131.95
+  gwp_gap               : 51.91
+  convergence_iter      : 15
+  str_margin_at_best    : 8.26
+  feasibility_rate      : 0.4839
+  scenario              : s45_nodur
+  method                : rag_text
+  run                   : 6
+  strength_min          : 45
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=246.93 28d=55.2 (exploit): Vfinal is too low (0.792). Increasing FAGG and CAGG by a total of 425 kg/m³ will bring Vfinal closer to the target of 0.95.  The strength is sufficient (52.9 MPa) and GWP is good (245.6 kg CO₂-eq/m³), so we will add aggregate to fix volume balance.
+[2] GWP=237.52 28d=54.5 (exploit): The current mix is feasible and has a strength margin of +10.17 MPa. To reduce GWP, I will swap 12 kg/m³ of PC for SC, which offers a significant GWP saving (12 * 0.784 = 9.4 kg CO₂-eq/m³). This aligns with the strategy to reduce PC while maintaining strength, given the available margin. The aggregate and water amounts remain unchanged.
+[3] GWP=228.11 28d=54.6 (exploit): The current mix is feasible with a strength margin of +9.54 MPa. I will again swap 12 kg/m³ of PC for SC to further reduce GWP by approximately 9.4 kg CO₂-eq/m³. This is a good strategy as strength is still well above the minimum requirement and SC is the most effective binder for GWP reduction. Aggregate and water remain unchanged.
+[4] GWP=218.70 28d=54.8 (exploit): The mix is feasible with a strength margin of +9.59 MPa. I will continue the strategy of swapping 12 kg/m³ of PC for SC to further reduce GWP. This substitution is effective for GWP reduction and maintains adequate strength. Aggregate and water amounts remain unchanged.
+[5] GWP=209.30 28d=56.0 (exploit): The mix remains feasible with a strength margin of +9.78 MPa. I will continue to swap 12 kg/m³ of PC for SC to further reduce GWP. This substitution is effective and keeps strength well above the minimum. Aggregate and water amounts remain unchanged.
+[6] GWP=199.89 28d=56.0 (exploit): The mix is feasible with a strength margin of +11.00 MPa. I will continue the strategy of swapping 12 kg/m³ of PC for SC to further reduce GWP. This substitution is effective and keeps strength well above the minimum. Aggregate and water amounts remain unchanged.
+[7] GWP=190.48 28d=55.0 (exploit): The mix is feasible with a strength margin of +11.02 MPa. I will continue to swap 12 kg/m³ of PC for SC to further reduce GWP. This substitution is effective and keeps strength well above the minimum. Aggregate and water amounts remain unchanged.
+[8] GWP=192.83 28d=55.0 (exploit): The SC% constraint (0.7448) is violated, meaning there is too much slag cement relative to the total binder. To fix this, I will reduce SC by 15 kg/m³ and increase PC by 15 kg/m³. This swap will slightly increase GWP but resolve the constraint violation. Strength is still adequate, and Vfinal is OK.
+[9] GWP=188.12 28d=53.9 (exploit): Vfinal is at the lower limit (0.950), indicating a slight volume deficit. The SC% (0.7310) still violates the constraint. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to address the SC% violation. To compensate for the slight volume reduction from this binder swap, I'll add 10 kg/m³ of FAGG to bring Vfinal back up to target. This will slightly increase GWP but resolve the constraints.
+[10] GWP=188.12 28d=53.9 (exploit): The SC% constraint (0.7310) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[11] GWP=186.55 28d=53.8 (exploit): The SC% constraint (0.7358) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[12] GWP=184.49 28d=54.2 (exploit): The SC% constraint (0.7358) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[13] GWP=186.87 28d=53.8 (exploit): The SC% constraint (0.7186) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[14] GWP=185.37 28d=53.9 (exploit): The SC% constraint (0.7351) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[15] GWP=183.86 28d=53.3 (exploit): The SC% constraint (0.7365) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[16] GWP=186.28 28d=53.3 (exploit): The SC% constraint (0.7213) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[17] GWP=184.77 28d=53.7 (exploit): The SC% constraint (0.7358) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[18] GWP=187.19 28d=52.5 (exploit): The SC% constraint (0.7186) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[19] GWP=185.68 28d=52.3 (exploit): The SC% constraint (0.7351) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[20] GWP=184.18 28d=51.4 (exploit): The SC% constraint (0.7365) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[21] GWP=186.59 28d=51.9 (exploit): The SC% constraint (0.7213) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[22] GWP=185.09 28d=51.6 (exploit): The SC% constraint (0.7358) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[23] GWP=187.50 28d=51.5 (exploit): The SC% constraint (0.7186) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[24] GWP=186.53 28d=51.9 (exploit): The SC% constraint (0.7365) is violated. I will increase PC by 10 kg/m³ and decrease SC by 10 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[25] GWP=184.98 28d=51.9 (exploit): Vfinal is too high (1.052), and SC% (0.7380) violates the constraint. I will first address the SC% violation by increasing PC by 10 kg/m³ and decreasing SC by 10 kg/m³. This will slightly increase GWP and reduce volume. To compensate for the volume reduction and bring Vfinal back in range, I will then remove 6 kg of aggregate (distributing it between FAGG and CAGG).
+[26] GWP=187.32 28d=51.9 (exploit): The SC% constraint (0.7228) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[27] GWP=185.77 28d=51.6 (exploit): Vfinal is too high (1.052), and SC% (0.7372) violates the constraint. I will first address the SC% violation by increasing PC by 10 kg/m³ and decreasing SC by 10 kg/m³. This will slightly increase GWP and reduce volume. To compensate for the volume reduction and bring Vfinal back in range, I will then remove 5 kg of aggregate (distributing it between FAGG and CAGG).
+[28] GWP=188.07 28d=52.0 (exploit): The SC% constraint (0.7201) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.
+[29] GWP=186.58 28d=52.1 (exploit): Vfinal is at the upper limit (1.050), and SC% (0.7365) violates the constraint. I will first address the SC% violation by increasing PC by 10 kg/m³ and decreasing SC by 10 kg/m³. This will slightly increase GWP and reduce volume. Since Vfinal is already at its limit, and the binder swap reduces volume, I will remove a small amount of aggregate (0 kg in this case, as the binder swap is sufficient to reduce volume).
+[30] GWP=188.04 28d=51.2 (exploit): The SC% constraint (0.7201) is violated. I will increase PC by 5 kg/m³ and decrease SC by 5 kg/m³ to resolve this. This swap will slightly increase GWP but is necessary to meet the constraint. The strength and Vfinal are acceptable.

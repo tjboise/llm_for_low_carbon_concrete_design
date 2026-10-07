@@ -1,0 +1,36 @@
+Experiment: baseline   baseline | s45_dur
+strength >= 45 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 6
+  n_feasible            : 6
+  surrogate_evals       : 41
+  rcalls                : 0.00205
+  api_calls             : 41
+  prompt_tokens         : 681335
+  completion_tokens     : 9497
+  llm_time_s            : 37.43
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.1448
+  QER                   : 0.3683
+  MCE                   : 0.0945
+  best_gwp              : 152.95
+  ga_gwp                : 133.6
+  gwp_gap               : 19.35
+  convergence_iter      : 4
+  str_margin_at_best    : 3.19
+  feasibility_rate      : 0.1463
+  scenario              : s45_dur
+  method                : baseline
+  run                   : 7
+  strength_min          : 45
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=168.05 28d=45.4 (exploit): Starting optimization. Proposing an initial mix that prioritizes feasibility and strength. PC is set to 117 kg/m³ to ensure 45 MPa strength. A moderate amount of SC (150 kg/m³) is included for GWP reduction and chloride resistance. Sufficient aggregates (FAGG, CAGG) and water are used to meet volume and strength requirements. AEA and WR_HR are added minimally to control air content and workability, respectively, without significantly impacting GWP or strength. This mix aims to be on the edge of feasibility for strength and volume, providing room for optimization in later steps.
+[2] GWP=162.56 28d=47.5 (exploit): The previous mix is feasible but has barely changed GWP. The strength is just above the 45 MPa floor (0.43 MPa margin). To further reduce GWP while maintaining strength, I will first try to reduce water content. Reducing WATER by 6 kg/m³ will lower the w/b ratio, indirectly increasing strength without adding GWP. This provides headroom to then substitute a small amount of PC with SC to achieve a more significant GWP reduction.
+[3] GWP=157.07 28d=47.9 (exploit): The mix is feasible and GWP has decreased. The strength margin is now 2.55 MPa, which is good but still offers room for further optimization. I will continue to substitute PC with SC to lower GWP. I will reduce PC by another 7 kg/m³ and increase SC proportionally. I will also slightly reduce WATER again by 3 kg/m³ to maintain strength as PC is reduced.
+[4] GWP=152.95 28d=48.2 (exploit): The mix remains feasible, and GWP continues to decrease with each iteration. The strength margin is now 2.90 MPa. I will continue the strategy of reducing PC and increasing SC, along with a slight reduction in WATER. I'll reduce PC by another 7 kg/m³ and increase SC proportionally. I'll also reduce WATER by 3 kg/m³ to maintain strength as PC is further decreased.
+[5] GWP=154.79 28d=50.2 (exploit): The mix is feasible, and GWP continues to decrease. PC has reached its lower bound, so further GWP reduction must come from increasing SC and potentially adjusting aggregates or water. The strength margin is 3.19 MPa. I will increase SC by 7 kg/m³ and correspondingly reduce PC from its lower bound (which means no change to PC). I will also slightly reduce WATER by 3 kg/m³ to maintain strength as SC increases.
+[6] GWP=152.95 28d=49.5 (exploit): GWP increased in the last iteration due to increasing SC while PC remained at its minimum. The strength margin is now healthy (+5.20 MPa). To reduce GWP, I will revert the last SC increase and instead reduce WATER further by 3 kg/m³. This should maintain or slightly increase strength and potentially improve GWP by allowing a slight reduction in PC (if possible) or a net GWP decrease from the water reduction's indirect effects.

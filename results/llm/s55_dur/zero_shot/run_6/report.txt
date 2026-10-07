@@ -1,0 +1,26 @@
+Experiment: zero_shot   zero_shot | s55_dur
+strength >= 55 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 0
+  n_feasible            : 0
+  surrogate_evals       : 34
+  rcalls                : 0.0017
+  api_calls             : 34
+  prompt_tokens         : 353845
+  completion_tokens     : 8241
+  llm_time_s            : 32.84
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : nan
+  QER                   : nan
+  MCE                   : nan
+  best_gwp              : nan
+  ga_gwp                : 142.87
+  scenario              : s55_dur
+  method                : zero_shot
+  run                   : 6
+  strength_min          : 55
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
