@@ -1,0 +1,60 @@
+Experiment: baseline   baseline | s50_nodur
+strength >= 50 MPa   durability=False   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 48
+  rcalls                : 0.0024
+  api_calls             : 81
+  prompt_tokens         : 1283008
+  completion_tokens     : 18134
+  llm_time_s            : 70.97
+  parse_fails           : 30
+  restarts              : 2
+  OGR                   : 0.0739
+  QER                   : 1.3985
+  MCE                   : 0.5852
+  best_gwp              : 144.13
+  ga_gwp                : 134.21
+  gwp_gap               : 9.92
+  convergence_iter      : 17
+  str_margin_at_best    : 1.8
+  feasibility_rate      : 0.625
+  scenario              : s50_nodur
+  method                : baseline
+  run                   : 7
+  strength_min          : 50
+  durability            : False
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=211.26 28d=50.0 (exploit): Strength is sufficient (50.3 MPa) and Vfinal is at the lower bound (0.950). No further aggregate needs to be added for volume balance. ACC remains at 5 kg/m³ to support strength. GWP is unchanged as no material quantities were adjusted to fix constraints. I will try another 10 kg/m³ PC->SC swap to further reduce GWP.
+[2] GWP=201.90 28d=53.1 (exploit): Strength is sufficient (53.1 MPa) and GWP is reduced to 201.8 kg/m³. Vfinal is still low at 0.945. I need to add approximately 15 kg of aggregate (split between FAGG and CAGG) to reach Vfinal of 0.95. ACC remains at 5 kg/m³ to support strength.
+[3] GWP=192.49 28d=53.2 (exploit): The current mix is feasible with sufficient strength and volume, and GWP has decreased significantly to 201.90 kg/m³. To further reduce GWP, I will swap 12 kg/m³ of PC for SC. This is a larger move to continue reducing GWP, as per the strategy. ACC remains to support strength.
+[4] GWP=183.08 28d=53.6 (exploit): The current mix is feasible with sufficient strength and volume, and GWP has decreased significantly to 192.49 kg/m³. To further reduce GWP, I will swap 12 kg/m³ of PC for SC. This is a large move to continue reducing GWP, as per the strategy. ACC remains to support strength.
+[5] GWP=173.67 28d=53.6 (exploit): The current mix is feasible with sufficient strength and volume, and GWP has decreased to 183.08 kg/m³. To further reduce GWP, I will swap 12 kg/m³ of PC for SC. This is a large move to continue reducing GWP, as per the strategy. ACC remains to support strength.
+[6] GWP=164.27 28d=53.3 (exploit): The current mix is feasible with sufficient strength and volume, and GWP has decreased to 173.67 kg/m³. To further reduce GWP, I will swap 12 kg/m³ of PC for SC. This is a large move to continue reducing GWP, as per the strategy. ACC remains to support strength.
+[7] GWP=156.22 28d=53.4 (exploit): The current mix is feasible with sufficient strength and volume, and GWP has decreased to 164.27 kg/m³. To further reduce GWP, I will swap 12 kg/m³ of PC for SC. This is a large move to continue reducing GWP, as per the strategy. ACC remains to support strength.
+[8] GWP=159.39 28d=55.6 (exploit): The current mix is feasible with sufficient strength and volume, and GWP has decreased to 156.22 kg/m³. PC is at its minimum allowed value. To further reduce GWP, I will increase SC and decrease PC by 12 kg/m³ (but PC will remain at its minimum). ACC remains to support strength.
+[9] GWP=162.55 28d=57.7 (exploit): The GWP increased in the last iteration, which is not the desired direction. PC is at its minimum. To reduce GWP, I will try reducing WATER by 6 kg/m³ and then attempt a PC->SC swap of 12 kg/m³ again, while keeping PC at its minimum. ACC remains to support strength.
+[10] GWP=165.72 28d=57.9 (exploit): GWP increased in the last iteration. PC is at its minimum. To reduce GWP, I will reduce WATER by 6 kg/m³ and then attempt to increase SC by 12 kg/m³ (keeping PC at its minimum). ACC remains to support strength.
+[11] GWP=168.89 28d=58.4 (exploit): GWP increased again. PC is at its minimum. WATER is also at its minimum. To reduce GWP, I must increase SC while keeping PC at its minimum. I will increase SC by 12 kg/m³ and see if strength can be maintained. ACC remains to support strength.
+[12] GWP=150.77 28d=53.5 (RESTART#1): Vfinal is slightly low again (0.949). I will add 2 kg of CAGG to address this. The strength is adequate (53.5 MPa), and GWP is stable. This adjustment focuses solely on restoring the volume balance to meet the constraint without impacting other properties negatively.
+[13] GWP=150.58 28d=53.6 (exploit): The current mix is feasible and has achieved the best GWP so far. The strength margin is 3.53 MPa. To further reduce GWP, I will decrease PC and increase SC as SC is more GWP-efficient. I will also slightly decrease WATER to maintain strength and decrease ACC as it's not strictly needed for strength at this margin. This should maintain strength while lowering GWP.
+[14] GWP=153.22 28d=53.8 (exploit): The GWP reduction is minimal. To achieve a more significant GWP decrease, I will increase the SC substitution for PC, moving more aggressively towards the lower end of the PC bound. I will also slightly reduce WATER and WR_HR to maintain strength while decreasing GWP. This strategy aims to leverage the lower GWP of SC more effectively.
+[15] GWP=155.86 28d=53.8 (exploit): GWP increased, which is undesirable. To correct this and further reduce GWP, I will revert to the previous PC level and significantly increase SC. I will also slightly increase WATER to compensate for the stronger binder and ensure strength is maintained, while also reducing WR_HR. This aims to significantly lower GWP by maximizing SC substitution.
+[16] GWP=158.50 28d=54.1 (exploit): GWP has increased in the last two iterations, moving away from the optimum. The PC is already at its minimum. To reduce GWP, I will increase SC further and decrease WATER. I will also reduce WR_HR slightly to minimize GWP. This aims to reverse the upward trend in GWP by maximizing the use of SC, the most GWP-efficient binder.
+[17] GWP=144.13 28d=51.8 (RESTART#2): The ACC_pct constraint continues to be an issue. ACC is reduced again, this time to 14.0 kg/m³. This is a direct attempt to comply with the ACC_pct limit while preserving the other desirable characteristics of the mix, such as low GWP and adequate strength.
+[18] GWP=146.79 28d=53.6 (exploit): The mix is feasible with a tight strength margin. To further reduce GWP, I will decrease WATER slightly, as it has no GWP cost and can improve strength. I will also reduce PC and increase SC, maintaining the binder content but shifting towards the lower-GWP SCM. ACC is kept high to ensure strength is maintained with reduced PC and WATER.
+[19] GWP=149.43 28d=53.3 (exploit): GWP increased in the last iteration due to an unnecessary increase in SC. To decrease GWP, I will swap PC to SC, as SC has a significantly lower GWP. I will also slightly reduce WATER to maintain strength and potentially allow for further PC reduction. The ACC and WR_HR are maintained to support strength given the reduced PC.
+[20] GWP=144.15 28d=51.8 (exploit): GWP is increasing by swapping PC for SC. This suggests the current approach of increasing SC alone is not working. I need to re-evaluate. The best GWP was achieved with lower SC. I will reduce SC to the previous best level and also reduce WATER further to improve strength without GWP cost, allowing for a small PC reduction. The ACC and WR_HR remain to support strength.
+[21] GWP=144.15 28d=51.8 (exploit): The GWP has decreased, and the mix is feasible with a tight strength margin. To further reduce GWP, I will slightly decrease WATER, which has no GWP cost and can improve strength, allowing for a small PC reduction. The SC and ACC levels are maintained from the current best-performing mix, and WR_HR is kept high to support performance. This aims for a marginal GWP reduction while staying close to the strength floor.
+[22] GWP=146.79 28d=53.6 (exploit): The GWP has plateaued. To achieve a significant GWP reduction, I will attempt to reduce PC and increase SC slightly, moving towards the lower-GWP Path 1 binder strategy. I will also slightly reduce WATER to maintain strength and allow for this PC reduction. ACC and WR_HR are kept high to ensure strength targets are met. This aims for a more substantial GWP decrease.
+[23] GWP=146.79 28d=53.6 (exploit): GWP increased again. The strategy of increasing SC while keeping PC at its minimum is not yielding GWP reduction. I will revert to the SC level of the best GWP mix (135) and reduce PC further (by swapping PC->SC) to aim for a GWP decrease. I will also slightly reduce WATER to maintain strength and allow for this PC swap. ACC and WR_HR are maintained to ensure strength.
+[24] GWP=146.79 28d=53.6 (exploit): GWP has plateaued at a level higher than the best achieved. To make a significant move, I will increase SC substantially while decreasing PC to match the GWP of the best mix (144.13 kg/m³). I will also reduce WATER slightly to maintain strength and compensate for the binder changes. ACC and WR_HR remain high to support strength. This strategy aims to push GWP lower by optimizing the binder blend.
+[25] GWP=149.43 28d=53.3 (exploit): GWP has plateaued, and previous attempts to adjust PC/SC have not improved it. To force a change, I will significantly increase SC and reduce PC, targeting a lower GWP than currently achieved. I will also slightly reduce WATER to compensate for binder changes and maintain strength. ACC and WR_HR are maintained to support strength. This is a larger step towards optimizing the binder blend for lower GWP.
+[26] GWP=144.15 28d=51.8 (exploit): GWP increased again with higher SC. This indicates that simply increasing SC is not the solution at this PC level. I will revert SC to the value of the best GWP mix (135) and slightly reduce PC. I will also reduce WATER further to maintain strength and allow for this PC reduction. ACC and WR_HR are maintained. This strategy aims to move back towards the optimal binder blend for lower GWP.
+[27] GWP=144.15 28d=51.8 (exploit): GWP has decreased and is very close to the best observed. The strength margin is tight. To achieve a further GWP reduction, I will slightly decrease WATER, which has no GWP cost and can improve strength, potentially allowing for a small PC reduction. The SC, ACC, and WR_HR are kept at current levels. This strategy aims for a marginal GWP decrease while staying close to the strength floor.
+[28] GWP=146.79 28d=53.6 (exploit): GWP has plateaued again. The current mix is very close to the best GWP achieved. To make a more significant move, I will attempt to slightly reduce PC and increase SC, aiming for a GWP lower than the current best. I will also reduce WATER to maintain strength and facilitate the binder swap. ACC and WR_HR remain high to ensure strength is maintained. This is a larger step to optimize the binder blend for lower GWP.
+[29] GWP=146.79 28d=53.6 (exploit): GWP increased again. The strategy of increasing SC while keeping PC at minimum is not effective. I will revert SC to the level of the best GWP mix (135), reduce PC slightly more, and reduce WATER to maintain strength. ACC and WR_HR are kept high. This is a step back towards the previously successful binder blend to try and lower GWP.
+[30] GWP=146.79 28d=53.6 (exploit): GWP has plateaued at a level higher than the best achieved. To make a significant move in the final iteration, I will increase SC and decrease PC, aiming for a GWP below the current best. I will also reduce WATER slightly to compensate for binder changes and maintain strength. ACC and WR_HR remain high. This is a final attempt to optimize the binder blend for the lowest possible GWP.
