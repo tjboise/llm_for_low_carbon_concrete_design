@@ -164,7 +164,7 @@ def gwp_contribution(scn="s50_nodur", method="baseline"):
     plt.close(fig)
 
 
-def ablation_pair(df, methods, labels, prefix, scn="s50_nodur"):
+def ablation_pair(df, methods, labels, prefix, scn="s50_nodur", out=None):
     """Figures 5-7 style. (a) R_calls (left, blue line) and GWP gap (right, red dashed line);
     (b) OGR (left, blue-grey bars) and QER (right, green bars). Mean +- std over the runs of one scenario."""
     sub = df[df["scenario"] == scn]
@@ -190,7 +190,7 @@ def ablation_pair(df, methods, labels, prefix, scn="s50_nodur"):
     ax1.tick_params(axis="y", colors="blue")
     ax2.tick_params(axis="y", colors="red")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, f"{prefix}a.png"), bbox_inches="tight")
+    fig.savefig(os.path.join(out or OUT, f"{prefix}a.png"), bbox_inches="tight")
     plt.close(fig)
 
     fig, ax1 = plt.subplots(figsize=(9, 6.5))
@@ -210,9 +210,20 @@ def ablation_pair(df, methods, labels, prefix, scn="s50_nodur"):
     ax1.set_ylim(bottom=0)
     ax2.set_ylim(bottom=0)
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, f"{prefix}b.png"), bbox_inches="tight")
+    fig.savefig(os.path.join(out or OUT, f"{prefix}b.png"), bbox_inches="tight")
     plt.close(fig)
     print(prefix, scn, {m: {k: (round(v[0], 4), round(v[1], 4), v[2]) for k, v in stats[m].items()} for m in methods})
+
+
+def exploratory_fig5():
+    """NOT for publication: Figure 5 with run 2 of (50 MPa, baseline) replaced by run 6."""
+    df = pd.read_csv(os.path.join(RES, "summary", "all_runs.csv"))
+    drop = (df["scenario"] == "s50_nodur") & (df["method"] == "baseline") & (df["run"] == 2)
+    df = df[~drop & ((df["run"] <= 5) | ((df["scenario"] == "s50_nodur") & (df["method"] == "baseline")))]
+    d = os.path.join(OUT, "exploratory")
+    os.makedirs(d, exist_ok=True)
+    ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"],
+                  "fig5_run2_replaced_by_run6_", out=d)
 
 
 def durability(df):
@@ -290,6 +301,7 @@ def main():
     trajectory("s50_nodur")
     gwp_contribution("s50_nodur")
     ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], "fig5")
+    exploratory_fig5()
     bars(df, ["no_knowledge", "baseline"], "Effect of domain knowledge", "fig_knowledge.png", None)
     bars(df, ["zero_shot", "baseline"], "Zero-shot vs few-shot", "fig_fewshot.png", None)
     bars(df, ["baseline", "rag_tabular", "rag_text"], "No RAG vs RAG", "fig_rag.png", None)
