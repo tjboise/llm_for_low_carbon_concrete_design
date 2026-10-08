@@ -1,0 +1,35 @@
+Experiment: no_knowledge   no_knowledge | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 5
+  n_feasible            : 5
+  surrogate_evals       : 41
+  rcalls                : 0.00205
+  api_calls             : 42
+  prompt_tokens         : 255858
+  completion_tokens     : 8264
+  llm_time_s            : 43.16
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2436
+  QER                   : 0.0
+  MCE                   : 0.1417
+  best_gwp              : 169.03
+  ga_gwp                : 135.92
+  gwp_gap               : 33.11
+  convergence_iter      : 1
+  str_margin_at_best    : 3.62
+  feasibility_rate      : 0.122
+  scenario              : s50_dur
+  method                : no_knowledge
+  run                   : 2
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=169.03 28d=53.6 (exploit): Starting optimisation with the lowest GWP reference mix from the dataset. This mix is assumed to satisfy all constraints as it is provided as a reference for achieving high strength and low GWP. Further iterations will aim to improve GWP while maintaining constraints.
+[2] GWP=169.18 28d=50.1 (exploit): The previous attempt reduced strength below the 50 MPa floor. To fix this, I will increase PC slightly and add a small amount of ACC, which is a strong strength enhancer and allows for further PC reduction in future steps if needed. These adjustments are designed to recover strength while minimizing GWP increase.
+[3] GWP=169.97 28d=50.7 (exploit): The current mix is feasible but has very little strength margin (0.11 MPa). The GWP has slightly increased from the best feasible mix. To reduce GWP while maintaining strength, I will reduce water further and swap some PC for SC. I will also slightly increase WR_HR to compensate for the reduced water and maintain workability.
+[4] GWP=170.76 28d=51.9 (exploit): The current mix is feasible but has a low strength margin and a higher GWP than the best feasible mix. I will try to reduce GWP by further decreasing water content and increasing SC slightly, aiming to maintain strength. I will also slightly increase WR_HR to compensate for lower water content.
+[5] GWP=171.45 28d=51.9 (exploit): The current mix is feasible, but GWP is increasing, and strength margin is still modest. The PC content is at its lower bound. To reduce GWP, I will try to increase SC further by swapping some CAGG for SC, which is a more carbon-intensive binder component but might allow for a slight water reduction. I will also slightly increase WR_HR to maintain workability.

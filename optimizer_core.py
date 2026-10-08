@@ -161,15 +161,24 @@ def predict_batch(spec: Spec, mixes: pd.DataFrame) -> pd.DataFrame:
         p7 = mdl["7day"].predict(x[fn])
         p28 = mdl["28day"].predict(x[fn].assign(**{"7day": p7}))
         p56 = mdl["56day"].predict(x[fn].assign(**{"28day": p28}))
-        prob = spec.chloride["model"].predict_proba(x[spec.chloride["feature_names"]])[:, 1]
+        proba = spec.chloride["model"].predict_proba(x[spec.chloride["feature_names"]])
+    k = spec.chloride["pass_classes"]
+    prob = proba[:, :k].sum(axis=1)
+    # Class label consistent with feasibility: if P(pass) >= threshold, the likelier of Very Low / Low;
+    # otherwise the likelier of Moderate / High.
+    names = np.array(spec.chloride["classes"])
+    pass_lab = names[proba[:, :k].argmax(axis=1)]
+    fail_lab = names[k + proba[:, k:].argmax(axis=1)]
+    cls = np.where(prob >= spec.min_pass_prob, pass_lab, fail_lab)
     return pd.DataFrame({"pred_7day": p7, "pred_28day": p28, "pred_56day": p56,
-                         "chloride_prob": prob}, index=mixes.index)
+                         "chloride_prob": prob, "chloride_class": cls}, index=mixes.index)
 
 
 def predict(spec: Spec, mix: dict) -> dict:
     r = predict_batch(spec, pd.DataFrame([mix])).iloc[0]
     return {"7day": round(float(r["pred_7day"]), 2), "28day": round(float(r["pred_28day"]), 2),
-            "56day": round(float(r["pred_56day"]), 2), "chloride_prob": round(float(r["chloride_prob"]), 3)}
+            "56day": round(float(r["pred_56day"]), 2), "chloride_prob": round(float(r["chloride_prob"]), 3),
+            "chloride_class": str(r["chloride_class"])}
 
 
 def compute_gwp(mix: dict, spec: Spec = None) -> float:
@@ -304,6 +313,7 @@ def run_ga(spec: Spec, cfg: ExperimentConfig, seed: int) -> dict:
                     "total_binder": round(tb, 3), "Vfinal": round(get_physics(spec, mix)["Vfinal"], 4),
                     "pred_7day": preds["7day"], "pred_28day": preds["28day"],
                     "pred_56day": preds["56day"], "chloride_prob": preds["chloride_prob"],
+                    "chloride_class": preds["chloride_class"],
                     "gwp": compute_gwp(mix, spec)}
     return {"best": best, "seed": seed, "n_evals": counter["evals"], "wall_time_s": round(wall, 2)}
 
@@ -594,7 +604,7 @@ def build_system_prompt(spec: Spec, cfg: ExperimentConfig, few_shot: list) -> st
     situation = SITUATION_RULES if cfg.use_situation_rules else ""
 
     few_shot_block = ""
-    if cfg.use_few_shot and cfg.rag_mode == "static" and few_shot:
+    if cfg.use_few_shot and few_shot:
         parts = []
         for ex in few_shot:
             mix_str = "  ".join(f"{k}={ex[k]}" for k in RAW_VARS)
@@ -683,7 +693,9 @@ def build_feedback(spec: Spec, cfg: ExperimentConfig, it: int, mix: dict, preds:
     chloride_line = ""
     if cfg.use_durability:
         ok = "OK" if preds["chloride_prob"] >= spec.min_pass_prob else "INFEASIBLE"
-        chloride_line = (f"  Chloride pass probability : {preds['chloride_prob']:.2f}   "
+        chloride_line = (f"  Chloride class : {preds['chloride_class']}   "
+                         f"(feasible classes: Very Low, Low)\n"
+                         f"  Chloride pass probability : {preds['chloride_prob']:.2f}   "
                          f"[need >= {spec.min_pass_prob}]  {ok}\n")
     phys = get_physics(spec, mix)
     vf_status = "OK" if not feas["phys_v"] else "VIOLATION [0.95, 1.05]"
@@ -921,7 +933,10 @@ def run_llm(spec: Spec, cfg: ExperimentConfig, ga_ref: dict, few_shot: list,
     """
     chat_factory = chat_factory or make_gemini_chat_factory(cfg)
     sys_prompt = build_system_prompt(spec, cfg, few_shot)
-    pool = _pool(spec, cfg) if cfg.rag_mode == "dynamic" else None
+    pool = None
+    if cfg.rag_mode == "dynamic":
+        pool = _pool(spec, cfg)
+        pool = pool[pool["gwp"] <= pool["gwp"].median()]       # neighbours come from the lower-GWP half
     stats = {"api_calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "llm_time_s": 0.0,
              "surrogate_evals": 0, "parse_fails": 0, "restarts": 0}
 
@@ -950,7 +965,7 @@ def run_llm(spec: Spec, cfg: ExperimentConfig, ga_ref: dict, few_shot: list,
                 **{k: round(v, 5) for k, v in get_derived(mix).items()},
                 "total_binder": round(tb, 3), "Vfinal": round(get_physics(spec, mix)["Vfinal"], 4),
                 "pred_7day": preds["7day"], "pred_28day": preds["28day"], "pred_56day": preds["56day"],
-                "chloride_prob": preds["chloride_prob"], "gwp": g,
+                "chloride_prob": preds["chloride_prob"], "chloride_class": preds["chloride_class"], "gwp": g,
                 "gwp_gap": round(g - ga_ref["gwp"], 2) if ga_ref else float("nan"),
                 "str_margin": round(preds["28day"] - cfg.strength_min, 2),
                 "api_calls_so_far": stats["api_calls"], "surrogate_evals_so_far": stats["surrogate_evals"],

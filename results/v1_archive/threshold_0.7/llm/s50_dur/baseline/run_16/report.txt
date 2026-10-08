@@ -1,0 +1,39 @@
+Experiment: baseline   baseline | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 9
+  n_feasible            : 9
+  surrogate_evals       : 47
+  rcalls                : 0.00235
+  api_calls             : 48
+  prompt_tokens         : 440418
+  completion_tokens     : 10300
+  llm_time_s            : 44.72
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2495
+  QER                   : 0.4181
+  MCE                   : 0.2054
+  best_gwp              : 171.35
+  ga_gwp                : 137.14
+  gwp_gap               : 34.21
+  convergence_iter      : 5
+  str_margin_at_best    : 1.15
+  feasibility_rate      : 0.1915
+  scenario              : s50_dur
+  method                : baseline
+  run                   : 16
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=191.00 28d=51.4 (exploit): Vfinal is too low (0.926). I'm adding 66 kg of aggregate, split proportionally between FAGG and CAGG, to bring Vfinal up to the minimum requirement of 0.95. This will slightly increase GWP but resolves the infeasibility. The strength and chloride resistance are already satisfactory.
+[2] GWP=191.08 28d=53.4 (exploit): Vfinal is still too low at 0.940. I need to add approximately 26 kg more volume. I will add this volume as aggregate, splitting it proportionally between FAGG and CAGG. This will bring Vfinal up to the required 0.95, while maintaining the strength and chloride resistance achieved in the last iteration.
+[3] GWP=179.32 28d=52.0 (exploit): GWP has barely changed. The strength margin is now +3.38 MPa, offering more room. I will now attempt to reduce PC to lower GWP, as per the strategy for Situation B (strength close to floor, but here we have a margin). I will reduce PC by 15 kg/m³ and compensate strength by slightly increasing SC, maintaining SCM% and w/b ratio. This should significantly lower GWP.
+[4] GWP=179.40 28d=51.6 (exploit): Vfinal is below the required 0.95 at 0.941. I will add approximately 24 kg of aggregate, split proportionally between FAGG and CAGG, to bring Vfinal up to 0.95. This adjustment is necessary to meet the volume balance constraint.
+[5] GWP=171.35 28d=51.1 (exploit): GWP has barely changed and the strength margin is tightening again. I will try to reduce PC by 12 kg/m³, as this is a substantial move towards lower GWP. To compensate for the strength loss and keep w/b ratio stable, I will slightly increase SC and WATER. The previous attempt to lower WATER hit the bound, so I will try a more balanced approach here to keep strength up.
+[6] GWP=172.67 28d=51.3 (exploit): GWP has decreased again, but the strength margin is now very tight (+1.15 MPa). Following the strategy to reduce WATER before cutting PC further, I will try to decrease WATER by 5 kg/m³. This is a smaller adjustment than before due to the tight strength. I will also slightly increase SC to compensate and maintain SCM%.
+[7] GWP=175.31 28d=52.0 (exploit): GWP increased, which is undesirable. The strength margin is tight (+1.33 MPa). I need to reduce GWP. Given the tight margin and the fact that water is at its lower bound, I will try swapping PC for SC. I'll reduce PC by 10 kg/m³ and increase SC by 10 kg/m³. This swap has a good GWP saving and should maintain strength. The current water content is at its limit, so further reduction is not an option.
+[8] GWP=174.67 28d=52.7 (exploit): GWP increased again, which is problematic. The strength margin is acceptable (+2.00 MPa), but PC is at its minimum. Water is also at its minimum. The only way to reduce GWP is to increase SC further, which will likely increase GWP, or to reduce FA. However, reducing FA is not advised for strength. Given the situation, I will try to swap some FA for SC to reduce GWP, hoping to maintain strength. I will reduce FA by 10 kg/m³ and increase SC by 10 kg/m³. This is a risky move for strength but necessary to lower GWP.
+[9] GWP=174.03 28d=52.6 (exploit): GWP has decreased slightly, and the strength margin is adequate (+2.66 MPa). PC is at its minimum and water is at its minimum. The best path to further GWP reduction is to continue substituting SC for FA, as SC has a lower GWP factor. I will reduce FA by 10 kg/m³ and increase SC by 10 kg/m³. This maintains the binder content and should improve GWP without sacrificing significant strength.

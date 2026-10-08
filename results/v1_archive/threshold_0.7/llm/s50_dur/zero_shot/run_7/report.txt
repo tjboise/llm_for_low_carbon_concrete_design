@@ -1,0 +1,60 @@
+Experiment: zero_shot   zero_shot | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 59
+  rcalls                : 0.00295
+  api_calls             : 59
+  prompt_tokens         : 1278087
+  completion_tokens     : 12042
+  llm_time_s            : 46.07
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4207
+  QER                   : 1.4942
+  MCE                   : 0.567
+  best_gwp              : 194.83
+  ga_gwp                : 137.14
+  gwp_gap               : 57.69
+  convergence_iter      : 30
+  str_margin_at_best    : 3.17
+  feasibility_rate      : 0.5085
+  scenario              : s50_dur
+  method                : zero_shot
+  run                   : 7
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=282.99 28d=66.7 (exploit): Chloride probability is still below target, and SC is at its upper bound. Since SC cannot be increased further, I will try introducing FA to improve chloride resistance, as FA is known to contribute to lower permeability. I'll slightly reduce SC to make room for FA and manage GWP. PC is also reduced to further lower GWP and maintain strength. Water content is adjusted to keep w/b within bounds. Aggregates are adjusted to maintain volume balance and b/a.
+[2] GWP=275.79 28d=65.8 (exploit): A feasible mix has been found. To further reduce GWP, I will slightly decrease the PC content and increase FA. FA has a lower GWP than PC. I will also slightly increase SC to ensure chloride resistance is maintained or improved, and adjust water to keep w/b and Vfinal within limits. Aggregates are adjusted to maintain volume balance and b/a.
+[3] GWP=268.59 28d=65.3 (exploit): The current mix is feasible and has reduced GWP. To further reduce GWP, I will increase FA content and slightly decrease PC. FA has a lower GWP than PC. I will slightly increase SC to maintain chloride resistance and adjust water to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.
+[4] GWP=261.39 28d=63.7 (exploit): The current mix is feasible and has reduced GWP. I will further increase FA and decrease PC to lower GWP. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted to maintain volume balance and b/a.
+[5] GWP=254.19 28d=63.7 (exploit): The current mix is feasible and has reduced GWP. I will continue to increase FA and decrease PC to further lower GWP, as FA has a lower GWP. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted to maintain volume balance and b/a.
+[6] GWP=246.99 28d=63.8 (exploit): The current mix is feasible and has reduced GWP. I will continue to increase FA and decrease PC to further lower GWP, as FA has a lower GWP. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted to maintain volume balance and b/a.
+[7] GWP=252.48 28d=64.2 (exploit): The previous mix violated SCM% and PC% bounds. I will increase PC and decrease SC to satisfy these bounds. This will increase GWP. To mitigate this, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[8] GWP=249.02 28d=65.5 (exploit): The previous attempt increased GWP to fix bounds violations. To reduce GWP again, I will increase FA and decrease PC. SC is slightly increased to maintain chloride resistance, and water adjusted for w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[9] GWP=245.42 28d=65.0 (exploit): The current mix is feasible and has slightly reduced GWP. To further reduce GWP, I will increase FA and decrease PC. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.
+[10] GWP=247.56 28d=64.4 (exploit): The previous mix violated SCM% and PC% bounds. I need to decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[11] GWP=245.99 28d=62.9 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[12] GWP=244.68 28d=62.9 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[13] GWP=243.04 28d=63.6 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[14] GWP=242.84 28d=63.5 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[15] GWP=236.91 28d=61.2 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[16] GWP=232.69 28d=60.1 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[17] GWP=229.53 28d=60.3 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[18] GWP=225.45 28d=61.2 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[19] GWP=220.72 28d=59.9 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[20] GWP=216.63 28d=57.9 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[21] GWP=211.84 28d=57.5 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[22] GWP=207.75 28d=56.9 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[23] GWP=204.40 28d=52.6 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[24] GWP=202.96 28d=52.3 (exploit): The current mix is feasible and has reduced GWP. To further reduce GWP, I will increase FA and decrease PC. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.
+[25] GWP=202.43 28d=52.3 (exploit): The previous mix violated SCM% and PC% bounds. I will decrease SC and increase PC to satisfy these bounds. This will increase GWP. To mitigate the GWP increase, I will increase FA (lower GWP than PC) and slightly increase water to maintain w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[26] GWP=198.37 28d=52.6 (exploit): The current mix is feasible but GWP reduction has stalled, and an oscillation warning is issued. To significantly reduce GWP and break the oscillation, I will substantially increase FA and decrease PC. SC will be reduced slightly to maintain chloride resistance, and water adjusted for w/b and Vfinal. Aggregates are adjusted for volume balance and b/a.
+[27] GWP=197.05 28d=52.5 (exploit): The current mix is feasible and has reduced GWP. To further reduce GWP, I will increase FA and decrease PC. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.
+[28] GWP=196.48 28d=52.9 (exploit): The current mix is feasible and has reduced GWP. To further reduce GWP, I will increase FA and decrease PC. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.
+[29] GWP=195.82 28d=53.3 (exploit): The current mix is feasible and has reduced GWP. To further reduce GWP, I will increase FA and decrease PC. SC is kept constant to maintain chloride resistance. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.
+[30] GWP=194.83 28d=53.2 (exploit): The current mix is feasible and has reduced GWP. PC is at its lower bound. To further reduce GWP, I will increase FA and decrease SC. Water is adjusted to keep w/b and Vfinal within limits. Aggregates are adjusted for volume balance and b/a.

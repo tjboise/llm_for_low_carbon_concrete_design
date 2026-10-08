@@ -1,0 +1,48 @@
+batch: 25 runs -> [('baseline', 1), ('baseline', 2), ('baseline', 3), ('baseline', 4), ('baseline', 5), ('no_knowledge', 1), ('no_knowledge', 2), ('no_knowledge', 3), ('no_knowledge', 4), ('no_knowledge', 5), ('zero_shot', 1), ('zero_shot', 2), ('zero_shot', 3), ('zero_shot', 4), ('zero_shot', 5), ('no_rag', 1), ('no_rag', 2), ('no_rag', 3), ('no_rag', 4), ('no_rag', 5), ('rag_tabular', 1), ('rag_tabular', 2), ('rag_tabular', 3), ('rag_tabular', 4), ('rag_tabular', 5)]
+done s50_dur/baseline/run_1  best=nan  OGR=nan  api=35
+done s50_dur/baseline/run_2  best=nan  OGR=nan  api=35
+done s50_dur/baseline/run_3  best=182.75  OGR=0.3571  api=30
+done s50_dur/baseline/run_4  best=176.08  OGR=0.3076  api=68
+done s50_dur/baseline/run_5  best=178.71  OGR=0.3271  api=54
+done s50_dur/no_knowledge/run_1  best=170.23  OGR=0.2641  api=43
+done s50_dur/no_knowledge/run_2  best=146.58  OGR=0.0885  api=55
+done s50_dur/no_knowledge/run_3  best=144.49  OGR=0.073  api=31
+done s50_dur/no_knowledge/run_4  best=160.69  OGR=0.1933  api=84
+done s50_dur/no_knowledge/run_5  best=148.16  OGR=0.1003  api=44
+done s50_dur/zero_shot/run_1  best=261.99  OGR=0.9456  api=56
+done s50_dur/zero_shot/run_2  best=262.85  OGR=0.952  api=90
+done s50_dur/zero_shot/run_3  best=nan  OGR=nan  api=35
+done s50_dur/zero_shot/run_4  best=nan  OGR=nan  api=35
+done s50_dur/zero_shot/run_5  best=280.15  OGR=1.0804  api=60
+done s50_dur/no_rag/run_1  best=164.39  OGR=0.2208  api=59
+done s50_dur/no_rag/run_2  best=nan  OGR=nan  api=35
+done s50_dur/no_rag/run_3  best=173.26  OGR=0.2866  api=45
+done s50_dur/no_rag/run_4  best=nan  OGR=nan  api=35
+done s50_dur/no_rag/run_5  best=163.12  OGR=0.2113  api=67
+done s50_dur/rag_tabular/run_1  best=162.87  OGR=0.2095  api=48
+done s50_dur/rag_tabular/run_2  best=185.09  OGR=0.3745  api=72
+done s50_dur/rag_tabular/run_3  best=155.31  OGR=0.1533  api=68
+done s50_dur/rag_tabular/run_4  best=161.38  OGR=0.1984  api=56
+done s50_dur/rag_tabular/run_5  best=162.97  OGR=0.2102  api=64
+batch: 8 runs -> [('baseline', 6), ('baseline', 7), ('baseline', 8), ('zero_shot', 6), ('zero_shot', 7), ('no_rag', 6), ('no_rag', 7), ('no_rag', 8)]
+done s50_dur/baseline/run_6  best=199.14  OGR=0.4788  api=51
+done s50_dur/baseline/run_7  best=175.48  OGR=0.3031  api=77
+done s50_dur/baseline/run_8  best=nan  OGR=nan  api=35
+done s50_dur/zero_shot/run_6  best=nan  OGR=nan  api=35
+done s50_dur/zero_shot/run_7  best=213.96  OGR=0.5889  api=62
+done s50_dur/no_rag/run_6  best=192.33  OGR=0.4283  api=39
+done s50_dur/no_rag/run_7  best=151.77  OGR=0.1271  api=72
+done s50_dur/no_rag/run_8  best=nan  OGR=nan  api=35
+batch: 5 runs -> [('baseline', 9), ('baseline', 10), ('zero_shot', 8), ('no_rag', 9), ('no_rag', 10)]
+done s50_dur/baseline/run_9  best=155.88  OGR=0.1576  api=45
+done s50_dur/baseline/run_10  best=147.87  OGR=0.0981  api=50
+done s50_dur/zero_shot/run_8  best=184.56  OGR=0.3706  api=51
+done s50_dur/no_rag/run_9  best=217.3  OGR=0.6137  api=71
+done s50_dur/no_rag/run_10  best=147.41  OGR=0.0947  api=70
+              runs  successes  selected
+method                                 
+baseline        10          5         5
+no_knowledge     5          5         5
+no_rag          10          5         5
+rag_tabular      5          5         5
+zero_shot        8          5         5

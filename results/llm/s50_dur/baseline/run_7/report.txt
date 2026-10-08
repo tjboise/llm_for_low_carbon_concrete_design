@@ -1,25 +1,25 @@
 Experiment: baseline   baseline | s50_dur
 strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
 ------------------------------------------------------------
-  total_iters           : 15
-  n_feasible            : 15
-  surrogate_evals       : 114
-  rcalls                : 0.0057
-  api_calls             : 157
-  prompt_tokens         : 14257140
-  completion_tokens     : 124768
-  llm_time_s            : 452.32
-  parse_fails           : 43
+  total_iters           : 6
+  n_feasible            : 6
+  surrogate_evals       : 77
+  rcalls                : 0.00385
+  api_calls             : 77
+  prompt_tokens         : 2338002
+  completion_tokens     : 19807
+  llm_time_s            : 74.1
+  parse_fails           : 0
   restarts              : 0
-  OGR                   : 0.1319
-  QER                   : 0.131
-  MCE                   : 0.5417
-  best_gwp              : 153.85
-  ga_gwp                : 135.92
-  gwp_gap               : 17.93
-  convergence_iter      : 3
-  str_margin_at_best    : 1.93
-  feasibility_rate      : 0.1316
+  OGR                   : 0.3031
+  QER                   : 0.7622
+  MCE                   : 0.2204
+  best_gwp              : 175.48
+  ga_gwp                : 134.66
+  gwp_gap               : 40.82
+  convergence_iter      : 6
+  str_margin_at_best    : 5.2
+  feasibility_rate      : 0.0779
   scenario              : s50_dur
   method                : baseline
   run                   : 7
@@ -28,18 +28,9 @@ strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
   model                 : gemini-2.5-flash-lite
 ------------------------------------------------------------
 Reasoning log:
-[1] GWP=168.78 28d=53.6 (exploit): Chloride pass probability has reached 0.70, but to ensure a robust margin and further reduce GWP, I'm making minor adjustments. WATER is reduced to 100 kg/m³, SC is increased to 180 kg/m³, and PC is decreased to 110 kg/m³. This further improves the SCM% to 62.1%, enhancing chloride resistance and lowering GWP. Strength should remain adequate with ACC at 10 kg/m³.
-[2] GWP=155.97 28d=52.9 (exploit): The mix is feasible, but GWP has stalled. I am making a larger move to reduce GWP by lowering total binder content. PC is reduced by 10 kg/m³ to 100.0, and SC by 10 kg/m³ to 170.0, for a total binder reduction of 20 kg/m³. Aggregates are increased accordingly. WATER is reduced to 93.15 kg/m³, maintaining a low w/b. ACC remains at 10 kg/m³ to ensure strength, and the SC share is increased slightly for chloride resistance.
-[3] GWP=153.85 28d=51.9 (exploit): The mix is feasible and GWP has been reduced significantly. To continue GWP reduction, I'm pushing PC to its dataset minimum (97.3 kg/m³) and reducing WATER to its minimum (90.8 kg/m³) to maintain strength and improve w/b. SC is adjusted to maintain a high SCM% (64%) for chloride resistance. ACC remains at 10 kg/m³ to support strength, and aggregates are kept at current levels to avoid volume issues.
-[4] GWP=178.18 28d=56.6 (exploit): SC% violated its bound, and chloride probability is at the threshold. I'm reducing SC to 245.0 kg/m³ to comply with its limit, while increasing PC to 102.3 kg/m³ to maintain strength. WATER is increased to 87.0 kg/m³ and WR_HR reduced to 4.0 kg/m³ to manage Vfinal and potentially improve chloride resistance. ACC remains at 15.0 kg/m³. This mix should be feasible and have a slightly lower GWP.
-[5] GWP=173.84 28d=56.3 (exploit): SC% violated its bound. I've adjusted PC slightly upwards to 97.36 kg/m³ and SC downwards to 247.0 kg/m³ to strictly comply with the SC% limit. WATER is maintained at 90.77 kg/m³ to keep the w/b consistent and within bounds. ACC and WR_HR remain unchanged. This mix addresses the SC% violation while maintaining feasibility and a similar GWP.
-[6] GWP=174.52 28d=56.5 (exploit): Vfinal is slightly high. I'm reducing aggregate by 6 kg from CAGG to correct this. To optimize slightly and maintain strength, PC is increased to 102.3 kg/m³ and SC reduced to 230.0 kg/m³. WATER, ACC, and WR_HR remain unchanged. This mix addresses the Vfinal violation and should remain feasible.
-[7] GWP=170.60 28d=55.6 (exploit): GWP increased, and PC is at its minimum. I'm swapping PC for SC to reduce GWP and increase SCM% for durability. PC is reduced to 97.3 kg/m³, and SC increased to 235.0 kg/m³. WATER, ACC, and WR_HR remain unchanged. This aims to lower GWP while maintaining feasibility and performance.
-[8] GWP=167.69 28d=54.6 (exploit): Vfinal is slightly high. I've removed 4 kg of aggregate from CAGG to correct this. To further optimize GWP and maintain feasibility, PC is increased slightly to 91.0 kg/m³ and SC reduced to 224.0 kg/m³. WATER, ACC, and WR_HR remain unchanged. This mix addresses Vfinal and aims for a lower GWP.
-[9] GWP=168.91 28d=55.8 (exploit): Chloride probability is at the threshold, and Vfinal is at the limit. I am increasing SC to 225.0 kg/m³ and decreasing WATER to 79.0 kg/m³ for improved durability. PC remains at 98.3 kg/m³, and total binder increases slightly. Aggregates and admixtures are kept consistent, aiming to bring Vfinal down slightly due to reduced water. This mix prioritizes chloride resistance margin and feasibility.
-[10] GWP=168.46 28d=54.4 (exploit): GWP has increased. To reduce GWP, I'm swapping PC for SC. PC is reduced to 95.0 kg/m³ and SC increased to 227.3 kg/m³. This maintains total binder and keeps SC% high for durability. WATER, ACC, and WR_HR remain unchanged. This aims for a lower GWP while staying feasible.
-[11] GWP=167.26 28d=55.8 (exploit): Vfinal is at the limit. I've removed a minimal amount of aggregate (0.2 kg from CAGG) to ensure it's within bounds. To maintain performance and feasibility, PC is increased slightly to 98.8 kg/m³ and SC reduced to 218.5 kg/m³. WATER, ACC, and WR_HR remain unchanged. This mix addresses Vfinal and aims to maintain GWP.
-[12] GWP=167.39 28d=55.8 (exploit): Vfinal is at the limit. I've removed a minimal amount of aggregate (0.2 kg from CAGG) to ensure it's within bounds. To maintain performance and feasibility, PC is increased slightly to 98.3 kg/m³ and SC reduced to 219.0 kg/m³. WATER, ACC, and WR_HR remain unchanged. This mix addresses Vfinal and aims to maintain GWP.
-[13] GWP=175.86 28d=58.5 (exploit): Vfinal is too high. I've removed 23 kg of aggregate from CAGG to correct this. To maintain performance and feasibility, PC is increased slightly to 99.3 kg/m³ and SC reduced to 248.0 kg/m³. WATER, ACC, and WR_HR remain unchanged. This mix addresses Vfinal and aims to maintain GWP.
-[14] GWP=173.08 28d=57.0 (exploit): Chloride probability is slightly below target. I'm increasing SC to 245.0 kg/m³ and decreasing WATER to 85.0 kg/m³ for improved durability. PC remains at its minimum (97.3 kg/m³). Aggregates, ACC, and WR_HR are kept consistent. This mix aims to improve chloride resistance, potentially at the cost of slightly higher GWP.
-[15] GWP=180.35 28d=58.5 (exploit): Chloride probability is at the threshold and Vfinal is acceptable. To improve chloride resistance margin, SC is increased to 256.75 kg/m³ and WATER reduced to 84.0 kg/m³. PC is adjusted to 101.39 kg/m³ to keep SC% within bounds. Aggregates, ACC, and WR_HR are kept consistent. This mix aims to improve chloride resistance.
+[1] GWP=234.17 28d=53.6 (exploit): The mix is now feasible for strength (53.81 MPa), chloride (0.66), and w/b (0.2366). However, Vfinal (1.050) is exactly at the upper limit, and any further increase in volume will make it infeasible. The GWP is 236.81 kg CO₂-eq/m³. To reduce GWP while maintaining feasibility, I will slightly reduce the binder content by swapping 10 kg of SC for PC, which will slightly decrease GWP and strength. I will also slightly reduce CAGG to bring Vfinal comfortably below 1.05.
+[2] GWP=220.00 28d=53.6 (exploit): The mix is feasible for strength (53.7 MPa), chloride (0.64), Vfinal (1.043), and w/b. However, SC% (0.7245) is above the allowed upper bound of 0.7174. To fix this, I will reduce SC by 10 kg/m³ and increase PC by 10 kg/m³. This will decrease SC% and slightly increase GWP and PC%.
+[3] GWP=205.59 28d=53.8 (exploit): The mix is feasible for strength (53.8 MPa), chloride (0.63), Vfinal (1.038), and w/b. However, SC% (0.7198) is slightly above the allowed upper bound of 0.7174. To fix this, I will reduce SC by 5 kg/m³ and increase PC by 5 kg/m³. This will slightly decrease SC% and increase GWP.
+[4] GWP=192.75 28d=52.5 (exploit): The mix is feasible for strength (52.4 MPa), chloride (0.63), Vfinal (1.033), and w/b. However, SC% (0.7277) is slightly above the allowed upper bound of 0.7174. To fix this, I will reduce SC by 7 kg/m³ and increase PC by 7 kg/m³. This will decrease SC% and slightly increase GWP.
+[5] GWP=185.43 28d=54.7 (exploit): The mix is feasible for strength (52.8 MPa) and Vfinal (1.030). Chloride probability (0.59) is still slightly below target. SC% is 0.7121 which is acceptable. To improve chloride resistance, I will increase SC by 7 kg/m³ and decrease WATER by 3 kg/m³ to 106.771. WR_HR will be increased to 1.0 kg/m³ to compensate for the reduced water.
+[6] GWP=175.48 28d=55.2 (exploit): The mix is feasible for strength (54.1 MPa), chloride (0.60), Vfinal (1.027), and w/b. However, SC% (0.7200) is slightly above the allowed upper bound of 0.7174. To fix this, I will reduce SC by 4 kg/m³ and increase PC by 4 kg/m³. This will decrease SC% and slightly increase GWP.

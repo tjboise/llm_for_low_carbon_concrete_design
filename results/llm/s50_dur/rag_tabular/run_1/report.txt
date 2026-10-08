@@ -1,25 +1,25 @@
 Experiment: rag_tabular   rag_tabular | s50_dur
 strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
 ------------------------------------------------------------
-  total_iters           : 2
-  n_feasible            : 2
-  surrogate_evals       : 46
-  rcalls                : 0.0023
-  api_calls             : 46
-  prompt_tokens         : 816463
-  completion_tokens     : 11109
-  llm_time_s            : 45.8
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 47
+  rcalls                : 0.00235
+  api_calls             : 48
+  prompt_tokens         : 433752
+  completion_tokens     : 11324
+  llm_time_s            : 45.64
   parse_fails           : 0
-  restarts              : 0
-  OGR                   : 0.5963
-  QER                   : 0.9365
-  MCE                   : 0.2251
-  best_gwp              : 216.97
-  ga_gwp                : 135.92
-  gwp_gap               : 81.05
-  convergence_iter      : 2
-  str_margin_at_best    : 11.21
-  feasibility_rate      : 0.0435
+  restarts              : 2
+  OGR                   : 0.2095
+  QER                   : 0.7715
+  MCE                   : 0.2598
+  best_gwp              : 162.87
+  ga_gwp                : 134.66
+  gwp_gap               : 28.21
+  convergence_iter      : 4
+  str_margin_at_best    : 2.76
+  feasibility_rate      : 0.1702
   scenario              : s50_dur
   method                : rag_tabular
   run                   : 1
@@ -28,5 +28,11 @@ strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
   model                 : gemini-2.5-flash-lite
 ------------------------------------------------------------
 Reasoning log:
-[1] GWP=260.05 28d=58.1 (exploit): The mix is now feasible on strength and chloride resistance. The only issue is Vfinal, which is slightly below the 0.95 lower bound. To correct this, I will add a small amount of aggregate (7 kg/m³). I will add this to CAGG as it is generally more cost-effective than FAGG. No other parameters are changed as they are currently within their acceptable ranges and contribute to the low GWP and acceptable strength.
-[2] GWP=216.97 28d=61.2 (exploit): The mix is feasible in all constraints except Vfinal. To fix this, I need to add 4 kg of aggregate. I'll add this to CAGG for cost-efficiency. The current GWP is already low and strength is good. No further binder reduction is immediately necessary. The last iteration successfully met the chloride constraint, so I will maintain the current binder composition.
+[1] GWP=199.13 28d=52.2 (exploit): The 28-day strength and Vfinal are now within limits, but chloride pass probability is slightly below the 0.6 threshold. To improve chloride resistance, the SC share of the binder is increased by substituting PC with SC. This also lowers GWP. A small reduction in WATER is made to further enhance chloride resistance and strength, while ACC is maintained to ensure strength is not compromised.
+[2] GWP=185.02 28d=51.2 (exploit): The current mix is feasible but GWP has not improved, and strength has only slightly increased. To reduce GWP, I will swap 18 kg/m³ of PC for SC, which offers a significant CO2 saving. This also reduces early strength, so ACC is increased slightly to compensate, keeping the strength close to the target. Water and aggregates remain unchanged to maintain Vfinal and chloride resistance.
+[3] GWP=175.61 28d=51.6 (exploit): GWP has been successfully reduced, but the strength margin is now quite tight. To further reduce GWP while maintaining strength and chloride resistance, I will reduce WATER by 3 kg/m³. This will increase strength at no GWP cost. Then, I will swap 12 kg/m³ of PC for SC for a further GWP reduction, and slightly increase ACC to compensate for any strength loss from the PC reduction.
+[4] GWP=162.87 28d=52.8 (exploit): The 28-day strength and Vfinal are adequate, but the chloride pass probability is at the absolute minimum required threshold (0.60), meaning any slight variability could cause it to fail. To improve this, I will increase the SC share of the binder by swapping 10 kg/m³ of PC for SC. This will also reduce GWP. I will also slightly reduce WATER to further boost chloride resistance, while keeping ACC unchanged to maintain strength.
+[5] GWP=166.03 28d=53.2 (exploit): The current mix has achieved a good GWP reduction. The strength margin is now adequate. To further reduce GWP, I will swap PC for SC again, aiming for a significant reduction. I'll reduce PC by 12 kg/m³ and increase SC by the same amount. Water and aggregates remain constant, as does ACC, to maintain strength and Vfinal. This PC level is at the lower bound from the dataset, so further reductions might be difficult without compromising strength or requiring admixtures.
+[6] GWP=169.20 28d=55.0 (exploit): The GWP increased in the last iteration, which is undesirable. The PC is at its lower bound, so direct PC->SC swaps are limited. To reduce GWP, I will reduce WATER by 3 kg/m³ to improve strength without GWP cost. Then, I will swap PC for SC again, taking PC to its absolute minimum allowed value. ACC is increased slightly to compensate for strength reduction from PC decrease.
+[7] GWP=172.37 28d=56.1 (exploit): GWP has increased again, which is undesirable. PC is at its lower bound. To reduce GWP, I will reduce WATER by 3 kg/m³ to improve strength without GWP cost. Then, I will swap PC for SC again, increasing SC and keeping PC at its minimum. ACC is increased slightly to compensate for the strength reduction from PC decrease. This strategy aims to lower GWP while maintaining strength and durability.
+[8] GWP=183.38 28d=56.5 (exploit): The SC% ratio has violated its upper bound. To fix this, I need to reduce the amount of SC relative to the total binder. I will decrease SC by 10 kg/m³ and increase PC by 10 kg/m³ (while staying at PC's lower bound). This will bring SC% back within limits and should maintain strength. The GWP will likely increase slightly due to the PC increase, but this is a necessary correction.

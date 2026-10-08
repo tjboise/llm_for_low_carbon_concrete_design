@@ -1,0 +1,38 @@
+Experiment: baseline   baseline | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 56
+  rcalls                : 0.0028
+  api_calls             : 57
+  prompt_tokens         : 568346
+  completion_tokens     : 11477
+  llm_time_s            : 48.79
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2534
+  QER                   : 0.2541
+  MCE                   : 0.1574
+  best_gwp              : 171.89
+  ga_gwp                : 137.14
+  gwp_gap               : 34.75
+  convergence_iter      : 4
+  str_margin_at_best    : 1.26
+  feasibility_rate      : 0.1429
+  scenario              : s50_dur
+  method                : baseline
+  run                   : 17
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=186.12 28d=50.4 (exploit): Vfinal is at the lower bound (0.950). No immediate volume adjustment needed. Strength is just above the 50 MPa floor, and chloride probability is acceptable. GWP is still high. The previous step already identified the need to reduce GWP. Since Vfinal is at the limit, I will try a PC->SC swap. This also keeps strength and durability in check.
+[2] GWP=179.35 28d=50.9 (exploit): Vfinal is slightly low at 0.947. I will add 9 kg of CAGG to bring it to 0.950. The strength is good, GWP has decreased, and chloride probability remains acceptable. This adjustment primarily addresses the volume constraint.
+[3] GWP=174.67 28d=50.8 (exploit): Vfinal is slightly low at 0.947. I will add 8 kg of CAGG to bring it to 0.950. The strength is good, GWP has decreased, and chloride probability remains acceptable. This adjustment primarily addresses the volume constraint.
+[4] GWP=171.89 28d=51.3 (exploit): Vfinal is at the lower bound (0.950). No immediate volume adjustment is needed. The strength is above the 50 MPa floor, and chloride probability is good. GWP has decreased. The next step should focus on further GWP reduction by swapping more PC for SC, while carefully monitoring strength. I will swap 6 kg/m³ of PC for SC.
+[5] GWP=173.48 28d=52.7 (exploit): GWP has decreased again, and strength is holding steady above the floor. I will continue the strategy of reducing WATER and then swapping PC for SC. This iteration reduces WATER by 3 kg/m³ and swaps 6 kg/m³ of PC for SC, aiming for further GWP reduction while maintaining strength and durability. PC is already at its lower bound, so I'll slightly increase SC to compensate for the water reduction.
+[6] GWP=175.06 28d=54.0 (exploit): GWP increased in the last iteration. I need to reduce it. PC is at its lower bound. I will increase SC slightly and also decrease WATER, as that has generally led to GWP reduction in the past and maintains strength. I will swap 6 kg/m³ of SC for PC (which is at its limit, so I'll increase SC), and reduce WATER by 3 kg/m³.
+[7] GWP=178.25 28d=56.0 (exploit): Vfinal is slightly low at 0.949. I will add 3 kg of CAGG to bring it to 0.950. The strength is good, GWP has increased, and chloride probability remains acceptable. This adjustment primarily addresses the volume constraint.
+[8] GWP=181.43 28d=57.3 (exploit): Vfinal is slightly low at 0.949. I will add 3 kg of CAGG to bring it to 0.950. The strength has increased, GWP has increased, and chloride probability remains acceptable. This adjustment primarily addresses the volume constraint.

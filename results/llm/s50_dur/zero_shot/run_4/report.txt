@@ -6,16 +6,16 @@ strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
   surrogate_evals       : 35
   rcalls                : 0.00175
   api_calls             : 35
-  prompt_tokens         : 348523
-  completion_tokens     : 8441
-  llm_time_s            : 32.83
+  prompt_tokens         : 361502
+  completion_tokens     : 8450
+  llm_time_s            : 30.28
   parse_fails           : 0
   restarts              : 0
   OGR                   : nan
   QER                   : nan
   MCE                   : nan
   best_gwp              : nan
-  ga_gwp                : 135.92
+  ga_gwp                : 134.66
   scenario              : s50_dur
   method                : zero_shot
   run                   : 4

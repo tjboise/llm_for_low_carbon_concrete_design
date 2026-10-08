@@ -20,7 +20,7 @@
   ],
   "stag_window": 5,
   "stag_threshold": 0.005,
-  "stag_min_best": 176.696,
+  "stag_min_best": 175.058,
   "max_restarts": 2,
   "anti_osc_window": 3,
   "anti_osc_tol": 5.0,
@@ -28,9 +28,9 @@
   "use_knowledge_table": false,
   "use_situation_rules": true,
   "use_directional_hints": false,
-  "rag_mode": "static",
+  "rag_mode": "dynamic",
   "rag_k": 5,
-  "rag_format": "tabular",
+  "rag_format": "text",
   "max_attempt_factor": 6,
-  "saved_at": "2026-10-06T15:21:23"
+  "saved_at": "2026-10-08T10:49:14"
 }

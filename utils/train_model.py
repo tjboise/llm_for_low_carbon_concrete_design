@@ -21,6 +21,7 @@ Usage:  python utils/train_model.py
 """
 import json
 import os
+import sys
 
 import joblib
 import numpy as np
@@ -86,49 +87,71 @@ def train_strength(df: pd.DataFrame, train_idx, test_idx) -> dict:
     return metrics
 
 
+CLASS_NAMES = ["Very Low", "Low", "Moderate", "High"]          # Port Authority classes, increasing coulombs
+CLASS_BINS = [-np.inf, 800, 1200, 2000, np.inf]
+PASS_CLASSES = 2                                                # Very Low and Low are feasible
+
+
 def train_chloride(df: pd.DataFrame, train_idx, test_idx) -> dict:
-    """Binary classifier: 28-day RCPT < RCPT_LIMIT coulombs."""
+    """4-class classifier of the 28-day RCPT class. P(pass) = P(Very Low) + P(Low) is used as the constraint."""
     sub = df.dropna(subset=["RCPT_28d"]).copy()
-    sub["y"] = (sub["RCPT_28d"] < RCPT_LIMIT).astype(int)
+    sub["y"] = pd.cut(sub["RCPT_28d"], CLASS_BINS, labels=False, right=False).astype(int)
     X, y = sub[FEATURES], sub["y"]
-    print(f"\n>>> Chloride classifier  n={len(sub)}  pass rate={y.mean():.2f}")
+    ypass = (y < PASS_CLASSES).astype(int)
+    print(f"\n>>> Chloride class model  n={len(sub)}  classes={np.bincount(y).tolist()}  pass rate={ypass.mean():.2f}")
 
     is_tr = sub.index.isin(train_idx)           # same mix split as the strength model
     Xtr, Xte, ytr, yte = X[is_tr], X[~is_tr], y[is_tr], y[~is_tr]
     cv = StratifiedKFold(5, shuffle=True, random_state=SEED)
-    gs = GridSearchCV(CatBoostClassifier(random_seed=SEED, verbose=0), CLF_GRID,
-                      cv=cv, scoring="roc_auc", n_jobs=-1)
+    gs = GridSearchCV(CatBoostClassifier(loss_function="MultiClass", random_seed=SEED, verbose=0), CLF_GRID,
+                      cv=cv, scoring="accuracy", n_jobs=-1)
     gs.fit(Xtr, ytr)
-    print(f"  best {gs.best_params_}  CV AUC={gs.best_score_:.4f}")
+    print(f"  best {gs.best_params_}  CV accuracy={gs.best_score_:.4f}")
     clf = gs.best_estimator_
-    prob = clf.predict_proba(Xte)[:, 1]
-    metrics = {"n": len(sub), "n_train": len(Xtr), "n_test": len(Xte),
-               "pass_rate": round(float(y.mean()), 3),
-               "cv_auc_train": round(gs.best_score_, 4),
-               "test_auc": round(roc_auc_score(yte, prob), 4),
-               "test_acc": round(accuracy_score(yte, prob >= 0.5), 4)}
+    prob = clf.predict_proba(Xte)
+    ppass = prob[:, :PASS_CLASSES].sum(axis=1)
+    yte_pass = (yte < PASS_CLASSES).astype(int)
+    metrics = {"n": len(sub), "class_counts": np.bincount(y).tolist(), "n_train": len(Xtr), "n_test": len(Xte),
+               "pass_rate": round(float(ypass.mean()), 3),
+               "cv_class_acc_train": round(gs.best_score_, 4),
+               "test_class_acc": round(accuracy_score(yte, prob.argmax(axis=1)), 4),
+               "test_pass_auc": round(roc_auc_score(yte_pass, ppass), 4)}
     # cross-validated estimate on all rows with the selected hyper-parameters
-    p_all = cross_val_predict(CatBoostClassifier(random_seed=SEED, verbose=0, **gs.best_params_),
-                              X, y, cv=cv, method="predict_proba")[:, 1]
-    metrics["cv_auc_all"] = round(roc_auc_score(y, p_all), 4)
-    metrics["cv_acc_all"] = round(accuracy_score(y, p_all >= 0.5), 4)
+    p_all = cross_val_predict(CatBoostClassifier(loss_function="MultiClass", random_seed=SEED, verbose=0,
+                                                 **gs.best_params_), X, y, cv=cv, method="predict_proba")
+    pp = p_all[:, :PASS_CLASSES].sum(axis=1)
+    metrics["cv_class_acc_all"] = round(accuracy_score(y, p_all.argmax(axis=1)), 4)
+    metrics["cv_pass_auc_all"] = round(roc_auc_score(ypass, pp), 4)
+    metrics["cv_pass_acc_all_at_0.5"] = round(accuracy_score(ypass, pp >= 0.5), 4)
+    for th in (0.6, 0.7):
+        yh = pp >= th
+        metrics[f"cv_pass_at_{th}"] = {"acc": round(accuracy_score(ypass, yh), 4),
+                                       "precision": round(float(((yh == 1) & (ypass == 1)).sum() / max(yh.sum(), 1)), 4),
+                                       "false_pass": int(((yh == 1) & (ypass == 0)).sum()),
+                                       "n_fail": int((ypass == 0).sum())}
     print(f"  {metrics}")
 
     clf.fit(X, y)       # final model on all 28-day mixes
-    joblib.dump({"model": clf, "feature_names": FEATURES, "unit": "kg/m3",
-                 "limit": RCPT_LIMIT, "age_days": 28},
+    joblib.dump({"model": clf, "feature_names": FEATURES, "unit": "kg/m3", "limit": RCPT_LIMIT, "age_days": 28,
+                 "classes": CLASS_NAMES, "pass_classes": PASS_CLASSES},
                 os.path.join(OUT_DIR, "chloride_clf.pkl"))
     return metrics
 
 
 def main():
+    only = len(sys.argv) > 1 and sys.argv[1] == "--only-chloride"
     os.makedirs(OUT_DIR, exist_ok=True)
     df = pd.read_excel(DATA_XLSX, sheet_name="mix_level")
     print(f"Mixes: {len(df)}")
     train_idx, test_idx = train_test_split(df.index, test_size=0.2, random_state=SEED)
-    metrics = {"split": {"n_train_mixes": len(train_idx), "n_test_mixes": len(test_idx), "seed": SEED},
-               "strength": train_strength(df, train_idx, test_idx),
-               "chloride": train_chloride(df, train_idx, test_idx)}
+    if only:                                     # keep the strength model and its metrics untouched
+        with open(os.path.join(OUT_DIR, "metrics.json")) as f:
+            metrics = json.load(f)
+        metrics["chloride"] = train_chloride(df, train_idx, test_idx)
+    else:
+        metrics = {"split": {"n_train_mixes": len(train_idx), "n_test_mixes": len(test_idx), "seed": SEED},
+                   "strength": train_strength(df, train_idx, test_idx),
+                   "chloride": train_chloride(df, train_idx, test_idx)}
     with open(os.path.join(OUT_DIR, "metrics.json"), "w") as f:
         json.dump(metrics, f, indent=2)
     print(f"\nSaved models and metrics to {OUT_DIR}")

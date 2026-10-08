@@ -1,0 +1,26 @@
+Experiment: no_rag   no_rag | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 0
+  n_feasible            : 0
+  surrogate_evals       : 1
+  rcalls                : 5e-05
+  api_calls             : 358
+  prompt_tokens         : 49696073
+  completion_tokens     : 88320
+  llm_time_s            : 591.44
+  parse_fails           : 179
+  restarts              : 0
+  OGR                   : nan
+  QER                   : nan
+  MCE                   : nan
+  best_gwp              : nan
+  ga_gwp                : 137.14
+  scenario              : s50_dur
+  method                : no_rag
+  run                   : 6
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:

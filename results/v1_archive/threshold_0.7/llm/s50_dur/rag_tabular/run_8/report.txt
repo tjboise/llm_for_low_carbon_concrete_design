@@ -1,0 +1,47 @@
+Experiment: rag_tabular   rag_tabular | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 17
+  n_feasible            : 17
+  surrogate_evals       : 84
+  rcalls                : 0.0042
+  api_calls             : 85
+  prompt_tokens         : 1454012
+  completion_tokens     : 18163
+  llm_time_s            : 76.99
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2576
+  QER                   : 0.2715
+  MCE                   : 0.1644
+  best_gwp              : 172.47
+  ga_gwp                : 137.14
+  gwp_gap               : 35.33
+  convergence_iter      : 13
+  str_margin_at_best    : 3.66
+  feasibility_rate      : 0.2024
+  scenario              : s50_dur
+  method                : rag_tabular
+  run                   : 8
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=195.28 28d=54.1 (exploit): Vfinal is too low (0.934). Increased FAGG and CAGG by a total of 43 kg to bring Vfinal closer to the 0.95 lower bound. This also slightly increases strength and GWP. The mix remains feasible and is now closer to meeting all constraints.
+[2] GWP=183.52 28d=54.1 (exploit): The current mix is feasible but GWP has not improved. To reduce GWP, I will swap 15 kg/m³ of PC with SC. This is a significant move as per instructions. This swap is expected to reduce GWP by ~11.77 kg CO₂/m³ and slightly increase 28-day strength. Water content is kept the same for now.
+[3] GWP=185.87 28d=54.1 (exploit): The SC% constraint (0.7254) has been violated. To fix this, I will reduce SC by 15 kg/m³ and increase PC by the same amount. This will lower SC% below the limit and slightly increase GWP, but it is necessary for feasibility. Other parameters remain unchanged.
+[4] GWP=185.87 28d=54.1 (exploit): The SC% constraint (0.7254) has been violated again. To correct this, I will reduce SC by 15 kg/m³ and increase PC by the same amount. This will bring SC% back within the allowed bounds and slightly increase GWP, which is a necessary trade-off for feasibility. Other mix parameters remain unchanged.
+[5] GWP=183.60 28d=54.1 (exploit): Vfinal is reported as 0.950 again, indicating it's at the lower bound and still considered too low. To resolve this, I will add a minimal amount of aggregate (0.1 kg) to FAGG and CAGG to ensure Vfinal is strictly above 0.95. All other components remain unchanged as they were feasible in the previous step.
+[6] GWP=183.60 28d=54.1 (exploit): Vfinal is still low at 0.948. I will add 5 kg of aggregate (FAGG+CAGG) to bring Vfinal closer to the 0.95 lower bound. This adjustment will have a minor impact on GWP and strength. All other parameters remain unchanged as they were feasible in the previous iteration.
+[7] GWP=181.25 28d=53.8 (exploit): Vfinal is at the lower bound of 0.950 and needs a slight increase. I will add 1 kg of aggregate (FAGG+CAGG) to bring Vfinal above 0.95. All other parameters from the previous iteration were feasible, so they remain unchanged.
+[8] GWP=181.35 28d=53.4 (exploit): Vfinal is still low at 0.947. I will add 8 kg of aggregate (FAGG+CAGG) to bring Vfinal closer to the 0.95 lower bound. This adjustment will have a minor impact on GWP and strength. All other parameters remain unchanged as they were feasible in the previous iteration.
+[9] GWP=179.01 28d=54.1 (exploit): The SC% constraint (0.7322) is violated. To correct this, I will swap 15 kg/m³ of SC with PC. This reduces SC% and slightly increases GWP, which is a necessary trade-off for feasibility. Vfinal is now above 0.95, and other parameters were feasible in the last iteration.
+[10] GWP=184.47 28d=53.5 (exploit): The SC% constraint (0.7195) is violated. To correct this, I will swap 10 kg/m³ of SC with PC. This reduces SC% to below the limit and slightly increases GWP, which is a necessary trade-off for feasibility. Vfinal is within bounds, and other parameters remain unchanged.
+[11] GWP=175.58 28d=53.3 (exploit): Vfinal is again reported as 0.950, indicating it's at the lower bound and still considered too low. To resolve this, I will add a minimal amount of aggregate (0.1 kg) to FAGG and CAGG to ensure Vfinal is slightly above 0.95. All other components remain unchanged as they were feasible in the previous step.
+[12] GWP=175.58 28d=53.3 (exploit): Vfinal is still low at 0.948. I will add 5 kg of aggregate (FAGG+CAGG) to bring Vfinal closer to the 0.95 lower bound. This adjustment will have a minor impact on GWP and strength. All other parameters remain unchanged as they were feasible in the previous iteration.
+[13] GWP=172.47 28d=53.7 (exploit): Vfinal is still low at 0.947. I will add 8 kg of aggregate (FAGG+CAGG) to bring Vfinal closer to the 0.95 lower bound. This adjustment will have a minor impact on GWP and strength. All other parameters remain unchanged as they were feasible in the previous iteration.
+[14] GWP=172.51 28d=52.6 (exploit): The SC% constraint (0.7277) is violated. To correct this, I will swap 15 kg/m³ of SC with PC. This reduces SC% and slightly increases GWP, which is a necessary trade-off for feasibility. Vfinal is within bounds, and other parameters remain unchanged.
+[15] GWP=172.49 28d=52.6 (exploit): The SC% constraint (0.7277) is violated. To correct this, I will swap 15 kg/m³ of SC with PC. This reduces SC% and slightly increases GWP, which is a necessary trade-off for feasibility. Vfinal is within bounds, and other parameters remain unchanged.
+[16] GWP=172.50 28d=52.6 (exploit): Vfinal is still low at 0.948. I will add 4 kg of aggregate (FAGG+CAGG) to bring Vfinal closer to the 0.95 lower bound. This adjustment will have a minor impact on GWP and strength. All other parameters remain unchanged as they were feasible in the previous iteration.
+[17] GWP=172.51 28d=52.6 (exploit): Vfinal is still low at 0.948. I will add 6 kg of aggregate (FAGG+CAGG) to bring Vfinal closer to the 0.95 lower bound. This adjustment will have a minor impact on GWP and strength. All other parameters remain unchanged as they were feasible in the previous iteration.

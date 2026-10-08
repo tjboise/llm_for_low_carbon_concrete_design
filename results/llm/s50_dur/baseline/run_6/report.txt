@@ -1,25 +1,25 @@
 Experiment: baseline   baseline | s50_dur
 strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
 ------------------------------------------------------------
-  total_iters           : 7
-  n_feasible            : 7
-  surrogate_evals       : 50
-  rcalls                : 0.0025
-  api_calls             : 50
-  prompt_tokens         : 891912
-  completion_tokens     : 11088
-  llm_time_s            : 46.96
+  total_iters           : 2
+  n_feasible            : 2
+  surrogate_evals       : 51
+  rcalls                : 0.00255
+  api_calls             : 51
+  prompt_tokens         : 1019671
+  completion_tokens     : 12358
+  llm_time_s            : 48.68
   parse_fails           : 0
   restarts              : 0
-  OGR                   : 0.2717
-  QER                   : 0.5008
-  MCE                   : 0.0747
-  best_gwp              : 172.85
-  ga_gwp                : 135.92
-  gwp_gap               : 36.93
-  convergence_iter      : 4
-  str_margin_at_best    : 5.65
-  feasibility_rate      : 0.14
+  OGR                   : 0.4788
+  QER                   : 0.2306
+  MCE                   : 0.1402
+  best_gwp              : 199.14
+  ga_gwp                : 134.66
+  gwp_gap               : 64.48
+  convergence_iter      : 2
+  str_margin_at_best    : 10.06
+  feasibility_rate      : 0.0392
   scenario              : s50_dur
   method                : baseline
   run                   : 6
@@ -28,10 +28,5 @@ strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
   model                 : gemini-2.5-flash-lite
 ------------------------------------------------------------
 Reasoning log:
-[1] GWP=197.89 28d=55.3 (exploit): Attempt 5 was infeasible, with chloride probability just shy of the 0.7 target. I've again increased SC to maximize SCM% and improve chloride resistance, while also slightly lowering GWP. WATER is at its minimum bound and cannot be reduced further. PC and ACC are maintained to ensure strength, which is now well above the 50 MPa floor. This final adjustment aims to meet the chloride probability constraint.
-[2] GWP=186.13 28d=55.4 (exploit): The mix is now feasible, but GWP has not improved. To reduce GWP, I'm decreasing PC by 15 kg/m³ and increasing SC by 15 kg/m³. This swap has a net GWP saving of approx. 11.7 kg CO₂/m³. Strength remains well above the floor, and chloride probability is maintained at the minimum acceptable level by keeping SC high. Vfinal is expected to remain stable with this binder swap.
-[3] GWP=174.37 28d=56.2 (exploit): GWP was reduced successfully. To continue decreasing GWP, I'm again reducing PC by 15 kg/m³ and increasing SC by 15 kg/m³. This swap saves approximately 11.7 kg CO₂/m³. Strength is still robust, and the increased SC share maintains adequate chloride resistance. Vfinal should remain stable. This is Path 1 optimisation.
-[4] GWP=172.85 28d=55.6 (exploit): The previous attempt resulted in an infeasible mix due to SC% exceeding its bound. To fix this, I've reduced SC by 10 kg/m³ and increased PC by 10 kg/m³ to bring SC% back within limits. This swap slightly increases GWP but resolves the infeasibility. Strength and chloride probability are expected to remain adequate, and Vfinal will be checked.
-[5] GWP=173.17 28d=55.2 (exploit): GWP continues to decrease, though at a slower pace. The PC is at its lower bound. To further reduce GWP, I will attempt to increase FA slightly and decrease SC, while maintaining SCM% above the threshold. This will be a small adjustment to see if GWP can be further lowered without compromising constraints. Strength is well-maintained.
-[6] GWP=183.33 28d=55.8 (exploit): The last proposed mix was infeasible due to SC% exceeding its bound. To correct this, I've reduced SC by 10 kg/m³ and increased PC by 10 kg/m³ to bring SC% back within the limit. This swap slightly increases GWP but resolves the infeasibility. Strength and chloride probability should remain adequate. PC is at its lower bound, so further increases are not possible.
-[7] GWP=183.33 28d=55.8 (exploit): The previous mix was infeasible due to SC% exceeding its bound. To correct this, I've reduced SC by 10 kg/m³ and increased PC by 10 kg/m³ to bring SC% back within the limit. This swap slightly increases GWP but resolves the infeasibility. PC is now at its lower bound, so further increases are not possible. Strength and chloride probability should remain adequate.
+[1] GWP=210.90 28d=58.4 (exploit): The chloride pass probability is still below the threshold. I've hit the lower bound for WATER. To improve chloride resistance further, I will increase SC and consider adding WR_HR to allow for a potentially lower effective water content or maintain workability at this low WATER level. Increasing SC will increase GWP. PC and ACC remain constant to maintain strength.
+[2] GWP=199.14 28d=60.1 (exploit): The mix is now feasible as chloride pass probability is exactly 0.60. However, the problem statement specifies 'Chloride pass probability 0.60 < 0.6', which implies it should be strictly greater than 0.6. To achieve this and to aim for lower GWP, I will slightly increase SC and decrease WATER. This will push the probability higher and might allow further GWP reduction. PC and ACC remain constant to ensure strength, and WR_HR is kept for workability.

@@ -44,14 +44,17 @@ MAX_ITERS = 30
 STAG_FACTOR = 1.3     # stagnation is only declared once GWP < 1.3 x the GA reference GWP
 
 METHODS = {
-    "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="static"),
-    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True, rag_mode="static",
-                         use_directional_hints=False),
-    "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False, rag_mode="none"),
+    # full prompt = proposed method: knowledge + situation rules + static few-shot + dynamic RAG (text)
+    "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
+                         rag_mode="dynamic", rag_format="text", use_directional_hints=True),
+    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True,
+                         rag_mode="dynamic", rag_format="text", use_directional_hints=False),
+    "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False,
+                         rag_mode="none", use_directional_hints=False),
+    "no_rag":       dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
+                         rag_mode="static", use_directional_hints=True),
     "rag_tabular":  dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
-                         rag_mode="dynamic", rag_format="tabular"),
-    "rag_text":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
-                         rag_mode="dynamic", rag_format="text"),
+                         rag_mode="dynamic", rag_format="tabular", use_directional_hints=True),
 }
 
 
@@ -132,7 +135,7 @@ def run_one(spec, scn, method, rep, dry_run, lock):
         name=method, description=f"{method} | {scn}", strength_min=smin, use_durability=dur,
         max_iters=MAX_ITERS, gemini_api_key=os.environ.get("GEMINI_API_KEY", ""),
         gemini_model=GEMINI_MODEL, stag_min_best=STAG_FACTOR * ga_ref["gwp"], **METHODS[method])
-    few_shot = oc.select_few_shot(spec, cfg) if cfg.rag_mode == "static" and cfg.use_few_shot else []
+    few_shot = oc.select_few_shot(spec, cfg) if cfg.use_few_shot else []
     factory = None
     if dry_run:
         rng = random.Random(rep)

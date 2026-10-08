@@ -1,0 +1,38 @@
+Experiment: rag_tabular   rag_tabular | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 52
+  rcalls                : 0.0026
+  api_calls             : 53
+  prompt_tokens         : 482100
+  completion_tokens     : 12282
+  llm_time_s            : 51.21
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2516
+  QER                   : 0.0
+  MCE                   : 0.2655
+  best_gwp              : 171.64
+  ga_gwp                : 137.14
+  gwp_gap               : 34.5
+  convergence_iter      : 1
+  str_margin_at_best    : 4.23
+  feasibility_rate      : 0.1538
+  scenario              : s50_dur
+  method                : rag_tabular
+  run                   : 5
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=171.64 28d=54.2 (exploit): The mix is infeasible due to chloride probability (0.69). The current strength is adequate (51.85 MPa) and Vfinal is acceptable (0.954). To improve chloride resistance, I will increase SC by 20 kg/m³ and decrease PC by 10 kg/m³ (PC is at its lower bound, so this is the maximum reduction possible while staying within bounds). This substitution improves chloride resistance and lowers GWP. WATER is reduced by 2 kg/m³ to further aid chloride resistance and maintain strength. ACC remains high to support strength.
+[2] GWP=175.66 28d=56.3 (exploit): The mix remains infeasible due to chloride probability (0.69), though strength (54.5 MPa) and Vfinal (0.957) are adequate. To improve chloride resistance, I will increase SC by 20 kg/m³ and decrease PC by 10 kg/m³ (PC is at its lower bound). This also lowers GWP. WATER is reduced by 2 kg/m³ to further enhance chloride resistance and maintain strength. ACC remains at 15 kg/m³ to support strength.
+[3] GWP=177.66 28d=55.3 (exploit): The previous iteration increased GWP, which is undesirable. The current mix is feasible with good strength (56.27 MPa) and chloride probability (0.76). To reduce GWP, I will increase SC by 20 kg/m³ and decrease FA by 10 kg/m³. PC is at its lower bound. This switch from FA to SC (both SCMs) is beneficial as SC has a lower GWP factor and is better for chloride resistance. WATER remains constant to maintain strength and chloride performance. ACC stays at 15 kg/m³.
+[4] GWP=175.66 28d=56.0 (exploit): The previous iteration increased GWP, moving away from the objective. The current mix is feasible with good strength (55.26 MPa) and chloride probability (0.77). To reduce GWP, I will swap 20 kg/m³ of SC for FA. This is because SC has a lower GWP factor and higher SC content is generally better for chloride resistance. PC is at its lower bound. WATER is reduced by 2 kg/m³ to maintain strength and improve chloride resistance. ACC remains at 15 kg/m³.
+[5] GWP=176.30 28d=55.2 (exploit): The GWP has decreased, so I will continue in this direction. The current mix is feasible with good strength (56.00 MPa) and chloride probability (0.76). To further reduce GWP, I will swap 10 kg/m³ of SC for FA. This is a minor adjustment as SC is already high and FA's GWP is slightly higher. PC is at its lower bound. WATER is reduced by 2 kg/m³ to maintain strength and improve chloride resistance. ACC remains at 15 kg/m³.
+[6] GWP=177.58 28d=55.1 (exploit): The GWP increased in the last iteration, which is counterproductive. The current mix is feasible with acceptable strength (55.19 MPa) and chloride probability (0.76). To reduce GWP, I will swap 20 kg/m³ of SC for FA. This move is more aggressive than the last attempt and aims to leverage FA's slightly lower GWP factor compared to SC for a net GWP reduction. PC is at its lower bound. WATER is already at its minimum, so it will remain there. ACC stays at 15 kg/m³.
+[7] GWP=178.86 28d=54.9 (exploit): The GWP increased again, which is undesirable. The current mix is feasible with adequate strength (55.08 MPa) and chloride probability (0.77). To reduce GWP, I will swap 20 kg/m³ of SC for FA. This shift prioritizes SC for its GWP and chloride benefits. PC is at its lower bound, and WATER is also at its minimum. ACC remains at 15 kg/m³ to maintain strength. This adjustment aims to reduce GWP by increasing FA's share of the binder.
+[8] GWP=180.14 28d=56.1 (exploit): The GWP has increased for the third consecutive iteration, moving further from the objective. The current mix is feasible with adequate strength (54.91 MPa) and chloride probability (0.80). To attempt a GWP reduction, I will swap 20 kg/m³ of SC for FA. This is a reversal of the previous adjustment and aims to reduce GWP by increasing FA's share, as FA has a slightly lower GWP factor than SC. PC and WATER are at their minimums. ACC remains at 15 kg/m³.

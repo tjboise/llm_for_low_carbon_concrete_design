@@ -1,0 +1,35 @@
+Experiment: no_rag   no_rag | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 5
+  n_feasible            : 5
+  surrogate_evals       : 46
+  rcalls                : 0.0023
+  api_calls             : 47
+  prompt_tokens         : 788710
+  completion_tokens     : 10960
+  llm_time_s            : 47.06
+  parse_fails           : 1
+  restarts              : 0
+  OGR                   : 0.236
+  QER                   : 0.7557
+  MCE                   : 0.1217
+  best_gwp              : 169.5
+  ga_gwp                : 137.14
+  gwp_gap               : 32.36
+  convergence_iter      : 4
+  str_margin_at_best    : 1.99
+  feasibility_rate      : 0.1087
+  scenario              : s50_dur
+  method                : no_rag
+  run                   : 3
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=204.26 28d=52.2 (exploit): Attempt 5 was infeasible due to Vfinal being at the absolute minimum. I've made a fractional increase in aggregate to ensure Vfinal is just above 0.95. All constraints are now met: strength (52.3 MPa), GWP (204.4 kg CO2-eq/m³), Vfinal (0.951), and chloride probability (0.71). The mix uses 56.6% SCM and a w/b of 0.38.
+[2] GWP=192.50 28d=52.4 (exploit): The current mix is feasible but GWP has not improved. To reduce GWP further, I will attempt to substitute a larger amount of PC with SC (Path 1). I am reducing PC by 15 kg/m³ and increasing SC by 15 kg/m³. This should lower GWP significantly while maintaining strength and chloride resistance due to the high SC content. Water and aggregates remain unchanged to preserve volume and strength.
+[3] GWP=180.74 28d=53.0 (exploit): GWP has decreased significantly. To continue reducing GWP, I will again substitute PC with SC. I'm reducing PC by another 15 kg/m³ and increasing SC by 15 kg/m³. This maintains the high SCM% (now 64.7%) and w/b, ensuring strength and chloride resistance are preserved. The goal is to push GWP lower while staying above the strength floor.
+[4] GWP=169.50 28d=52.0 (exploit): GWP continues to decrease by following Path 1 (PC substitution with SC). I will again reduce PC by 15 kg/m³ and increase SC by 15 kg/m³. This maintains high SCM% (now 69.2%) and a consistent w/b, ensuring strength and chloride resistance. The goal is to further decrease GWP while keeping the strength margin.
+[5] GWP=169.54 28d=53.7 (exploit): Attempt 1 was infeasible due to low Vfinal. I've increased aggregate content to bring Vfinal above the 0.95 threshold. The previous step of reducing water was intended to boost strength, and it succeeded, increasing the strength margin. The SC content is high, ensuring chloride resistance. The PC is still at its lower bound.

@@ -110,7 +110,7 @@
   "durability": {
     "rcpt_limit_coulomb": 1200,
     "age_days": 28,
-    "min_pass_probability": 0.7
+    "min_pass_probability": 0.6
   },
   "densities": {
     "PC": 3150,

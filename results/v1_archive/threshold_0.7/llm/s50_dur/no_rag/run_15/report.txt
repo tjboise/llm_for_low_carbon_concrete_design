@@ -1,0 +1,32 @@
+Experiment: no_rag   no_rag | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 2
+  n_feasible            : 2
+  surrogate_evals       : 45
+  rcalls                : 0.00225
+  api_calls             : 45
+  prompt_tokens         : 679563
+  completion_tokens     : 10632
+  llm_time_s            : 38.52
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3701
+  QER                   : 0.144
+  MCE                   : 0.1548
+  best_gwp              : 187.9
+  ga_gwp                : 137.14
+  gwp_gap               : 50.76
+  convergence_iter      : 2
+  str_margin_at_best    : 10.02
+  feasibility_rate      : 0.0444
+  scenario              : s50_dur
+  method                : no_rag
+  run                   : 15
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=194.38 28d=59.1 (exploit): The current mix is infeasible due to low chloride pass probability (0.66). Strength and Vfinal are satisfactory. To improve chloride resistance, the SC share of the binder needs to be increased, and WATER reduced. The SC content is increased by 15 kg/m³ to reach 225 kg/m³ (SCM% = 0.66). WATER is reduced by 3 kg/m³ to 108 kg/m³ (w/b = 0.321). ACC is slightly increased to maintain strength margin. This adjustment directly targets the chloride constraint while aiming to minimize GWP increase.
+[2] GWP=187.90 28d=60.0 (exploit): Chloride pass probability remains the issue at 0.69. Strength, GWP, and Vfinal are acceptable. To address the chloride constraint, SC is increased by 10 kg/m³ to further elevate its share of the binder, and WATER is reduced by 3 kg/m³ to decrease w/b. ACC is slightly increased to ensure strength margin. This iteration continues to prioritize the chloride resistance requirement.
