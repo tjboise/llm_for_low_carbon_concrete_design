@@ -56,20 +56,6 @@ METHODS = {
                          rag_mode="dynamic", rag_format="text"),
 }
 
-# Full-prompt variant tried with the chloride constraint (results in results/archive/): knowledge + rules +
-# static few-shot + RAG (retrieval from the lower-GWP half of the pool); every ablation removes one component.
-METHODS_FULL_PROMPT = {
-    "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="dynamic",
-                         rag_format="text", rag_low_gwp_half=True),
-    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True, rag_mode="dynamic",
-                         rag_format="text", rag_low_gwp_half=True, use_directional_hints=False),
-    "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False, rag_mode="none",
-                         use_directional_hints=False),
-    "no_rag":       dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="static"),
-    "rag_tabular":  dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="dynamic",
-                         rag_format="tabular", rag_low_gwp_half=True),
-}
-
 
 def scenarios():
     return {f"s{s}_{'dur' if d else 'nodur'}": (s, d) for s in STRENGTHS for d in (False, True)}

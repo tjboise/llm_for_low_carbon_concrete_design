@@ -87,7 +87,6 @@ class ExperimentConfig:
     use_knowledge_table: bool = True
     use_situation_rules: bool = True
     use_directional_hints: bool = True   # prescriptive advice in feedback, retry, restart and first-turn messages
-    rag_low_gwp_half: bool = False       # retrieve only from the lower-GWP half of the candidate pool
     rag_mode: str = "static"           # "static" | "dynamic" | "none"
     rag_k: int = 5
     rag_format: str = "tabular"        # "tabular" | "text"
@@ -937,8 +936,7 @@ def run_llm(spec: Spec, cfg: ExperimentConfig, ga_ref: dict, few_shot: list,
     pool = None
     if cfg.rag_mode == "dynamic":
         pool = _pool(spec, cfg)
-        if cfg.rag_low_gwp_half:
-            pool = pool[pool["gwp"] <= pool["gwp"].median()]   # neighbours come from the lower-GWP half
+
     stats = {"api_calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "llm_time_s": 0.0,
              "surrogate_evals": 0, "parse_fails": 0, "restarts": 0}
 

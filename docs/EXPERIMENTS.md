@@ -53,18 +53,10 @@ python utils/model_comparison.py && python utils/sensitivity.py && python utils/
    strength is given (28-day R2 0.88 vs 0.69, CatBoost). With predicted previous-stage strength (deployment) it is
    0.68, i.e. no advantage. The paper's headline R2 (stage-wise, true input) must state this premise.
 
-## Main results and archive (updated)
-The paper figures use the experiments **without the chloride constraint** (`results/llm`, `results/ga`, `results/summary`, scenario `s50_nodur`
+## Main results
+The paper figures use the experiments **without the chloride constraint** (`results/llm`, `results/ga`, `results/summary`; scenario `s50_nodur`
 for the single-scenario figures; runs 3-7 per cell). Methods: `METHODS` in `run_experiment.py` (baseline = knowledge + situation rules +
-static few-shot; RAG variants replace the static examples with retrieval).
-
-The chloride constraint was explored in three attempts. They are kept in `results/archive/` and are not used for the paper figures:
-1. Binary chloride model, pass probability >= 0.7 (scenarios `*_dur` inside `results/llm`, same runs as above).
-2. Full prompt (knowledge + rules + static few-shot + RAG text from the lower-GWP half of the pool), 4-class chloride model,
-   threshold 0.7: `results/archive/threshold_0.7`. Success rate of the full prompt: 1/13 runs.
-3. Same with threshold 0.6: `results/archive/chloride_v3_fullprompt_thr0.6` (`METHODS_FULL_PROMPT`, `run_until_success.py`).
-   Five successful runs per method (success = at least five feasible solutions). Full prompt OGR 0.245 +- 0.111 (success rate 50%),
-   no knowledge 0.144 +- 0.082 (100%), zero-shot 0.787 +- 0.296 (62%), no RAG 0.254 +- 0.208 (50%), RAG tabular 0.229 +- 0.085 (100%).
-   Only the zero-shot difference was significant (p = 0.008).
-The current chloride model in `models/` is the 4-class model (threshold 0.6 in `data/constraints.json`); the binary model of attempt 1
-is no longer in the repository, so the `*_dur` scenarios of `results/llm` cannot be re-evaluated with it.
+static few-shot; the RAG variants replace the static examples with retrieval).
+The `*_dur` scenarios in `results/llm` (chloride constraint) come from the first experiment series, made with a binary chloride model
+(pass probability >= 0.7). The chloride model in `models/` was later replaced by a 4-class model (threshold 0.6 in `data/constraints.json`),
+so those `*_dur` results cannot be re-evaluated with the current model.
