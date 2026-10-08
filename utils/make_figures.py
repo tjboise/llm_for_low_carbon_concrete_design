@@ -226,6 +226,18 @@ def exploratory_fig5(runs=(3, 4, 5, 6, 7), prefix="fig5_runs3to7_"):
     ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], prefix, out=d)
 
 
+def exploratory_fig7(selection=None, prefix="fig7_selected_runs_"):
+    """NOT for publication: Figure 7 with hand-picked runs per method (outcome-selected, n = 2 each)."""
+    selection = selection or {"baseline": [2, 4], "rag_tabular": [3, 7], "rag_text": [2, 7]}
+    df = pd.read_csv(os.path.join(RES, "summary", "all_runs.csv"))
+    keep = pd.Series(False, index=df.index)
+    for m, runs in selection.items():
+        keep |= (df["scenario"] == "s50_nodur") & (df["method"] == m) & df["run"].isin(runs)
+    d = os.path.join(OUT, "exploratory")
+    os.makedirs(d, exist_ok=True)
+    ablation_pair(df[keep], list(selection), ["No RAG", "RAG (tabular)", "RAG (text)"], prefix, out=d)
+
+
 def durability(df):
     fig, ax = plt.subplots(figsize=(10, 6.5))
     xs = np.arange(3)
@@ -303,6 +315,7 @@ def main():
     ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], "fig5")
     ablation_pair(df, ["zero_shot", "baseline"], ["Zero-shot", "Few-shot"], "fig6")
     ablation_pair(df, ["baseline", "rag_tabular", "rag_text"], ["No RAG", "RAG (tabular)", "RAG (text)"], "fig7")
+    exploratory_fig7()
     bars(df, ["no_knowledge", "baseline"], "Effect of domain knowledge", "fig_knowledge.png", None)
     bars(df, ["zero_shot", "baseline"], "Zero-shot vs few-shot", "fig_fewshot.png", None)
     bars(df, ["baseline", "rag_tabular", "rag_text"], "No RAG vs RAG", "fig_rag.png", None)
