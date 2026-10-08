@@ -1,0 +1,35 @@
+Experiment: rag_tabular   rag_tabular | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 5
+  n_feasible            : 5
+  surrogate_evals       : 50
+  rcalls                : 0.0025
+  api_calls             : 50
+  prompt_tokens         : 1068741
+  completion_tokens     : 14940
+  llm_time_s            : 46.79
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4659
+  QER                   : 0.3998
+  MCE                   : 0.0659
+  best_gwp              : 199.24
+  ga_gwp                : 135.92
+  gwp_gap               : 63.32
+  convergence_iter      : 4
+  str_margin_at_best    : 11.39
+  feasibility_rate      : 0.1
+  scenario              : s50_dur
+  method                : rag_tabular
+  run                   : 8
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=219.23 28d=61.6 (exploit): Strength (57.6 MPa) and Vfinal (0.999) are now satisfactory. However, chloride pass probability is still slightly below the 0.7 threshold (0.65). To fix this, I will increase the SC content by 20 kg/m³ to 260 kg/m³ and decrease WATER by 2 kg/m³ to 138 kg/m³. This will increase the SCM% and lower the w/b ratio, both beneficial for chloride resistance, while minimally impacting strength and GWP.
+[2] GWP=205.12 28d=61.7 (exploit): The current mix is feasible but GWP has not improved. Strength is well above the floor (margin +11.61 MPa), allowing for GWP reduction. To significantly lower GWP, I will reduce PC by 18 kg/m³ (from 138 to 120) and increase SC by 18 kg/m³ (from 260 to 278). This swap saves ~14.1 kg CO₂/m³ (18 * 0.784). I will also slightly reduce WATER by 2 kg/m³ to 136 kg/m³ to help maintain strength. The other components remain unchanged for now.
+[3] GWP=200.41 28d=61.4 (exploit): The SC% constraint (0.7186) is still violated. To rectify this, I will reduce SC by a small amount, 2 kg/m³ (from 286 to 284), and increase PC by 2 kg/m³ (from 112 to 114). This adjustment should bring the SC% back within the allowed range. The GWP will increase slightly, but the primary goal is to ensure feasibility. Strength and chloride resistance are expected to remain satisfactory.
+[4] GWP=199.24 28d=61.4 (exploit): The SC% constraint (0.7186) is still violated. To address this, I will reduce SC by 0.5 kg/m³ (from 286 to 285.5) and increase PC by 0.5 kg/m³ (from 112 to 112.5). This very small adjustment should bring SC% within the allowed limit. The GWP impact will be minimal. Strength and chloride resistance are expected to remain satisfactory.
+[5] GWP=199.24 28d=61.5 (exploit): The SC% constraint (0.7186) is still violated. To correct this, I will reduce SC by 0.5 kg/m³ (from 286 to 285.5) and increase PC by 0.5 kg/m³ (from 112 to 112.5). This adjustment should bring the SC% within the allowed limit. The GWP will increase slightly, but feasibility is paramount. Strength and chloride resistance are expected to remain satisfactory.

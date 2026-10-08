@@ -1,0 +1,60 @@
+Experiment: rag_tabular   rag_tabular | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 30
+  n_feasible            : 30
+  surrogate_evals       : 123
+  rcalls                : 0.00615
+  api_calls             : 123
+  prompt_tokens         : 6760737
+  completion_tokens     : 25769
+  llm_time_s            : 145.49
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3105
+  QER                   : 0.3281
+  MCE                   : 0.2099
+  best_gwp              : 178.12
+  ga_gwp                : 135.92
+  gwp_gap               : 42.2
+  convergence_iter      : 5
+  str_margin_at_best    : 4.3
+  feasibility_rate      : 0.2439
+  scenario              : s50_dur
+  method                : rag_tabular
+  run                   : 11
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=218.48 28d=51.3 (exploit): Vfinal is slightly too low (0.946). I will add 11 kg of aggregate, split between FAGG and CAGG, to bring Vfinal to just above the 0.95 threshold. This small addition will not significantly impact strength, GWP, or chloride resistance, which are currently within bounds.
+[2] GWP=209.11 28d=51.1 (exploit): Vfinal is still slightly low at 0.945. To correct this, I will add 13 kg of aggregate, split between FAGG and CAGG, to bring Vfinal to 0.95. This small adjustment will not significantly impact strength, GWP, or chloride resistance, which are currently satisfactory.
+[3] GWP=193.47 28d=52.2 (exploit): The current mix has Vfinal at 0.9499, which is slightly below the 0.95 floor. To fix this, I will increase aggregate by adding 1 kg to both FAGG and CAGG. The strength margin is reasonable (+1.76 MPa). I will then attempt to reduce PC by another 10 kg and increase SC by 10 kg to lower GWP further.
+[4] GWP=180.94 28d=54.6 (exploit): Vfinal is at 0.9499, just below the 0.95 floor. I will increase the aggregate content by adding 1 kg to both FAGG and CAGG to bring Vfinal above 0.95. The strength margin is good (+3.15 MPa), and GWP is low. I will then attempt to further reduce PC by 8 kg and increase SC by 8 kg to decrease GWP.
+[5] GWP=178.12 28d=54.3 (exploit): The current mix is feasible and has a good GWP of 180.94 kg. The strength margin is comfortable (+4.57 MPa). To push GWP lower, I will reduce PC by 8 kg and increase SC by 8 kg. I will also slightly decrease WATER by 2 kg to maintain strength and chloride resistance.
+[6] GWP=180.23 28d=55.3 (exploit): The current mix is feasible and GWP has been reduced to 178.12 kg/m³. The strength margin is still adequate (+4.30 MPa). To further decrease GWP, I will swap 8 kg of PC for SC. I will also slightly reduce WATER by 2 kg to maintain strength and chloride resistance.
+[7] GWP=182.34 28d=56.4 (exploit): GWP increased in the last iteration, which is undesirable. The strength margin is good. To reduce GWP, I will swap 8 kg of PC for SC. I will also slightly reduce WATER by 2 kg to maintain strength and improve chloride resistance, aiming to bring GWP down from the previous iteration's increase.
+[8] GWP=184.46 28d=57.7 (exploit): GWP increased in the last iteration. The strength margin is good. To reduce GWP, I will swap 8 kg of PC for SC. I will also slightly reduce WATER by 2 kg to maintain strength and chloride resistance, aiming to bring GWP down and avoid the previous iteration's increase.
+[9] GWP=186.57 28d=58.3 (exploit): GWP increased again. The strength margin is good. To reduce GWP, I will swap 8 kg of PC for SC. I will also slightly reduce WATER by 2 kg to maintain strength and chloride resistance, aiming to reverse the GWP increase and move towards the minimum.
+[10] GWP=189.21 28d=58.2 (exploit): GWP has increased for the third consecutive iteration. The strength margin is now quite comfortable (+8.3 MPa). I will reduce PC by 10 kg and increase SC by 10 kg to lower GWP. I will also slightly decrease WATER by 2 kg to maintain strength and chloride resistance, aiming to reverse the GWP increase.
+[11] GWP=191.32 28d=58.1 (exploit): GWP has increased for the fourth consecutive iteration. The strength margin is still comfortable. I will reduce PC by 8 kg and increase SC by 8 kg. I will also reduce WATER by 2 kg to maintain strength and chloride resistance, aiming to reverse the GWP increase and get closer to the minimum found at iteration 5.
+[12] GWP=193.43 28d=58.0 (exploit): GWP has increased for the fifth consecutive iteration. The strength margin is still comfortable. I will swap 8 kg of PC for SC. I will also slightly reduce WATER by 2 kg to maintain strength and chloride resistance, aiming to reverse the GWP increase and get closer to the minimum.
+[13] GWP=203.38 28d=59.2 (exploit): The SCM% (0.7680) and PC% (0.2320) are outside their allowed bounds. I need to adjust the binder composition. I will reduce SC by 10 kg and increase PC by 10 kg to bring SCM% and PC% within limits. This will slightly increase GWP. Water remains unchanged to maintain strength.
+[14] GWP=200.74 28d=58.5 (exploit): The w/b ratio (0.2290), SCM% (0.7680), and PC% (0.2320) are out of bounds. I will first increase WATER by 3 kg to bring w/b within limits. Then, I will swap 10 kg of SC for PC to address the SCM% and PC% violations. This will slightly increase GWP and strength.
+[15] GWP=194.47 28d=59.1 (exploit): GWP has decreased in this iteration, which is positive. The strength margin is ample. I will swap 8 kg of PC for SC to further reduce GWP. I will also slightly reduce WATER by 2 kg to maintain strength and chloride resistance, aiming to continue the downward trend in GWP.
+[16] GWP=193.96 28d=58.5 (exploit): The SCM% (0.7652) and PC% (0.2348) are still slightly out of bounds. I will swap another 1 kg of SC for PC to correct this. This will slightly increase GWP and strength but ensure feasibility.
+[17] GWP=197.64 28d=59.7 (exploit): The w/b ratio (0.2350), SCM% (0.7691), and PC% (0.2309) are out of bounds. I will increase WATER by 1 kg to bring w/b above 0.2353. Then, I will swap 2 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength.
+[18] GWP=198.16 28d=59.7 (exploit): The SCM% and PC% are out of bounds. I need to adjust the binder composition. I will reduce SC by 2 kg and increase PC by 2 kg to correct the violations. This should also reduce GWP slightly and ensure feasibility.
+[19] GWP=197.38 28d=59.7 (exploit): The SCM% (0.7661) and PC% (0.2339) are out of bounds. I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength, while keeping water constant.
+[20] GWP=199.74 28d=60.0 (exploit): The w/b ratio (0.2339) is still slightly too low. I will increase WATER by 1 kg to bring it within the acceptable range. Other constraints are met. This adjustment will slightly increase GWP.
+[21] GWP=201.32 28d=59.2 (exploit): The w/b ratio (0.2339) is still slightly too low. I will increase WATER by 1 kg to bring it within the acceptable range. Other constraints are met. This adjustment will slightly increase GWP.
+[22] GWP=198.96 28d=59.9 (exploit): The SCM% (0.7654) and PC% (0.2346) are out of bounds. I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength, while keeping water constant.
+[23] GWP=199.49 28d=60.0 (exploit): The w/b ratio (0.2351), SCM% (0.7665), and PC% (0.2335) are out of bounds. I will increase WATER by 1 kg to bring w/b above 0.2353. Then, I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength.
+[24] GWP=198.96 28d=59.9 (exploit): The SCM% (0.7654) and PC% (0.2346) are out of bounds. I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength, while keeping water constant.
+[25] GWP=198.96 28d=59.9 (exploit): The SCM% (0.7654) and PC% (0.2346) are out of bounds. I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength, while keeping water constant.
+[26] GWP=205.24 28d=59.1 (exploit): The w/b ratio (0.2346) is still slightly too low. I will increase WATER by 1 kg to bring it within the acceptable range. Other constraints are met. This adjustment will slightly increase GWP.
+[27] GWP=200.28 28d=60.0 (exploit): The w/b ratio (0.2335), SCM% (0.7658), and PC% (0.2342) are out of bounds. I will increase WATER by 1 kg to bring w/b above 0.2353. Then, I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength.
+[28] GWP=200.28 28d=60.0 (exploit): The w/b ratio (0.2340), SCM% (0.7653), and PC% (0.2347) are out of bounds. I will increase WATER by 1 kg to bring w/b above 0.2353. Then, I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength.
+[29] GWP=198.96 28d=59.9 (exploit): The w/b ratio (0.2339) is still slightly too low. I will increase WATER by 1 kg to bring it within the acceptable range. Other constraints are met. This adjustment will slightly increase GWP.
+[30] GWP=199.49 28d=60.0 (exploit): The SCM% (0.7665) and PC% (0.2335) are out of bounds. I will swap 1 kg of SC for PC to correct the SCM% and PC% violations. This will slightly increase GWP and strength, while keeping water constant.

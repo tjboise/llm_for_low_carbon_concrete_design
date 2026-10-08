@@ -1,0 +1,41 @@
+Experiment: rag_text   rag_text | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 11
+  n_feasible            : 11
+  surrogate_evals       : 60
+  rcalls                : 0.003
+  api_calls             : 60
+  prompt_tokens         : 1862470
+  completion_tokens     : 15459
+  llm_time_s            : 58.93
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.563
+  QER                   : 1.8702
+  MCE                   : 0.1201
+  best_gwp              : 212.44
+  ga_gwp                : 135.92
+  gwp_gap               : 76.52
+  convergence_iter      : 11
+  str_margin_at_best    : 15.27
+  feasibility_rate      : 0.1833
+  scenario              : s50_dur
+  method                : rag_text
+  run                   : 10
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=324.65 28d=74.5 (exploit): The mix was infeasible due to Vfinal being slightly too high. Strength (74.4 MPa), GWP (324.7 kg CO₂-eq/m³), and chloride probability (0.71) are now acceptable. To fix Vfinal: Reduced aggregate (FAGG and CAGG) by 25 kg/m³. This also slightly lowers the b/a ratio, which is beneficial. The focus is on bringing Vfinal within the acceptable range while maintaining feasibility across all other constraints.
+[2] GWP=303.69 28d=74.2 (exploit): The mix is now feasible, but GWP has stalled. Strength is well above the minimum. To reduce GWP, I will reduce PC by 20 kg/m³ and increase SC by the same amount, pushing SC towards its upper bound and maximizing SCM%. This swap significantly lowers GWP. Water and aggregates are kept constant to maintain strength and volume. ACC remains to support strength. This is a significant step towards lower GWP while staying within bounds and feasible.
+[3] GWP=282.73 28d=73.9 (exploit): The mix is feasible and GWP has decreased significantly. Strength is adequate. SC is at its maximum bound. To further reduce GWP, I will reduce PC by another 20 kg/m³. Since SC cannot be increased, this reduction will slightly lower the overall binder content and strength margin, but also reduce GWP. Water and aggregates are kept constant. This strategy focuses on GWP reduction by lowering PC, the primary GWP contributor, while remaining feasible.
+[4] GWP=267.01 28d=73.9 (exploit): The mix is feasible and GWP has decreased further. Strength is still adequate, and SC is at its maximum. To reduce GWP, I will decrease PC by another 15 kg/m³. This will slightly lower the binder content and strength margin, while further reducing GWP. Water and aggregates remain unchanged to maintain stability and feasibility. This continues the strategy of reducing the primary GWP contributor (PC) while staying within bounds and feasible.
+[5] GWP=251.29 28d=73.8 (exploit): The mix is feasible and GWP has decreased further. Strength is adequate, and SC is maxed out. To reduce GWP, I will decrease PC by another 15 kg/m³. This will lower the binder content and strength margin, while further reducing GWP. Water and aggregates remain unchanged. This strategy continues to reduce the primary GWP contributor (PC) while maintaining feasibility.
+[6] GWP=235.57 28d=74.3 (exploit): The mix is feasible and GWP has decreased further. Strength is adequate, and SC is maxed out. To reduce GWP, I will decrease PC by another 15 kg/m³. This will lower the binder content and strength margin, while further reducing GWP. Water and aggregates remain unchanged to maintain stability and feasibility. This continues the strategy of reducing the primary GWP contributor (PC) while staying within bounds and feasible.
+[7] GWP=227.69 28d=71.7 (exploit): The mix is infeasible due to SCM% and PC% bounds violations. Strength (71.7 MPa), GWP (219.8 kg CO₂-eq/m³), and chloride probability (0.78) are acceptable. To fix: 1. SCM%/PC%: Decreased SC by 10 kg/m³ to bring SCM% below its limit. Increased PC by 10 kg/m³ to bring PC% above its limit. This swap maintains total binder content and volume, while ensuring bounds are met. The focus is on satisfying the violated ratio constraints.
+[8] GWP=223.48 28d=72.2 (exploit): The mix is infeasible due to SCM% and PC% bounds violations. Strength (72.2 MPa), GWP (217.2 kg CO₂-eq/m³), and chloride probability (0.78) are acceptable. To fix: Decreased SC by 8 kg/m³ to bring SCM% below its limit. Increased PC by 8 kg/m³ to bring PC% above its limit. This swap maintains total binder content and volume, while ensuring bounds are met. The focus is on satisfying the violated ratio constraints.
+[9] GWP=218.49 28d=72.7 (exploit): The mix is infeasible due to SCM% and PC% bounds violations. Strength (72.7 MPa), GWP (213.0 kg CO₂-eq/m³), and chloride probability (0.79) are acceptable. To fix: Decreased SC by 7 kg/m³ to bring SCM% below its limit. Increased PC by 7 kg/m³ to bring PC% above its limit. This swap maintains total binder content and volume, while ensuring bounds are met. The focus is on satisfying the violated ratio constraints.
+[10] GWP=216.12 28d=69.3 (exploit): The mix is infeasible due to SCM% and PC% bounds violations. Strength (66.5 MPa), GWP (213.5 kg CO₂-eq/m³), and chloride probability (0.76) are acceptable. To fix: Decreased SC by 2 kg/m³ to bring SCM% below its limit. Increased PC by 2 kg/m³ to bring PC% above its limit. This swap maintains total binder content and volume, while ensuring bounds are met. The focus is on satisfying the violated ratio constraints.
+[11] GWP=212.44 28d=65.3 (exploit): The mix is infeasible due to SCM% and PC% bounds violations. Strength (65.5 MPa), GWP (211.1 kg CO₂-eq/m³), and chloride probability (0.76) are acceptable. To fix: Decreased SC by 1 kg/m³ to bring SCM% below its limit. Increased PC by 1 kg/m³ to bring PC% above its limit. This swap maintains total binder content and volume, while ensuring bounds are met. The focus is on satisfying the violated ratio constraints.
