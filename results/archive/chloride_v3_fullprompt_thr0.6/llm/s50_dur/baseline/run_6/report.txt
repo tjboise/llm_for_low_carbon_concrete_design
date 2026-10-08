@@ -1,0 +1,32 @@
+Experiment: baseline   baseline | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 2
+  n_feasible            : 2
+  surrogate_evals       : 51
+  rcalls                : 0.00255
+  api_calls             : 51
+  prompt_tokens         : 1019671
+  completion_tokens     : 12358
+  llm_time_s            : 48.68
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.4788
+  QER                   : 0.2306
+  MCE                   : 0.1402
+  best_gwp              : 199.14
+  ga_gwp                : 134.66
+  gwp_gap               : 64.48
+  convergence_iter      : 2
+  str_margin_at_best    : 10.06
+  feasibility_rate      : 0.0392
+  scenario              : s50_dur
+  method                : baseline
+  run                   : 6
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=210.90 28d=58.4 (exploit): The chloride pass probability is still below the threshold. I've hit the lower bound for WATER. To improve chloride resistance further, I will increase SC and consider adding WR_HR to allow for a potentially lower effective water content or maintain workability at this low WATER level. Increasing SC will increase GWP. PC and ACC remain constant to maintain strength.
+[2] GWP=199.14 28d=60.1 (exploit): The mix is now feasible as chloride pass probability is exactly 0.60. However, the problem statement specifies 'Chloride pass probability 0.60 < 0.6', which implies it should be strictly greater than 0.6. To achieve this and to aim for lower GWP, I will slightly increase SC and decrease WATER. This will push the probability higher and might allow further GWP reduction. PC and ACC remain constant to ensure strength, and WR_HR is kept for workability.

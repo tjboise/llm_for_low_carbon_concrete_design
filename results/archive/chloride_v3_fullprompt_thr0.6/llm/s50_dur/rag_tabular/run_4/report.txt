@@ -1,0 +1,38 @@
+Experiment: rag_tabular   rag_tabular | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 55
+  rcalls                : 0.00275
+  api_calls             : 56
+  prompt_tokens         : 545056
+  completion_tokens     : 13585
+  llm_time_s            : 58.01
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.1984
+  QER                   : 0.0
+  MCE                   : 0.1452
+  best_gwp              : 161.38
+  ga_gwp                : 134.66
+  gwp_gap               : 26.72
+  convergence_iter      : 1
+  str_margin_at_best    : 3.92
+  feasibility_rate      : 0.1455
+  scenario              : s50_dur
+  method                : rag_tabular
+  run                   : 4
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=161.38 28d=53.9 (exploit): Chloride pass probability (0.59) is still just below the 0.6 requirement. To push it over, I've increased SC to 200 kg/m³ (SCM% = 200/291 = 68.7%) and further reduced WATER to 82.11 kg/m³. PC remains at its minimum bound. ACC is reduced to 9 kg/m³ to ensure ACC_pct remains within limits. These adjustments prioritize improving chloride resistance.
+[2] GWP=166.66 28d=56.6 (exploit): The current mix is feasible, but GWP has not improved. The chloride probability is at the limit (0.60), so I will not reduce SC. I will increase SC by 20 kg/m³ (to 220 kg/m³) and slightly reduce WATER to 88.55 kg/m³ to maintain chloride resistance and strength, as well as slightly decrease ACC to 8 kg/m³ to keep ACC_pct in bounds. This is a controlled move to increase SC and thus GWP, but with the aim of finding a better compromise.
+[3] GWP=182.34 28d=55.8 (exploit): The GWP increased significantly in the last iteration, moving away from the objective. The current mix is feasible. To reduce GWP, I will swap 20 kg/m³ of SC for PC (reducing SC to 200 kg/m³ and increasing PC to 117.297 kg/m³) and simultaneously reduce WATER by 5 kg/m³ to 85.77 kg/m³ to compensate for strength loss and maintain chloride resistance. ACC is increased to 9 kg/m³ to further support strength.
+[4] GWP=166.66 28d=55.4 (exploit): GWP increased again, and the mix is still feasible. I will try to lower GWP by swapping 20 kg/m³ of PC back to SC (increasing SC to 220 kg/m³ and decreasing PC to 97.297 kg/m³). I will also reduce WATER by 5 kg/m³ to 85.77 kg/m³ to compensate for strength loss and maintain chloride resistance. ACC is increased to 10 kg/m³ to help with strength. This strategy aims to decrease GWP by favoring SC over PC.
+[5] GWP=171.94 28d=56.2 (exploit): GWP decreased, which is positive. The current mix is feasible. To further reduce GWP, I will increase SC by 20 kg/m³ (to 240 kg/m³) and decrease WATER by 5 kg/m³ to 85.77 kg/m³ to maintain chloride resistance and strength. ACC is increased to 11 kg/m³ to support strength. This continues the strategy of increasing SC and decreasing WATER to lower GWP while maintaining feasibility.
+[6] GWP=171.94 28d=56.2 (exploit): Chloride pass probability (0.59) is still just below the 0.6 target. To address this, I've increased SC to 240 kg/m³ (SCM% = 240/357.297 = 67.2%) and reduced WATER to 83.55 kg/m³. PC is at its minimum bound. ACC is decreased to 11 kg/m³ to keep ACC_pct within bounds. These adjustments focus on improving chloride resistance while maintaining strength and other constraints. The GWP has increased, but meeting the chloride constraint is prioritized.
+[7] GWP=192.90 28d=57.0 (exploit): The SC% constraint (0.7277) is violated. To fix this, I need to reduce SC. I'll decrease SC by 20 kg/m³ (to 240 kg/m³) and increase PC by 20 kg/m³ (to 117.297 kg/m³) to maintain binder content and strength. WATER is also increased by 5 kg/m³ to 90.771 kg/m³ to ensure strength and chloride resistance, and ACC is maintained at 12 kg/m³.
+[8] GWP=192.90 28d=56.7 (exploit): The SC% constraint (0.7277) is violated. I will decrease SC by 20 kg/m³ to 240 kg/m³ and increase PC by 20 kg/m³ to 117.297 kg/m³ to maintain the binder content and strength. WATER is increased by 5 kg/m³ to 90.771 kg/m³ to ensure strength and chloride resistance, and ACC is maintained at 14 kg/m³ to support strength.

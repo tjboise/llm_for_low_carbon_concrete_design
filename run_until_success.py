@@ -47,7 +47,7 @@ def successes(method):
 
 def write_selection():
     rows = []
-    for m in rx.METHODS:
+    for m in rx.METHODS_FULL_PROMPT:
         runs = existing_runs(m)
         succ = [(i, x) for i, x in runs if x["n_feasible"] >= MIN_FEASIBLE]
         chosen = {i for i, _ in succ[:TARGET_SUCCESSES]}
@@ -68,11 +68,12 @@ def main():
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--max-runs", type=int, default=30)
     a = ap.parse_args()
+    rx.METHODS = rx.METHODS_FULL_PROMPT          # run_one reads the method definitions from run_experiment
     spec = oc.Spec()
     lock = threading.Lock()
     while True:
         jobs = []
-        for m in rx.METHODS:
+        for m in rx.METHODS_FULL_PROMPT:
             runs = existing_runs(m)
             need = TARGET_SUCCESSES - len(successes(m))
             nxt = (max((i for i, _ in runs), default=0)) + 1

@@ -1,0 +1,38 @@
+Experiment: baseline   baseline | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 8
+  n_feasible            : 8
+  surrogate_evals       : 68
+  rcalls                : 0.0034
+  api_calls             : 68
+  prompt_tokens         : 2131591
+  completion_tokens     : 16918
+  llm_time_s            : 69.14
+  parse_fails           : 0
+  restarts              : 0
+  OGR                   : 0.3076
+  QER                   : 0.0
+  MCE                   : 0.0342
+  best_gwp              : 176.08
+  ga_gwp                : 134.66
+  gwp_gap               : 41.42
+  convergence_iter      : 1
+  str_margin_at_best    : 8.72
+  feasibility_rate      : 0.1176
+  scenario              : s50_dur
+  method                : baseline
+  run                   : 4
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=176.08 28d=58.7 (exploit): The mix is infeasible due to insufficient chloride pass probability (0.58). PC is at its minimum, and WATER is at its minimum. To improve chloride resistance, I will increase SC and FA further, while maintaining PC at its minimum and keeping WATER at its minimum. The GWP will likely increase due to more SC and FA. Vfinal is within bounds.
+[2] GWP=176.93 28d=58.8 (exploit): All constraints are now met (28d strength >= 50 MPa, chloride pass probability >= 0.6, Vfinal within bounds). The current GWP is 176.08 kg CO₂/m³. To reduce GWP, I will increase SC by reducing PC (at its minimum) and slightly increase FA to maintain chloride resistance, while keeping WATER at its minimum. This 'Path 1' strategy aims to swap PC for SC/FA. The target is a significant GWP reduction of at least 12-18 kg/m³.
+[3] GWP=177.06 28d=58.8 (exploit): GWP has increased, which is undesirable. All constraints are met. To reduce GWP, I will swap PC for SC. PC is at its minimum, so this will involve a slight decrease in PC and an increase in SC. I will also slightly increase FA to maintain chloride resistance. WATER is at its minimum, so no reduction is possible. This 'Path 1' strategy of substituting PC with SC/FA should lower GWP.
+[4] GWP=177.25 28d=58.8 (exploit): GWP has increased slightly, and we are not seeing significant GWP reduction. All constraints are met. To achieve a larger GWP reduction, I will further increase SC by decreasing PC (at its minimum) and simultaneously increase FA to maintain chloride resistance. WATER remains at its minimum. This 'Path 1' strategy of maximizing SC and FA substitution for PC aims for a substantial GWP decrease. The target is a reduction of at least 12-18 kg/m³ from the current GWP.
+[5] GWP=176.08 28d=58.7 (exploit): GWP is increasing slightly, and we are not achieving significant reductions. All constraints are met. To achieve a larger GWP reduction, I will further increase SC by decreasing PC (at its minimum) and simultaneously increase FA to maintain chloride resistance. WATER is at its minimum. The current strategy of maximizing SC and FA substitution is not yielding substantial GWP decreases. I will try to push SC further at the expense of FA to see if that reduces GWP while maintaining feasibility.
+[6] GWP=176.93 28d=58.8 (exploit): GWP has decreased, and all constraints are met. To further reduce GWP, I will continue to swap PC for SC and FA. PC is at its minimum, so this involves decreasing SC and increasing FA. WATER is at its minimum. The goal is to find the optimal balance between SC and FA substitution for PC to achieve the lowest possible GWP while maintaining strength and chloride resistance. This 'Path 1' strategy aims for further GWP reduction.
+[7] GWP=177.25 28d=58.8 (exploit): GWP has increased again, which is undesirable. All constraints are met. To reduce GWP, I will swap PC for SC. PC is at its minimum, so this involves decreasing SC and increasing FA. WATER is at its minimum. I will try to decrease SC and increase FA again, as the previous step increased GWP. The goal is to find a balance that reduces GWP and maintains performance.
+[8] GWP=176.08 28d=58.7 (exploit): GWP is increasing slightly and not showing significant reduction. All constraints are met. To achieve a larger GWP reduction, I will continue to swap PC for SC and FA. PC is at its minimum. I will try to increase SC further by decreasing FA, aiming for a lower GWP. WATER is at its minimum. The goal is to find an optimal balance between SC and FA substitution for PC. This 'Path 1' strategy aims for further GWP reduction.

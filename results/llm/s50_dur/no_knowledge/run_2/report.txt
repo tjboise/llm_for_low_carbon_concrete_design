@@ -1,25 +1,25 @@
 Experiment: no_knowledge   no_knowledge | s50_dur
 strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
 ------------------------------------------------------------
-  total_iters           : 30
-  n_feasible            : 30
-  surrogate_evals       : 55
-  rcalls                : 0.00275
-  api_calls             : 55
-  prompt_tokens         : 2223665
-  completion_tokens     : 12580
-  llm_time_s            : 51.89
+  total_iters           : 5
+  n_feasible            : 5
+  surrogate_evals       : 41
+  rcalls                : 0.00205
+  api_calls             : 42
+  prompt_tokens         : 255858
+  completion_tokens     : 8264
+  llm_time_s            : 43.16
   parse_fails           : 0
-  restarts              : 0
-  OGR                   : 0.0885
-  QER                   : 0.4082
-  MCE                   : 0.2879
-  best_gwp              : 146.58
-  ga_gwp                : 134.66
-  gwp_gap               : 11.92
-  convergence_iter      : 25
-  str_margin_at_best    : 0.56
-  feasibility_rate      : 0.5455
+  restarts              : 2
+  OGR                   : 0.2436
+  QER                   : 0.0
+  MCE                   : 0.1417
+  best_gwp              : 169.03
+  ga_gwp                : 135.92
+  gwp_gap               : 33.11
+  convergence_iter      : 1
+  str_margin_at_best    : 3.62
+  feasibility_rate      : 0.122
   scenario              : s50_dur
   method                : no_knowledge
   run                   : 2
@@ -28,33 +28,8 @@ strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
   model                 : gemini-2.5-flash-lite
 ------------------------------------------------------------
 Reasoning log:
-[1] GWP=169.03 28d=53.6 (exploit): Starting optimisation. Initialising with a low-GWP mix from the dataset that meets all constraints. This mix uses a significant amount of SC, has a moderate water-to-binder ratio, and is within all bounds. It serves as a baseline for further refinement.
-[2] GWP=173.25 28d=51.5 (exploit): The mix remains infeasible due to insufficient strength (49.5 MPa). To address this, I will increase PC by a small amount and increase WR_HR. This aims to boost strength without a significant GWP increase. I'll also slightly reduce water to further aid strength, targeting the 'Strength close to floor' strategy.
-[3] GWP=171.73 28d=51.7 (exploit): The current mix is feasible with a strength margin of 1.46 MPa and GWP of 173.25 kg CO₂/m³. This is higher than the best GWP so far (169.03 kg CO₂/m³). To reduce GWP, I will try to decrease PC and increase SC, similar to the first attempt, but I will also slightly reduce water and increase WR_HR to maintain strength. The goal is to move back towards the lower GWP of the initial mix while staying above the strength floor.
-[4] GWP=172.79 28d=53.3 (exploit): The current mix is feasible with a strength margin of 1.68 MPa and GWP of 171.73 kg CO₂/m³. This is an improvement over the previous iteration. However, it's still higher than the best GWP of 169.03 kg CO₂/m³. I will attempt to slightly reduce the PC (at its lower bound) and increase SC, while also decreasing water and increasing WR_HR to maintain strength and improve the w/b ratio.
-[5] GWP=172.26 28d=53.2 (exploit): The current mix is feasible, showing increased strength (53.26 MPa) but a slight increase in GWP (172.79 kg CO₂/m³) compared to the previous iteration. It is still above the best GWP found so far (169.03 kg CO₂/m³). I will attempt to decrease SC slightly and increase PC (back to its lower bound), while also decreasing water to improve the w/b ratio. The ACC and WR_HR will be kept consistent.
-[6] GWP=179.31 28d=56.3 (exploit): The mix is infeasible due to SC% exceeding its bound (0.7277 vs 0.7174). To fix this, I will slightly decrease SC and increase PC to compensate for the strength loss, while keeping water and other admixtures constant. This adjustment aims to bring SC% back within limits while maintaining feasibility.
-[7] GWP=171.47 28d=53.4 (exploit): The current mix is feasible with good strength (56.34 MPa) and acceptable chloride probability, but the GWP (179.31 kg CO₂/m³) has increased significantly and is far from the best (169.03 kg CO₂/m³). To reduce GWP, I need to decrease the binder content, particularly PC. I will reduce PC and SC, and slightly reduce water to maintain strength. This is a strategy to move back towards lower binder content, similar to the initial low-GWP mix.
-[8] GWP=172.79 28d=53.0 (exploit): The current mix is feasible with a strength of 53.39 MPa and a GWP of 171.47 kg CO₂/m³. This is a good reduction from the previous iteration, but still higher than the best GWP of 169.03 kg CO₂/m³. To further reduce GWP, I will attempt to decrease PC further (to its lower bound), increase SC, and slightly reduce water to maintain strength. The WR_HR and ACC will be kept constant.
-[9] GWP=176.42 28d=56.1 (exploit): The mix is infeasible due to SC% exceeding its bound (0.7198 vs 0.7174). To correct this, I will slightly decrease SC and increase PC to maintain strength. This adjustment aims to bring SC% back within limits while minimally impacting GWP and strength.
-[10] GWP=171.47 28d=53.1 (exploit): The current mix is feasible, with good strength (56.13 MPa) and acceptable chloride probability. However, the GWP is 176.42 kg CO₂/m³, which is significantly higher than the best found so far (169.03 kg CO₂/m³). To reduce GWP, I will attempt to lower the binder content by decreasing PC (to its lower bound) and SC, while also reducing water to maintain strength. WR_HR and ACC remain to support performance.
-[11] GWP=170.15 28d=53.5 (exploit): The current mix is feasible with a strength of 53.10 MPa and GWP of 171.47 kg CO₂/m³. While GWP improved from the previous iteration, it's still above the best (169.03 kg CO₂/m³). The strength margin is acceptable. I will try to further reduce the binder by decreasing SC and PC (PC is at its lower bound), and slightly reducing water to maintain strength and improve the w/b ratio.
-[12] GWP=168.83 28d=53.8 (exploit): The current mix is feasible with a strength of 53.52 MPa and GWP of 170.15 kg CO₂/m³. This is a good GWP reduction, but still slightly above the best (169.03 kg CO₂/m³). The strength margin is adequate. To attempt to reach the historical best GWP, I will decrease SC slightly and increase PC (to its lower bound), while also decreasing water. WR_HR and ACC will be maintained.
-[13] GWP=169.83 28d=54.3 (exploit): The current mix is feasible and has achieved the lowest GWP so far (168.83 kg CO₂/m³). The strength (53.77 MPa) is adequate with a good margin. Since GWP is at a new minimum, I will try to maintain this GWP while slightly increasing strength if possible. I will slightly increase PC and SC, and maintain water and other admixtures to see if a marginal strength increase is possible without compromising GWP.
-[14] GWP=168.57 28d=53.9 (exploit): The current mix is feasible with a strength of 54.29 MPa and a GWP of 169.83 kg CO₂/m³. This is a slight increase in GWP from the previous iteration (168.83 kg CO₂/m³), which was the best so far. The strength margin is good. To attempt to lower GWP further, I will try reducing SC slightly and increasing PC (to its lower bound), while also slightly reducing water. This strategy aims to shift towards lower GWP components while maintaining strength.
-[15] GWP=166.19 28d=54.1 (exploit): The current mix is feasible with a GWP of 168.57 kg CO₂/m³, which is the best so far. Strength (53.86 MPa) is adequate. The optimizer flagged oscillation due to very similar recent proposals. To break this cycle and potentially lower GWP further, I will make a more significant change: decrease SC and increase PC (to its lower bound), while also decreasing water. This aims to reduce GWP by further shifting binder content, while WR_HR and ACC are maintained.
-[16] GWP=163.55 28d=53.1 (exploit): The current mix is feasible, achieving a new lowest GWP of 166.19 kg CO₂/m³ with adequate strength (54.06 MPa). To push GWP lower, I will continue to decrease SC and PC (PC is at its lower bound) and slightly reduce water, aiming to minimize binder content further while maintaining strength. WR_HR and ACC remain constant.
-[17] GWP=160.91 28d=52.7 (exploit): The current mix is feasible and has achieved a new lowest GWP of 163.55 kg CO₂/m³. Strength (53.13 MPa) is adequate. To attempt to lower GWP further, I will decrease SC and PC (PC is at its lower bound) and slightly reduce water. WR_HR and ACC remain constant. This continues the strategy of minimizing binder content.
-[18] GWP=158.27 28d=52.8 (exploit): The current mix has achieved a new lowest GWP of 160.91 kg CO₂/m³, with adequate strength (52.69 MPa). To try and lower GWP further, I will decrease SC and PC (PC is at its lower bound) and slightly reduce water. WR_HR and ACC remain constant. This continues the strategy of minimizing binder content.
-[19] GWP=155.63 28d=50.6 (exploit): The current mix has achieved a new lowest GWP of 158.27 kg CO₂/m³ with adequate strength (52.77 MPa). To attempt to lower GWP further, I will decrease SC and PC (PC is at its lower bound) and slightly reduce water. WR_HR and ACC remain constant. This continues the strategy of minimizing binder content.
-[20] GWP=152.99 28d=50.7 (exploit): The current mix has achieved a new lowest GWP of 155.63 kg CO₂/m³ with a strength of 50.59 MPa, which is very close to the minimum required. To attempt to lower GWP further, I will decrease SC and PC (PC is at its lower bound) and slightly reduce water. WR_HR and ACC remain constant. This continues the strategy of minimizing binder content.
-[21] GWP=150.35 28d=51.5 (exploit): The current mix has achieved a new lowest GWP of 152.99 kg CO₂/m³ with a strength of 50.66 MPa, which is very close to the minimum required. To attempt to lower GWP further, I will decrease SC and PC (PC is at its lower bound) and slightly reduce water. WR_HR and ACC remain constant. This continues the strategy of minimizing binder content.
-[22] GWP=147.71 28d=50.1 (exploit): The current mix has achieved a new lowest GWP of 150.35 kg CO₂/m³ with a strength of 51.47 MPa. To attempt to lower GWP further, I will decrease SC and PC (PC is at its lower bound) and slightly reduce water. WR_HR and ACC remain constant. This continues the strategy of minimizing binder content.
-[23] GWP=149.22 28d=50.7 (exploit): The mix is infeasible due to strength being exactly at the floor (50.0 MPa). To ensure it's above the 50 MPa threshold, I will slightly increase PC and SC, and also slightly increase water. This aims to boost strength while minimizing GWP increase. ACC and WR_HR are maintained.
-[24] GWP=147.90 28d=50.6 (exploit): The mix is infeasible due to low strength (49.8 MPa). To increase strength, I will increase PC and SC slightly, and also slightly increase water. This aims to boost strength while minimizing GWP increase. ACC and WR_HR are maintained. This is a slight increase in binder to recover strength.
-[25] GWP=146.58 28d=50.6 (exploit): The mix is infeasible due to low strength (49.9 MPa). To increase strength, I will increase PC and SC slightly, and also slightly increase water. This aims to boost strength while minimizing GWP increase. ACC and WR_HR are maintained. This is a slight increase in binder to recover strength.
-[26] GWP=147.37 28d=50.6 (exploit): The mix is infeasible due to low strength (49.4 MPa). To increase strength, I will increase PC and SC slightly, and also slightly increase water. This aims to boost strength while minimizing GWP increase. ACC and WR_HR are maintained. This is a slight increase in binder to recover strength.
-[27] GWP=146.58 28d=50.5 (exploit): The current mix is feasible with a strength of 50.56 MPa and a GWP of 147.37 kg CO₂/m³. This is a slight increase in GWP from the previous best (146.58 kg CO₂/m³). The strength margin is minimal (0.56 MPa). To attempt to lower GWP and recover strength, I will increase PC and SC slightly, and also increase water to improve workability and potentially strength. WR_HR and ACC remain constant.
-[28] GWP=217.34 28d=53.7 (exploit): The mix is feasible for strength (53.6 MPa) but infeasible due to insufficient chloride pass probability (0.58). To improve chloride resistance, I will increase SC and decrease PC. I will also slightly reduce water to help manage GWP and maintain strength. ACC and WR_HR are maintained.
-[29] GWP=149.22 28d=50.6 (exploit): The current mix is feasible with strength 53.66 MPa and chloride probability 0.62. However, the GWP is very high (217.34 kg CO₂/m³), much worse than the best feasible GWP (146.58 kg CO₂/m³). To reduce GWP, I need to decrease the binder content, particularly PC. I will significantly decrease PC and slightly decrease SC and water. WR_HR and ACC are maintained.
-[30] GWP=146.58 28d=50.6 (exploit): The mix is infeasible due to low strength (49.9 MPa). To increase strength, I will increase PC and SC slightly, and also slightly increase water. This aims to boost strength while minimizing GWP increase. ACC and WR_HR are maintained. This is a slight increase in binder to recover strength.
+[1] GWP=169.03 28d=53.6 (exploit): Starting optimisation with the lowest GWP reference mix from the dataset. This mix is assumed to satisfy all constraints as it is provided as a reference for achieving high strength and low GWP. Further iterations will aim to improve GWP while maintaining constraints.
+[2] GWP=169.18 28d=50.1 (exploit): The previous attempt reduced strength below the 50 MPa floor. To fix this, I will increase PC slightly and add a small amount of ACC, which is a strong strength enhancer and allows for further PC reduction in future steps if needed. These adjustments are designed to recover strength while minimizing GWP increase.
+[3] GWP=169.97 28d=50.7 (exploit): The current mix is feasible but has very little strength margin (0.11 MPa). The GWP has slightly increased from the best feasible mix. To reduce GWP while maintaining strength, I will reduce water further and swap some PC for SC. I will also slightly increase WR_HR to compensate for the reduced water and maintain workability.
+[4] GWP=170.76 28d=51.9 (exploit): The current mix is feasible but has a low strength margin and a higher GWP than the best feasible mix. I will try to reduce GWP by further decreasing water content and increasing SC slightly, aiming to maintain strength. I will also slightly increase WR_HR to compensate for lower water content.
+[5] GWP=171.45 28d=51.9 (exploit): The current mix is feasible, but GWP is increasing, and strength margin is still modest. The PC content is at its lower bound. To reduce GWP, I will try to increase SC further by swapping some CAGG for SC, which is a more carbon-intensive binder component but might allow for a slight water reduction. I will also slightly increase WR_HR to maintain workability.

@@ -43,18 +43,31 @@ N_REPEATS = 5
 MAX_ITERS = 30
 STAG_FACTOR = 1.3     # stagnation is only declared once GWP < 1.3 x the GA reference GWP
 
+# Main experiments (no chloride constraint): results in results/llm
+#   baseline = proposed method: knowledge + situation rules + static few-shot (no retrieval)
 METHODS = {
-    # full prompt = proposed method: knowledge + situation rules + static few-shot + dynamic RAG (text)
-    "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
-                         rag_mode="dynamic", rag_format="text", use_directional_hints=True),
-    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True,
-                         rag_mode="dynamic", rag_format="text", use_directional_hints=False),
-    "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False,
-                         rag_mode="none", use_directional_hints=False),
-    "no_rag":       dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
-                         rag_mode="static", use_directional_hints=True),
-    "rag_tabular":  dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True,
-                         rag_mode="dynamic", rag_format="tabular", use_directional_hints=True),
+    "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="static"),
+    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True, rag_mode="static",
+                         use_directional_hints=False),
+    "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False, rag_mode="none"),
+    "rag_tabular":  dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=False,
+                         rag_mode="dynamic", rag_format="tabular"),
+    "rag_text":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=False,
+                         rag_mode="dynamic", rag_format="text"),
+}
+
+# Full-prompt variant tried with the chloride constraint (results in results/archive/): knowledge + rules +
+# static few-shot + RAG (retrieval from the lower-GWP half of the pool); every ablation removes one component.
+METHODS_FULL_PROMPT = {
+    "baseline":     dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="dynamic",
+                         rag_format="text", rag_low_gwp_half=True),
+    "no_knowledge": dict(use_knowledge_table=False, use_situation_rules=True, use_few_shot=True, rag_mode="dynamic",
+                         rag_format="text", rag_low_gwp_half=True, use_directional_hints=False),
+    "zero_shot":    dict(use_knowledge_table=False, use_situation_rules=False, use_few_shot=False, rag_mode="none",
+                         use_directional_hints=False),
+    "no_rag":       dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="static"),
+    "rag_tabular":  dict(use_knowledge_table=True, use_situation_rules=True, use_few_shot=True, rag_mode="dynamic",
+                         rag_format="tabular", rag_low_gwp_half=True),
 }
 
 

@@ -1,0 +1,39 @@
+Experiment: rag_tabular   rag_tabular | s50_dur
+strength >= 50 MPa   durability=True   model=gemini-2.5-flash-lite
+------------------------------------------------------------
+  total_iters           : 9
+  n_feasible            : 9
+  surrogate_evals       : 63
+  rcalls                : 0.00315
+  api_calls             : 64
+  prompt_tokens         : 773596
+  completion_tokens     : 13964
+  llm_time_s            : 54.93
+  parse_fails           : 0
+  restarts              : 2
+  OGR                   : 0.2102
+  QER                   : 0.4459
+  MCE                   : 0.5167
+  best_gwp              : 162.97
+  ga_gwp                : 134.66
+  gwp_gap               : 28.31
+  convergence_iter      : 4
+  str_margin_at_best    : 4.5
+  feasibility_rate      : 0.1429
+  scenario              : s50_dur
+  method                : rag_tabular
+  run                   : 5
+  strength_min          : 50
+  durability            : True
+  model                 : gemini-2.5-flash-lite
+------------------------------------------------------------
+Reasoning log:
+[1] GWP=191.06 28d=50.4 (exploit): Strength constraint (>= 50 MPa) is now met at 50.6 MPa. The primary issue is Vfinal being too low at 0.944. To reach the lower bound of 0.95, approximately 16 kg of aggregate (split between FAGG and CAGG) is added. This will slightly increase GWP but is necessary for feasibility. No other changes are made as strength and chloride probability are acceptable.
+[2] GWP=181.70 28d=50.6 (exploit): The strength constraint is met (51.4 MPa) and GWP has reduced to 181.7 kg CO₂-eq/m³. The main issue is Vfinal being too low at 0.945. To meet the minimum Vfinal of 0.95, approximately 15 kg of aggregate (split between FAGG and CAGG) will be added. This will slightly increase GWP but is essential for feasibility. No other changes are made as strength and chloride probability are acceptable.
+[3] GWP=172.33 28d=52.1 (exploit): Strength constraint is met (52.1 MPa) and GWP has reduced to 172.3 kg CO₂-eq/m³. The current issue is Vfinal being too low at 0.944. To achieve the minimum Vfinal of 0.95, approximately 15 kg of aggregate (split between FAGG and CAGG) will be added. This will slightly increase GWP but is necessary for feasibility. No other adjustments are made as strength and chloride probability are satisfactory.
+[4] GWP=162.97 28d=54.5 (exploit): Strength constraint is met (54.5 MPa) and GWP has reduced to 162.9 kg CO₂-eq/m³. The current issue is Vfinal being too low at 0.944. To achieve the minimum Vfinal of 0.95, approximately 15 kg of aggregate (split between FAGG and CAGG) will be added. This will slightly increase GWP but is necessary for feasibility. No other adjustments are made as strength and chloride probability are satisfactory.
+[5] GWP=163.36 28d=53.7 (exploit): The previous step resulted in a Vfinal violation (0.950 is too low, requiring a value of at least 0.95). The PC was also clipped to the lower bound. To fix Vfinal, I will increase aggregates by a small amount (e.g., 10 kg total FAGG+CAGG) to push Vfinal to 0.95 or slightly above. The strength margin is good (+3.73 MPa). I will then attempt to reduce GWP further by swapping 12 kg/m³ of PC (which is at its lower bound) with SC, but since PC is at its bound, I cannot reduce it further. Instead, I will slightly increase WATER to ensure Vfinal is above 0.95 and try to maintain strength. Given PC is at its lower bound, further reductions in GWP will be challenging without impacting strength or durability. For now, I focus on fixing Vfinal and then look for small GWP improvements.
+[6] GWP=166.52 28d=55.1 (exploit): The mix is feasible, but GWP has slightly increased and is stuck near the previous value. The PC is at its lower bound. To reduce GWP further, I will explore slightly increasing WATER by 6 kg/m³ to 100 kg/m³ to create more w/b ratio headroom for a more aggressive SC substitution. I will then swap a significant amount of PC (as much as possible) with SC, while keeping PC at its bound. Since PC is at 97.297, I can't decrease it. Thus, I will try to increase SC by 12 kg/m³ to 160 kg/m³. This strategy aims to shift more binder towards SC while maintaining feasibility and strength. Aggregates are kept constant.
+[7] GWP=169.69 28d=56.2 (exploit): GWP increased, which is undesirable. PC is at its lower bound. To reduce GWP, I will increase SC further by 12 kg/m³ to 172 kg/m³. To compensate for the potential strength loss from this binder substitution and to ensure Vfinal remains feasible, I will slightly decrease WATER by 6 kg/m³ to 94 kg/m³. This combination of SC increase and WATER decrease aims to lower GWP while maintaining strength and Vfinal. Aggregates remain constant.
+[8] GWP=172.86 28d=56.3 (exploit): GWP has increased again. PC is at its lower bound. To reduce GWP, I will decrease WATER by 6 kg/m³ to 88 kg/m³. This should help maintain strength. I will then increase SC by 12 kg/m³ to 184 kg/m³. This strategy of decreasing water and increasing SC aims to push GWP down while keeping strength high and Vfinal feasible. Aggregates remain constant.
+[9] GWP=169.36 28d=55.4 (RESTART#2): Fixing infeasibility: Vfinal short by 0.042, add ~115kg FAGG/CAGG. Chloride prob low, increase SC and decrease WATER. Previous SC=140, PC=97, FA=50. New SC ~170, WATER ~80-85. Maintain Path 2 strategy: low binder, high aggregate, WR_HR+ACC. Adjust aggregate amounts to reach target ~0.95 Vfinal and boost SC for chloride resistance.
