@@ -302,6 +302,7 @@ def main():
     gwp_contribution("s50_nodur")
     ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], "fig5")
     ablation_pair(df, ["zero_shot", "baseline"], ["Zero-shot", "Few-shot"], "fig6")
+    ablation_pair(df, ["baseline", "rag_tabular", "rag_text"], ["No RAG", "RAG (tabular)", "RAG (text)"], "fig7")
     bars(df, ["no_knowledge", "baseline"], "Effect of domain knowledge", "fig_knowledge.png", None)
     bars(df, ["zero_shot", "baseline"], "Zero-shot vs few-shot", "fig_fewshot.png", None)
     bars(df, ["baseline", "rag_tabular", "rag_text"], "No RAG vs RAG", "fig_rag.png", None)
