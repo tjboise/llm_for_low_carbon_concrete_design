@@ -1,0 +1,11 @@
+figure,scenario,method,runs_used,n_runs,n_with_feasible_solution,rcalls_mean,rcalls_std,gwp_gap_mean,gwp_gap_std,OGR_mean,OGR_std,QER_mean,QER_std
+fig5,s50_nodur,no_knowledge,"3,4,5,6,7",5,5,0.0028,0.0012,26.258,10.4049,0.1957,0.0775,0.3861,0.6662
+fig5,s50_nodur,baseline,"3,4,5,6,7",5,5,0.003,0.0008,12.188,4.9999,0.0908,0.0373,1.3585,0.3521
+fig6,s50_nodur,zero_shot,"3,4,5,6,7",5,4,0.0029,0.0014,121.245,107.0434,0.9034,0.7976,1.2792,1.3059
+fig6,s50_nodur,baseline,"3,4,5,6,7",5,5,0.003,0.0008,12.188,4.9999,0.0908,0.0373,1.3585,0.3521
+fig7,s50_nodur,baseline,"3,4,5,6,7",5,5,0.003,0.0008,12.188,4.9999,0.0908,0.0373,1.3585,0.3521
+fig7,s50_nodur,rag_tabular,"3,4,5,6,7",5,5,0.0046,0.0016,28.604,20.7075,0.2131,0.1543,1.4067,0.6229
+fig7,s50_nodur,rag_text,"3,4,5,6,7",5,4,0.0028,0.0017,20.7275,9.4175,0.1544,0.0702,1.3024,0.4335
+fig7_exploratory_selected_runs,s50_nodur,baseline,"2,4",2,2,0.0032,0.0001,35.52,20.7182,0.2646,0.1544,1.1912,0.1329
+fig7_exploratory_selected_runs,s50_nodur,rag_tabular,"3,7",2,2,0.0029,0.0006,14.895,2.2274,0.1109,0.0166,2.0758,0.1421
+fig7_exploratory_selected_runs,s50_nodur,rag_text,"2,7",2,2,0.004,0.0005,9.6,0.5515,0.0715,0.0041,1.1717,0.4306

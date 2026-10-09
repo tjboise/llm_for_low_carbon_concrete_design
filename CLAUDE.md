@@ -13,3 +13,5 @@ Rules that matter:
 - Strength inference is chained (predicted previous stage); report chained metrics, not stage-wise ones.
 - `optimizer_core.py`, `run_experiment.py`, `app.py` use the corrected data, constraints and surrogates; `results/` and `pictures/` come from the rerun described in `docs/EXPERIMENTS.md`. GA and LLM share one `check_feasibility` (no tolerance).
 - Never commit `.env` or API keys.
+- Figures 3-7 and Tables 4-5: runs, data files and reproduction steps are in `docs/FIGURES.md` (`results/tables/figure_runs.csv`). All figures use runs 3-7 of every (scenario, method) cell, scenario `s50_nodur` (no chloride constraint). `pictures/exploratory/` is not for publication.
+- LLM runs have no random seed; regenerating them gives different numbers. Regenerate figures from the stored results with `utils/make_figures.py`.
