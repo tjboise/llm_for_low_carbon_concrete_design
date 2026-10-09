@@ -120,6 +120,11 @@ def main():
     # strength must not decrease with age (7d <= 28d <= 56d), else the record is inconsistent
     bad = (mix["7day"] > mix["28day"]) | (mix["28day"] > mix["56day"])
     print(f"Dropped {int(bad.sum())} mixes with non-monotonic strength")
+    mix_all = mix.copy()                           # all strength mixes in SI units, before the filters
+    mix_all["Vfinal"] = vfinal(mix_all)
+    status = pd.Series("kept", index=mix_all.index)
+    status[bad] = "removed: non-monotonic strength"
+    status[~bad & ~mix_all["Vfinal"].between(VFINAL_MIN, VFINAL_MAX)] = "removed: Vfinal outside [0.95, 1.05]"
     mix = mix[~bad]
 
     mix["Vfinal"] = vfinal(mix)                    # step 3
@@ -129,6 +134,9 @@ def main():
     mix = add_derived(mix)                         # step 4
     mix["GWP"] = sum(mix[k] * f for k, f in GWP_FACTORS.items())
 
+    matched = chl.merge(mix_all[MIX_VARS + ["7day", "28day", "56day", "Vfinal"]], left_on="mix_id", right_index=True)
+    matched["status"] = matched["mix_id"].map(status)
+    print(f"Matched chloride tests: {len(matched)}  {matched['status'].value_counts().to_dict()}")
     chl = chl[chl["mix_id"].isin(mix.index)]       # chloride tests of kept mixes
     print(f"Chloride tests on kept mixes: {len(chl)} ({chl['mix_id'].nunique()} mixes)")
     wide = chl.groupby(["mix_id", "age"])["coulomb"].mean().unstack()
@@ -144,7 +152,7 @@ def main():
 
     readme = pd.DataFrame({"item": [
         "units", "WR / WR_HR", "strength cleaning", "Vfinal", "chloride matching", "RCPT class", "pass_rcpt",
-        "mix_level", "chloride_tests"], "description": [
+        "mix_level", "chloride_tests", "chloride_tests_matched_all"], "description": [
         "kg/m3 (lb/yd3 x 0.5933 for binders, aggregates, water; oz/yd3 x 0.03708 for admixtures)",
         "labels follow the chloride file; they are swapped in the original strength file",
         "non-monotonic strength (7d>28d or 28d>56d) removed before the Vfinal filter",
@@ -154,10 +162,13 @@ def main():
         "Port Authority: <800 Very Low, 800-1200 Low, 1200-2000 Moderate, >2000 High (coulombs)",
         f"1 if coulomb < {RCPT_LIMIT} (Low or better)",
         "one row per mix: strength + RCPT_28d/90d/120d (mean coulomb, NaN if not tested)",
-        "one row per RCPT test (age in days) with mix composition"]})
+        "one row per RCPT test (age in days) with mix composition",
+        "all RCPT tests matched to a strength mix (before the strength and Vfinal filters) with a status column "
+        "(kept / removed and why)"]})
     with pd.ExcelWriter(OUT_XLSX) as xw:
         mix.to_excel(xw, sheet_name="mix_level", index=False)
         long.to_excel(xw, sheet_name="chloride_tests", index=False)
+        matched.round(4).to_excel(xw, sheet_name="chloride_tests_matched_all", index=False)
         readme.to_excel(xw, sheet_name="readme", index=False)
     print(f"Saved {OUT_XLSX}")
 
