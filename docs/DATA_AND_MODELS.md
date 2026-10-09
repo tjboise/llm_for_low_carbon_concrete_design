@@ -10,6 +10,10 @@ python utils/train_model.py    # dataset  -> models/strength_chain.pkl, chloride
 
 All quantities are **kg/m³** (SI), GWP is **kg CO₂-eq/m³**, strength is **MPa**.
 
+## Data source
+The strength records and the chloride (RCPT) tests were provided by the Port Authority of New York and New Jersey (PANYNJ).
+"PA" in this repository means Port Authority, not Pennsylvania. Citation of the data source: to be added by the author.
+
 ## 1. Data pipeline (`utils/prepare_data.py`)
 
 | File | Role |

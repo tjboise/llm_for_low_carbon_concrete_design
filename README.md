@@ -23,7 +23,7 @@ This project implements an iterative LLM optimizer that proposes concrete mix de
 ├── app.py                     # Flask web demo (real-time SSE streaming)
 ├── templates/index.html       # Web UI (Predict + Optimize tabs)
 ├── data/
-│   └── Super_Cleaned_Concrete_Data.csv   # PA concrete database (726 rows, kg/m³)
+│   └── Concrete_Dataset_SI.xlsx          # PANYNJ concrete mixes (686 mixes, kg/m³; see docs/DATA_AND_MODELS.md)
 ├── concrete_catboost_optimized.pkl       # Trained surrogate model
 └── results/                   # Experiment outputs (trajectory, metrics CSVs)
 ```
