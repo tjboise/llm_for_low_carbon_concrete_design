@@ -81,6 +81,27 @@ def bars(df, methods, title, fname, scenarios_sets):
     plt.close(fig)
 
 
+def strength_vs_wb():
+    """Figure 1: compressive strength at 7, 28 and 56 days against w/b for the mixes used in this study."""
+    d = pd.read_excel(os.path.join(ROOT, "data", "Concrete_Dataset_SI.xlsx"), sheet_name="mix_level")
+    fig, ax = plt.subplots(figsize=(9, 6.5))
+    ys = d[["7day", "28day", "56day"]]
+    for _, r in d.iterrows():
+        v = r[["7day", "28day", "56day"]].dropna()
+        ax.plot([r["w/b"]] * len(v), v.values, color="lightgray", lw=0.6, zorder=1)
+    for col, color, lab in [("7day", "#1f77b4", "7-day strength"), ("28day", "#2ca02c", "28-day strength"),
+                            ("56day", "#d62728", "56-day strength")]:
+        m = d[col].notna()
+        ax.scatter(d.loc[m, "w/b"], d.loc[m, col], s=22, alpha=0.65, color=color, label=lab, zorder=2)
+    ax.set_xlabel("w/b")
+    ax.set_ylabel("Compressive strength (MPa)")
+    ax.legend(frameon=True, loc="upper right")
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig1_strength_vs_wb.png"), bbox_inches="tight")
+    plt.close(fig)
+    print("fig1:", len(d), "mixes;", int(d["56day"].notna().sum()), "with 56-day strength")
+
+
 def trajectory(scn="s50_nodur", method="baseline"):
     """Figure 3 (a, b): iteration history of the run closest to the GA reference (lowest OGR)."""
     ref = json.load(open(os.path.join(RES, "ga", scn, "reference.json")))["reference"]
@@ -310,6 +331,7 @@ def sensitivity():
 
 def main():
     df = load_runs()
+    strength_vs_wb()
     trajectory("s50_nodur")
     gwp_contribution("s50_nodur")
     ablation_pair(df, ["no_knowledge", "baseline"], ["No knowledge", "With knowledge"], "fig5")
