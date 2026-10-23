@@ -9,8 +9,8 @@ Inputs
   data/classified_chloride_Classification.xlsx RCPT (coulomb) tests, sheet all_data (1314 tests)
 
 Steps
-  1. WR / WR_HR labels: the strength file and the chloride file disagree (they are swapped).
-     The chloride-file labelling is used (WR_HR = high-range, large dosage; WR = normal).
+  1. WR / WR_HR labels follow the PANYNJ database and the strength file (WR = water reducer, WR_HR = high-range water
+     reducer). The chloride file has the two columns interchanged; they are swapped back before matching.
   2. Unit conversion to kg/m^3:  lb/yd^3 x 0.5933,  oz/yd^3 x 0.03708.
   3. Drop mixes whose strength decreases with age (7d > 28d or 28d > 56d).
      Then Vfinal (Pfeiffer et al. 2024) and filter  Vfinal in [0.95, 1.05].
@@ -35,6 +35,7 @@ from scipy.spatial import cKDTree
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 RAW_PATH = os.path.join(ROOT, "data", "raw", "Concrete_Data_raw_imperial.csv")
 CL_PATH = os.path.join(ROOT, "data", "classified_chloride_Classification.xlsx")
+PIVOT_PATH = os.path.join(ROOT, "data", "Concrete_Mix_Pivoted_by_Age.csv")   # PANYNJ database, one row per mix with SLUMP, VOID
 OUT_XLSX = os.path.join(ROOT, "data", "Concrete_Dataset_SI.xlsx")
 OUT_JSON = os.path.join(ROOT, "data", "constraints.json")
 
@@ -87,12 +88,13 @@ def vfinal(df: pd.DataFrame) -> pd.Series:
 
 def load_strength() -> pd.DataFrame:
     raw = pd.read_csv(RAW_PATH)
-    raw = raw.rename(columns={"WR": "WR_HR", "WR_HR": "WR"})        # step 1
+                                                                     # step 1: labels as in the database
     return raw[MIX_VARS + ["7day", "28day", "56day"]].copy()
 
 
 def match_chloride(raw_imp: pd.DataFrame) -> pd.DataFrame:
     cl = pd.read_excel(CL_PATH, sheet_name="all_data").rename(columns={"SS": "SC"})
+    cl = cl.rename(columns={"WR": "WR_HR", "WR_HR": "WR"})           # the chloride file has WR / WR_HR interchanged
     cl["PC"] = cl["PC1"] + cl["PC2"]
     n0 = len(cl)
     special = (cl["PC2"] > 0) | (cl["IS_LATEX"] > 0) | (cl["IS_LIGHT_WEIGHT"] > 0) | (cl["FIBER"] > 0)
@@ -106,11 +108,31 @@ def match_chloride(raw_imp: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def match_slump(raw_imp: pd.DataFrame) -> pd.DataFrame:
+    """Slump (SLUMP) and air content (VOID) of each strength mix, from the PANYNJ database (pivoted by age).
+    A mix is matched on the 11 ingredient quantities and the 7- and 28-day strength (tolerance 0.5). A mix that
+    matches several database rows (batches with different slump) gets the mean, min, max and the number of rows."""
+    pv = pd.read_csv(PIVOT_PATH).rename(columns={"SS": "SC"})
+    cols = MIX_VARS + ["7day", "28day"]
+    tree = cKDTree(pv[cols].fillna(-1).values)
+    pts = raw_imp[cols].fillna(-1).values
+    rows = []
+    for mix_id, pt in zip(raw_imp.index, pts):
+        hit = tree.query_ball_point(pt, r=0.5, p=2)
+        if hit:
+            s, v = pv.iloc[hit]["SLUMP"], pv.iloc[hit]["VOID"]
+            rows.append({"mix_id": mix_id, "SLUMP_mean": s.mean(), "SLUMP_min": s.min(), "SLUMP_max": s.max(),
+                         "n_slump_records": len(hit), "AIR_pct_mean": v.mean()})
+    return pd.DataFrame(rows).set_index("mix_id")
+
+
 def main():
     mix = load_strength()
     mix.index.name = "mix_id"
     print(f"Strength mixes: {len(mix)}")
     chl = match_chloride(mix)                      # matching on imperial values
+    slump = match_slump(mix)
+    print(f"Slump found for {len(slump)} of {len(mix)} mixes; {int((slump['n_slump_records'] > 1).sum())} with several database records")
 
     for v in BULK_VARS:                            # step 2
         mix[v] = mix[v] * LB_YD3_TO_KG_M3
@@ -142,19 +164,21 @@ def main():
     wide = chl.groupby(["mix_id", "age"])["coulomb"].mean().unstack()
     wide.columns = [f"RCPT_{int(a)}d" for a in wide.columns]
     mix = mix.join(wide)
+    mix = mix.join(slump)
 
     cols = (MIX_VARS + ["TOTAL_BINDER", "GWP", "Vfinal"] + DERIVED_VARS
-            + ["7day", "28day", "56day"] + list(wide.columns))
+            + ["7day", "28day", "56day"] + list(wide.columns) + list(slump.columns))
     mix = mix[cols].reset_index()
     feat = ["mix_id"] + MIX_VARS + ["TOTAL_BINDER", "w/b", "b/a", "SCM%", "CAGG%", "FAGG%",
-                                    "PC%", "FA%", "SC%", "AEA_pct", "WR_HR_pct", "WR_pct", "ACC_pct"]
+                                    "PC%", "FA%", "SC%", "AEA_pct", "WR_HR_pct", "WR_pct", "ACC_pct",
+                                    "7day", "28day", "56day", "SLUMP_mean", "AIR_pct_mean"]
     long = chl.merge(mix[feat], on="mix_id")
 
     readme = pd.DataFrame({"item": [
         "units", "WR / WR_HR", "strength cleaning", "Vfinal", "chloride matching", "RCPT class", "pass_rcpt",
-        "mix_level", "chloride_tests", "chloride_tests_matched_all"], "description": [
+        "mix_level", "chloride_tests", "chloride_tests_matched_all", "slump / air"], "description": [
         "kg/m3 (lb/yd3 x 0.5933 for binders, aggregates, water; oz/yd3 x 0.03708 for admixtures)",
-        "labels follow the chloride file; they are swapped in the original strength file",
+        "labels follow the PANYNJ database; the chloride file has the two columns interchanged and is swapped back before matching",
         "non-monotonic strength (7d>28d or 28d>56d) removed before the Vfinal filter",
         f"Pfeiffer 2024; kept in [{VFINAL_MIN}, {VFINAL_MAX}]",
         "all 11 ingredient quantities within 0.5 (imperial units); second-cement, latex, "
@@ -164,7 +188,10 @@ def main():
         "one row per mix: strength + RCPT_28d/90d/120d (mean coulomb, NaN if not tested)",
         "one row per RCPT test (age in days) with mix composition",
         "all RCPT tests matched to a strength mix (before the strength and Vfinal filters) with a status column "
-        "(kept / removed and why)"]})
+        "(kept / removed and why)",
+        "SLUMP_* and AIR_pct_mean in mix_level come from the PANYNJ database (Concrete_Mix_Pivoted_by_Age.csv), matched on "
+        "ingredients and 7/28-day strength; one value per mix batch (units as in the database, slump probably inch); "
+        "n_slump_records > 1 means several batches with different slump; empty if no match"]})
     with pd.ExcelWriter(OUT_XLSX) as xw:
         mix.to_excel(xw, sheet_name="mix_level", index=False)
         long.to_excel(xw, sheet_name="chloride_tests", index=False)
