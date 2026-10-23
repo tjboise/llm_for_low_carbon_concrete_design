@@ -33,8 +33,8 @@ CVS = [0.02, 0.05]
 GWP_DELTAS = [0.10, 0.20]
 
 
-def chained_sigma(spec):
-    df = pd.read_excel(oc.DATASET_PATH, sheet_name="mix_level")
+def chained_sigma(spec, dataset_path=oc.DATASET_PATH):
+    df = pd.read_excel(dataset_path, sheet_name="mix_level")
     _, te = train_test_split(df.index, test_size=0.2, random_state=42)
     d = df.loc[te].dropna(subset=["28day"])
     res = d["28day"].values - oc.predict_batch(spec, d)["pred_28day"].values
@@ -43,12 +43,12 @@ def chained_sigma(spec):
 
 def solutions():
     rows = []
-    for scn in sorted(os.listdir(os.path.join(RES, "ga"))):
+    for scn in sorted(s for s in os.listdir(os.path.join(RES, "ga")) if s.endswith("_nodur")):
         f = os.path.join(RES, "ga", scn, "reference.json")
         if os.path.exists(f):
             rows.append({"scenario": scn, "method": "GA", "run": 0, "mix": json.load(open(f))["reference"]})
     base = os.path.join(RES, "llm")
-    for scn in sorted(os.listdir(base)):
+    for scn in sorted(s for s in os.listdir(base) if s.endswith("_nodur")):
         for m in sorted(os.listdir(os.path.join(base, scn))):
             for run in sorted(os.listdir(os.path.join(base, scn, m))):
                 f = os.path.join(base, scn, m, run, "trajectory.csv")
@@ -62,13 +62,16 @@ def solutions():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--samples", type=int, default=1000)
+    ap.add_argument("--strength-pkl", default=oc.STRENGTH_PKL, help="strength model used in the experiments")
+    ap.add_argument("--dataset", default=oc.DATASET_PATH, help="dataset with the column labels the strength model was trained on")
     a = ap.parse_args()
-    spec = oc.Spec()
-    sigma = chained_sigma(spec)
+    spec = oc.Spec(strength_pkl=a.strength_pkl)
+    sigma = chained_sigma(spec, a.dataset)
     print(f"sigma28 (chained residual std) = {sigma:.2f} MPa")
     rng = np.random.default_rng(0)
     sols = solutions()
     ga_gwp = {s["scenario"]: s["mix"]["gwp"] for s in sols if s["method"] == "GA"}
+    ga_mix = {s["scenario"]: np.array([float(s["mix"][v]) for v in oc.RAW_VARS]) for s in sols if s["method"] == "GA"}
     out = []
     for s in sols:
         smin = int(s["scenario"].split("_")[0][1:])
@@ -89,16 +92,21 @@ def main():
                 row[f"p_chloride_ok_cv{int(cv * 100)}"] = float((pr["chloride_prob"] >= spec.min_pass_prob).mean())
         for d in GWP_DELTAS:
             f = np.array([spec.gwp_factors[v] for v in oc.RAW_VARS])
-            g = (base * f * rng.uniform(1 - d, 1 + d, size=(a.samples, len(base)))).sum(axis=1)
+            F = f * rng.uniform(1 - d, 1 + d, size=(a.samples, len(base)))      # same factors for LLM and GA
+            g = (base * F).sum(axis=1)
+            g_ga = (ga_mix[s["scenario"]] * F).sum(axis=1)
+            ogr = g / g_ga - 1
             row[f"gwp_mean_d{int(d * 100)}"] = float(g.mean())
             row[f"gwp_std_d{int(d * 100)}"] = float(g.std())
+            row[f"ogr_mean_d{int(d * 100)}"] = float(ogr.mean())
+            row[f"ogr_std_d{int(d * 100)}"] = float(ogr.std())
         row["ga_gwp"] = ga_gwp.get(s["scenario"], np.nan)
         out.append(row)
     d = os.path.join(RES, "sensitivity")
     os.makedirs(d, exist_ok=True)
     df = pd.DataFrame(out)
     df.to_csv(os.path.join(d, "solutions.csv"), index=False)
-    cols = [c for c in df.columns if c.startswith(("p_", "gwp_std"))]
+    cols = [c for c in df.columns if c.startswith(("p_", "gwp_std", "ogr_"))]
     summ = df.groupby(["scenario", "method"])[cols].mean().round(3)
     summ.to_csv(os.path.join(d, "summary.csv"))
     print(summ.to_string())
