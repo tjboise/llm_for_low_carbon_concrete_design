@@ -165,9 +165,13 @@ def main():
     wide.columns = [f"RCPT_{int(a)}d" for a in wide.columns]
     mix = mix.join(wide)
     mix = mix.join(slump)
+    has28 = mix["RCPT_28d"].notna()                # PANYNJ class and pass flag of the 28-day RCPT (mean of the tests)
+    mix["RCPT_28d_class"] = pa_class(mix["RCPT_28d"]).where(has28)
+    mix["RCPT_28d_pass"] = (mix["RCPT_28d"] < RCPT_LIMIT).astype(float).where(has28)
 
     cols = (MIX_VARS + ["TOTAL_BINDER", "GWP", "Vfinal"] + DERIVED_VARS
-            + ["7day", "28day", "56day"] + list(wide.columns) + list(slump.columns))
+            + ["7day", "28day", "56day"] + list(wide.columns)
+            + ["RCPT_28d_class", "RCPT_28d_pass"] + list(slump.columns))
     mix = mix[cols].reset_index()
     feat = ["mix_id"] + MIX_VARS + ["TOTAL_BINDER", "w/b", "b/a", "SCM%", "CAGG%", "FAGG%",
                                     "PC%", "FA%", "SC%", "AEA_pct", "WR_HR_pct", "WR_pct", "ACC_pct",
@@ -189,7 +193,8 @@ def main():
         "one row per RCPT test (age in days) with mix composition",
         "all RCPT tests matched to a strength mix (before the strength and Vfinal filters) with a status column "
         "(kept / removed and why)",
-        "SLUMP_* and AIR_pct_mean in mix_level come from the PANYNJ database (Concrete_Mix_Pivoted_by_Age.csv), matched on "
+        "RCPT_28d_class / RCPT_28d_pass in mix_level: PANYNJ class (Very Low / Low / Moderate / High) and pass flag (1 if coulomb < 1200) of the 28-day RCPT, "
+        "from the mean of the 28-day tests of the mix. SLUMP_* and AIR_pct_mean in mix_level come from the PANYNJ database (Concrete_Mix_Pivoted_by_Age.csv), matched on "
         "ingredients and 7/28-day strength; one value per mix batch (units as in the database, slump probably inch); "
         "n_slump_records > 1 means several batches with different slump; empty if no match"]})
     with pd.ExcelWriter(OUT_XLSX) as xw:
