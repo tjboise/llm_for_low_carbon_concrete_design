@@ -1,0 +1,5 @@
+,7day_stagewise_r2,7day_stagewise_r2,7day_stagewise_mae,7day_stagewise_mae,28day_stagewise_r2,28day_stagewise_r2,28day_stagewise_mae,28day_stagewise_mae,56day_stagewise_r2,56day_stagewise_r2,56day_stagewise_mae,56day_stagewise_mae,28day_chained_r2,28day_chained_r2,28day_chained_mae,28day_chained_mae,excluded_28day_mae,excluded_28day_mae,excluded_28day_bias,excluded_28day_bias
+,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std
+setup,,,,,,,,,,,,,,,,,,,,
+A_clean,0.658,0.07,3.82,0.215,0.881,0.021,2.788,0.211,0.848,0.07,3.384,0.308,0.682,0.05,4.43,0.24,1.558,0.197,-0.815,0.259
+B_with_nonmonotonic,0.663,0.069,3.76,0.175,0.879,0.024,2.775,0.201,0.85,0.072,3.303,0.32,0.68,0.052,4.418,0.229,,,,
