@@ -1,0 +1,13 @@
+Ingredient (kg/m³)	Min	Max	Ratio (dimensionless)	Min	Max
+PC	97.3	504.3	w/b = WATER / B	0.235	0.714
+FA	0	162.0	b/a = B / A	0.105	0.350
+SC	0	332.2	SCM share = (FA + SC) / B	0	0.765
+FAGG	498.4	1067.9	CAGG share = CAGG / A	0.345	0.721
+CAGG	563.6	1364.5	FAGG share = FAGG / A	0.279	0.655
+WATER	90.8	214.8	PC share = PC / B	0.235	1.000
+AEA	0	1.48	FA share = FA / B	0	0.375
+WR_HR	0	4.71	SC share = SC / B	0	0.717
+WR	0	7.82	AEA / binder = AEA / B	0	0.003
+ACC	0	25.2	WR_HR / binder = WR_HR / B	0	0.012
+			WR / binder = WR / B	0	0.020
+			ACC / binder = ACC / B	0	0.061
