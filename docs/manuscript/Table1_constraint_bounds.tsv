@@ -6,8 +6,8 @@ FAGG	498.4	1067.9	CAGG share	0.345	0.721
 CAGG	563.6	1364.5	FAGG share	0.279	0.655
 WATER	90.8	214.8	PC share	0.235	1.000
 AEA	0	1.48	FA share	0	0.375
-WR_HR	0	7.82	SC share	0	0.717
-WR	0	4.71	AEA / binder	0	0.003
-ACC	0	25.2	WR_HR / binder	0	0.020
-			WR / binder	0	0.012
+WR_HR	0	4.71	SC share	0	0.717
+WR	0	7.82	AEA / binder	0	0.003
+ACC	0	25.2	WR_HR / binder	0	0.012
+			WR / binder	0	0.020
 			ACC / binder	0	0.061
